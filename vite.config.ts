@@ -1,8 +1,8 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
-import path from 'path';
 import { createRequire } from 'module';
+import path from 'path';
 import { type Plugin, defineConfig } from 'vite';
 
 const require = createRequire(import.meta.url);
@@ -54,4 +54,7 @@ export default defineConfig({
     sourcemap: true,
     cssMinify: 'esbuild',
   },
+  server: {
+    allowedHosts: ['satisfactory-logistics.test', 'vast-bay.slim.show'],
+  }
 });

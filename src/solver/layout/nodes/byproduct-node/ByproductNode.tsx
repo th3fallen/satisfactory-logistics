@@ -1,4 +1,5 @@
 import { alpha, Box, Flex, Group, Popover, Stack, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import type { NodeProps } from '@xyflow/react';
 import { memo } from 'react';
 import { RepeatingNumber } from '@/core/intl/NumberFormatter';
@@ -6,7 +7,6 @@ import type { FactoryOutput } from '@/factories/Factory';
 import type { FactoryItem } from '@/recipes/FactoryItem';
 import { FactoryItemImage } from '@/recipes/ui/FactoryItemImage';
 import { NodeActionsBox } from '@/solver/layout/nodes/utils/NodeActionsBox';
-import { useNodePopover } from '@/solver/layout/nodes/utils/useNodePopover';
 import { InvisibleHandles } from '@/solver/layout/rendering/InvisibleHandles';
 import type { SolverNodeState } from '@/solver/store/Solver';
 import { ByproductNodeActions } from './ByproductNodeActions';
@@ -32,22 +32,22 @@ export const ByproductNode = memo((props: IByproductNodeProps) => {
 
   const isByproduct = output == null;
 
-  const {
-    opened: popoverOpened,
-    hoverOpen,
-    hoverClose,
-    dropdownRef,
-  } = useNodePopover(props.selected ?? false, props.dragging ?? false);
+  const [isHovering, { close, open }] = useDisclosure(false);
 
   return (
-    <Popover disabled={isByproduct} opened={popoverOpened} transitionProps={{}}>
+    <Popover
+      disabled={isByproduct}
+      opened={(isHovering || props.selected) && !props.dragging}
+      transitionProps={{}}
+      trapFocus
+    >
       <Popover.Target>
         <Box
           p="sm"
           style={{ borderRadius: 4 }}
           bg="teal.9"
-          onMouseEnter={hoverOpen}
-          onMouseLeave={hoverClose}
+          onMouseEnter={open}
+          onMouseLeave={close}
         >
           <Group gap="xs">
             <Box
@@ -79,7 +79,6 @@ export const ByproductNode = memo((props: IByproductNodeProps) => {
       </Popover.Target>
       <Popover.Dropdown p={0}>
         <Flex
-          ref={dropdownRef}
           align="stretch"
           gap={0}
           direction={{

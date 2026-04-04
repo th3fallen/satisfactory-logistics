@@ -1,4 +1,5 @@
 import { Box, Flex, Group, Popover, Stack, Text, Tooltip } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { IconTransformFilled } from '@tabler/icons-react';
 import type { NodeProps } from '@xyflow/react';
 import { memo } from 'react';
@@ -11,7 +12,6 @@ import type { FactoryItem } from '@/recipes/FactoryItem';
 import { FactoryItemImage } from '@/recipes/ui/FactoryItemImage';
 import { isWorldResource } from '@/recipes/WorldResources';
 import { NodeActionsBox } from '@/solver/layout/nodes/utils/NodeActionsBox';
-import { useNodePopover } from '@/solver/layout/nodes/utils/useNodePopover';
 import { InvisibleHandles } from '@/solver/layout/rendering/InvisibleHandles';
 import { useSolverSolution } from '@/solver/layout/solution-context/SolverSolutionContext';
 import type { SolverNodeState } from '@/solver/store/Solver';
@@ -46,12 +46,7 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
 
   const isWorld = isWorldResource(resource.id);
 
-  const {
-    opened: popoverOpened,
-    hoverOpen,
-    hoverClose,
-    dropdownRef,
-  } = useNodePopover(props.selected ?? false, props.dragging ?? false);
+  const [isHovering, { close, open }] = useDisclosure(false);
 
   const solverId = useParams<{ id: string }>().id;
 
@@ -69,7 +64,11 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
   });
 
   return (
-    <Popover opened={popoverOpened} transitionProps={{}}>
+    <Popover
+      opened={(isHovering || props.selected) && !props.dragging}
+      transitionProps={{}}
+      trapFocus
+    >
       <Popover.Target>
         <Box
           p="sm"
@@ -80,8 +79,8 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
               : '1px solid transparent',
           }}
           bg={isRaw ? 'blue.8' : 'blue.6'}
-          onMouseEnter={hoverOpen}
-          onMouseLeave={hoverClose}
+          onMouseEnter={open}
+          onMouseLeave={close}
         >
           <Group gap="xs">
             <Box pos="relative">
@@ -123,7 +122,6 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
       </Popover.Target>
       <Popover.Dropdown p={0}>
         <Flex
-          ref={dropdownRef}
           align="stretch"
           gap={0}
           direction={{
