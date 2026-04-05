@@ -92,6 +92,7 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
       opened={(isHovering || props.selected) && !props.dragging}
       offset={4}
       trapFocus
+      middlewares={{ shift: false, flip: false }}
     >
       <Popover.Target>
         <Box
