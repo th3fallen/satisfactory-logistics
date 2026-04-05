@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from '@mantine/core';
 import { IconTrash, IconWorld } from '@tabler/icons-react';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { FormOnChangeHandler } from '@/core/form/useFormOnChange';
 import { useShallowStore, useStore } from '@/core/zustand';
 import {
@@ -75,6 +75,23 @@ export function FactoryInputRow(props: IFactoryInputRowProps) {
   // are synced with solvers
   const onChangeHandler = useFactoryOnChangeHandler(factoryId);
 
+  const handleFactoryChange = useCallback(
+    (selectedFactoryId: string | null) => {
+      onChangeHandler(`inputs.${index}.factoryId`)(selectedFactoryId);
+      if (selectedFactoryId && selectedFactoryId !== WORLD_SOURCE_ID) {
+        const outputs =
+          useStore.getState().factories.factories[selectedFactoryId]?.outputs;
+        const resourceOutputs = outputs?.filter(o => o.resource);
+        if (resourceOutputs?.length === 1) {
+          onChangeHandler(`inputs.${index}.resource`)(
+            resourceOutputs[0].resource,
+          );
+        }
+      }
+    },
+    [onChangeHandler, index],
+  );
+
   const isVisible = useIsFactoryVisible(factoryId, false, input.resource);
   if (!isVisible && displayMode === 'factory') return null;
 
@@ -109,7 +126,7 @@ export function FactoryInputRow(props: IFactoryInputRowProps) {
           </Popover>
         }
         w={180}
-        onChange={onChangeHandler(`inputs.${index}.factoryId`)}
+        onChange={handleFactoryChange}
       />
       <FactoryItemInput
         value={input.resource}
@@ -130,7 +147,11 @@ export function FactoryInputRow(props: IFactoryInputRowProps) {
             )}
             <Group gap="sm" align="center">
               {usage.percentage > 1 && (
-                <span>Missing {Math.round((usage.usedAmount - usage.producedAmount) * 100) / 100}</span>
+                <span>
+                  Missing{' '}
+                  {Math.round((usage.usedAmount - usage.producedAmount) * 100) /
+                    100}
+                </span>
               )}
               <Text size="sm">
                 <FactoryOutputIcon size={16} /> {usage.producedAmount}
@@ -158,7 +179,11 @@ export function FactoryInputRow(props: IFactoryInputRowProps) {
           onBlur={() => setFocused(false)}
           error={
             usage.percentage > 1 ? (
-              <span>Missing {Math.round((usage.usedAmount - usage.producedAmount) * 100) / 100}</span>
+              <span>
+                Missing{' '}
+                {Math.round((usage.usedAmount - usage.producedAmount) * 100) /
+                  100}
+              </span>
             ) : undefined
           }
           onChange={onChangeHandler(`inputs.${index}.amount`)}

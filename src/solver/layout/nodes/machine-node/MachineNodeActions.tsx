@@ -155,12 +155,28 @@ export function MachineNodeActions(props: IMachineNodeActionsProps) {
             <ActionIcon
               color="blue"
               variant="outline"
-              onClick={() =>
-                useStore.getState().addFactoryInput(solverId!, {
-                  resource: recipe.products[0].resource,
-                  amount: value,
-                })
-              }
+              onClick={() => {
+                const resource = recipe.products[0].resource;
+                const inputs =
+                  useStore.getState().factories.factories[solverId!]?.inputs;
+                const existingIndex = inputs?.findIndex(
+                  i => i.resource === resource,
+                );
+                if (existingIndex != null && existingIndex >= 0) {
+                  useStore
+                    .getState()
+                    .updateFactoryInputAmount(
+                      solverId!,
+                      existingIndex,
+                      (inputs![existingIndex].amount ?? 0) + value,
+                    );
+                } else {
+                  useStore.getState().addFactoryInput(solverId!, {
+                    resource,
+                    amount: value,
+                  });
+                }
+              }}
             >
               <FactoryInputIcon size={16} />
             </ActionIcon>
