@@ -23,6 +23,7 @@ import {
 import { log } from '@/core/logger/log';
 import { useStore } from '@/core/zustand';
 import type { SolutionNode } from '@/solver/algorithm/solveProduction';
+
 import { FloatingEdge } from '@/solver/edges/FloatingEdge';
 import { IngredientEdge } from '@/solver/edges/IngredientEdge';
 import type { SolverLayoutState, SolverNodeState } from '@/solver/store/Solver';
@@ -63,6 +64,7 @@ const GraphLayoutOptions = {
   ranksep: 130,
   ranker: 'network-simplex',
 };
+
 
 // const graphControls = useControls({
 //   rankdir: {
@@ -122,7 +124,6 @@ const getLayoutedElements = (
   nodes: SolutionNode[],
   edges: Edge[],
   activeLayout: SolverLayoutState | null | undefined,
-  // graphOptions: dagre.configUnion,
 ) => {
   const useSavedLayout = activeLayout != null;
   logger.debug(`getLayouted: useSavedLayout=${useSavedLayout}`);
@@ -156,7 +157,6 @@ const getLayoutedElements = (
     dagreGraph.setEdge(edge.source, edge.target);
   });
 
-  // We want to perform layout only if the saved layout is not valid
   if (!useSavedLayout) {
     dagre.layout(dagreGraph, GraphLayoutOptions);
   }
@@ -386,7 +386,7 @@ export const SolverLayout = (props: SolverLayoutProps) => {
   // );
 
   return (
-    <Box w={'100%'} h={'80vh'} opacity={opacity}>
+    <Box w={'100%'} h={'100%'} opacity={opacity}>
       <ReactFlow
         ref={ref}
         minZoom={0.2}
@@ -457,7 +457,6 @@ export const SolverLayout = (props: SolverLayoutProps) => {
           gap={[10, 10]}
         />
         {props.children}
-        {/* <Panel>{/* <Button onClick={onLayout}>Layout</Button> </Panel> */}
       </ReactFlow>
     </Box>
   );

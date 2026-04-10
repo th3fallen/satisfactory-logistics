@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Container,
+  Divider,
+  Flex,
   Group,
   LoadingOverlay,
   Space,
@@ -11,11 +13,14 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import {
   IconArrowLeft,
   IconCheck,
   IconCopy,
+  IconInfoHexagon,
   IconPlus,
+  IconRocket,
   IconZoomExclamation,
 } from '@tabler/icons-react';
 import { type Edge, Panel, ReactFlowProvider } from '@xyflow/react';
@@ -60,7 +65,8 @@ import {
   proposeSolverSolutionSuggestions,
 } from './suggestions/proposeSolverSolutionSuggestions';
 import { SolverSuggestions } from './suggestions/SolverSuggestions';
-import { SolverSummaryDrawer } from './summary/SolverSummaryDrawer';
+import { SolverSummarySidebar } from './summary/SolverSummarySidebar';
+import { useSolverSummaryStats } from './summary/useSolverSummaryStats';
 
 const logger = loglev.getLogger('solver:page');
 
@@ -190,6 +196,10 @@ export function SolverPage(props: ISolverPageProps) {
 
   const hasSolution = isSolutionFound(solution);
 
+  const [sidebarOpen, { toggle: toggleSidebar }] = useDisclosure(false);
+
+  const stats = useSolverSummaryStats(hasSolution ? solution : null);
+
   const [copied, setCopied] = useState(false);
   const copyDebugInfo = useCallback(() => {
     const debug = {
@@ -283,39 +293,64 @@ export function SolverPage(props: ISolverPageProps) {
         </Group>
       </AfterHeaderSticky>
       {solution && hasSolution && (
-        <Stack gap="md">
-          <ReactFlowProvider>
-            <SolverSolutionProvider solution={solution}>
-              <SolverLayout nodes={solution.nodes} edges={solution.edges}>
-                <Panel>
-                  <Group gap="xs">
-                    <SolverSummaryDrawer solution={solution} />
-                    <SolverShareButton />
-                    <SolverLayoutButtons solution={solution} />
-                    <Button
-                      variant="subtle"
-                      size="xs"
-                      color={copied ? 'teal' : 'gray'}
-                      leftSection={
-                        copied ? (
-                          <IconCheck size={14} />
-                        ) : (
-                          <IconCopy size={14} />
-                        )
-                      }
-                      onClick={copyDebugInfo}
-                    >
-                      {copied ? 'Copied' : 'Copy Debug Info'}
-                    </Button>
-                    {import.meta.env.DEV && (
-                      <SolverInspectorDrawer solution={solution} />
-                    )}
-                  </Group>
-                </Panel>
-              </SolverLayout>
-            </SolverSolutionProvider>
-          </ReactFlowProvider>
-        </Stack>
+          <Flex style={{ height: '80vh' }}>
+            {stats && sidebarOpen && (
+              <SolverSummarySidebar
+                stats={stats}
+                onClose={toggleSidebar}
+              />
+            )}
+            <Box flex={1} style={{ minWidth: 0 }}>
+              <ReactFlowProvider>
+                <SolverSolutionProvider solution={solution}>
+                  <SolverLayout nodes={solution.nodes} edges={solution.edges}>
+                    <Panel>
+                      <Group gap="xs">
+                        {/* Primary actions */}
+                        <Button
+                          size="sm"
+                          variant={sidebarOpen ? 'light' : 'filled'}
+                          leftSection={<IconInfoHexagon size={16} />}
+                          onClick={toggleSidebar}
+                        >
+                          Summary
+                        </Button>
+                        <SolverShareButton />
+
+                        <Divider
+                          orientation="vertical"
+                          color="dark.4"
+                          mx={2}
+                        />
+
+                        {/* Layout controls */}
+                        <SolverLayoutButtons solution={solution} />
+
+                        <Button
+                          variant="subtle"
+                          size="xs"
+                          color={copied ? 'teal' : 'gray'}
+                          leftSection={
+                            copied ? (
+                              <IconCheck size={14} />
+                            ) : (
+                              <IconCopy size={14} />
+                            )
+                          }
+                          onClick={copyDebugInfo}
+                        >
+                          {copied ? 'Copied' : 'Copy Debug Info'}
+                        </Button>
+                        {import.meta.env.DEV && (
+                          <SolverInspectorDrawer solution={solution} />
+                        )}
+                      </Group>
+                    </Panel>
+                  </SolverLayout>
+                </SolverSolutionProvider>
+              </ReactFlowProvider>
+            </Box>
+          </Flex>
       )}
       {!hasSolution && (
         <Container size="lg" mt="lg">
@@ -323,9 +358,20 @@ export function SolverPage(props: ISolverPageProps) {
             <IconZoomExclamation size={64} stroke={1.2} />
             <Text fz="h2">No results found</Text>
             <Text size="sm" c="dark.2">
-              No solution found for the given parameters. Try adjusting the
-              inputs, outputs and available recipes.
+              No solution found for the given parameters.
             </Text>
+            <Space h="xs" />
+            <Group gap="xs">
+              <IconRocket
+                size={20}
+                stroke={1.5}
+                color="var(--mantine-color-blue-4)"
+              />
+              <Text size="sm" c="dimmed">
+                Configure your inputs and outputs above, then select
+                available recipes to find a production plan.
+              </Text>
+            </Group>
             <Space />
             <SolverSuggestions suggestions={suggestions} instance={instance} />
           </Stack>

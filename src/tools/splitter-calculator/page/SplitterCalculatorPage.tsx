@@ -9,6 +9,7 @@ import {
   NumberInput,
   Paper,
   Select,
+  SimpleGrid,
   Stack,
   Switch,
   Text,
@@ -16,11 +17,15 @@ import {
 } from '@mantine/core';
 import {
   IconAlertCircle,
+  IconArrowMerge,
+  IconArrowsSplit,
   IconCalculator,
   IconCheck,
   IconCopy,
   IconMinus,
   IconPlus,
+  IconRoute,
+  IconTopologyStar3,
 } from '@tabler/icons-react';
 import { ReactFlowProvider } from '@xyflow/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -80,6 +85,135 @@ function BeltLegend() {
         </Group>
       ))}
     </Group>
+  );
+}
+
+function SummaryStatCell(props: {
+  label: string;
+  value: React.ReactNode;
+  icon: React.ReactNode;
+}) {
+  return (
+    <Group gap="xs" wrap="nowrap">
+      {props.icon}
+      <Stack gap={0}>
+        <Text size="xs" c="dimmed">
+          {props.label}
+        </Text>
+        <Text size="sm" fw={600}>
+          {props.value}
+        </Text>
+      </Stack>
+    </Group>
+  );
+}
+
+function ResultsSummary(props: {
+  nodes: ReturnType<typeof toReactFlowGraph>['nodes'];
+  edges: ReturnType<typeof toReactFlowGraph>['edges'];
+  totalSource: number;
+  totalTarget: number;
+}) {
+  const { nodes, edges, totalSource, totalTarget } = props;
+
+  const splitterCount = nodes.filter(
+    n => n.type === 'splitter' || n.type === 'smart_splitter',
+  ).length;
+  const mergerCount = nodes.filter(n => n.type === 'merger').length;
+
+  const maxBeltSpeed = edges.reduce(
+    (max, e) => Math.max(max, (e.data?.beltSpeed as number) ?? 0),
+    0,
+  );
+  const maxBeltEntry = BELT_LEGEND.find(b => b.speed === maxBeltSpeed);
+
+  const efficiency =
+    totalSource > 0 ? ((totalTarget / totalSource) * 100).toFixed(0) : '0';
+
+  return (
+    <Paper p="sm" withBorder>
+      <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing="md">
+        <SummaryStatCell
+          label="Splitters"
+          value={splitterCount}
+          icon={
+            <IconArrowsSplit
+              size={16}
+              color="var(--mantine-color-blue-5)"
+            />
+          }
+        />
+        <SummaryStatCell
+          label="Mergers"
+          value={mergerCount}
+          icon={
+            <IconArrowMerge
+              size={16}
+              color="var(--mantine-color-teal-5)"
+            />
+          }
+        />
+        <SummaryStatCell
+          label="Nodes"
+          value={nodes.length}
+          icon={
+            <IconTopologyStar3
+              size={16}
+              color="var(--mantine-color-gray-5)"
+            />
+          }
+        />
+        <SummaryStatCell
+          label="Edges"
+          value={edges.length}
+          icon={
+            <IconRoute size={16} color="var(--mantine-color-gray-5)" />
+          }
+        />
+        <SummaryStatCell
+          label="Max Belt"
+          value={
+            maxBeltEntry ? (
+              <Group gap={4} wrap="nowrap">
+                <Box
+                  w={10}
+                  h={3}
+                  style={{
+                    borderRadius: 2,
+                    backgroundColor: maxBeltEntry.color,
+                  }}
+                />
+                <span>
+                  {maxBeltEntry.name} ({maxBeltEntry.speed}/min)
+                </span>
+              </Group>
+            ) : (
+              '—'
+            )
+          }
+          icon={
+            <Box
+              w={16}
+              h={3}
+              style={{
+                borderRadius: 2,
+                backgroundColor: maxBeltEntry?.color ?? 'var(--mantine-color-gray-5)',
+              }}
+            />
+          }
+        />
+        <SummaryStatCell
+          label="Efficiency"
+          value={`${efficiency}%`}
+          icon={
+            <IconCalculator
+              size={16}
+              color="var(--mantine-color-green-5)"
+            />
+          }
+        />
+      </SimpleGrid>
+    </Paper>
   );
 }
 
@@ -466,6 +600,12 @@ export function SplitterCalculatorPage() {
                 />
               </ReactFlowProvider>
             </Paper>
+            <ResultsSummary
+              nodes={graphData.nodes}
+              edges={graphData.edges}
+              totalSource={totalSource}
+              totalTarget={totalTarget}
+            />
             <Group justify="space-between" align="center">
               <BeltLegend />
               <Button

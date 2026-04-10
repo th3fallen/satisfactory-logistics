@@ -22,6 +22,7 @@ import {
 } from '@/recipes/FactoryBuilding';
 import { type FactoryItem, FactoryItemForm } from '@/recipes/FactoryItem';
 import { FactoryItemImage } from '@/recipes/ui/FactoryItemImage';
+import { getEdgeTierColor } from './edgeTierColors';
 import { getEdgeParams, getSpecialPath } from './utils';
 
 export interface IIngredientEdgeData {
@@ -59,6 +60,7 @@ export const IngredientEdge: FC<EdgeProps<Edge<IIngredientEdgeData>>> = ({
 
   const maxBelt = useGameSettingMaxBelt();
   const maxPipeline = useGameSettingMaxPipeline();
+
   const isOverMaxBelt = maxBelt && (data?.value ?? 0) > maxBelt.conveyor!.speed;
   const isOverMaxPipeline =
     maxPipeline && (data?.value ?? 0) > maxPipeline.pipeline!.flowRate;
@@ -102,16 +104,18 @@ export const IngredientEdge: FC<EdgeProps<Edge<IIngredientEdgeData>>> = ({
   const neededPipelines =
     Math.ceil((data?.value ?? 0) / usedPipeline.pipeline!.flowRate) ?? null;
 
-  const usedLogistic =
+  const isFluid =
     data?.resource?.form === FactoryItemForm.Gas ||
-    data?.resource?.form === FactoryItemForm.Liquid
-      ? usedPipeline
-      : usedBelt;
-  const usedLogisticMax =
-    data?.resource?.form === FactoryItemForm.Gas ||
-    data?.resource?.form === FactoryItemForm.Liquid
-      ? neededPipelines
-      : neededBelts;
+    data?.resource?.form === FactoryItemForm.Liquid;
+  const usedLogistic = isFluid ? usedPipeline : usedBelt;
+  const usedLogisticMax = isFluid ? neededPipelines : neededBelts;
+
+  const tierColor = getEdgeTierColor(usedLogisticMax);
+  const edgeStroke = tierColor?.stroke
+    ? tierColor.stroke
+    : sx < tx
+      ? 'url(#edge-gradient)'
+      : 'url(#edge-gradient-reverse)';
 
   return (
     <>
@@ -119,10 +123,7 @@ export const IngredientEdge: FC<EdgeProps<Edge<IIngredientEdgeData>>> = ({
         id={id}
         path={edgePath}
         {...edgeProps}
-        style={{
-          stroke:
-            sx < tx ? 'url(#edge-gradient)' : 'url(#edge-gradient-reverse)',
-        }}
+        style={{ stroke: edgeStroke }}
       />
       <circle r="2" fill="var(--mantine-color-indigo-3)">
         <animateMotion

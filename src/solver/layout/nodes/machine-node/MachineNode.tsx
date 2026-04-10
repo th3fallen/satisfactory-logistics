@@ -1,11 +1,25 @@
+import { assetPath } from '@/core/assetPath';
+import { RepeatingNumber } from '@/core/intl/NumberFormatter';
+import { PercentageFormatter } from '@/core/intl/PercentageFormatter';
+import { useStore } from '@/core/zustand';
+import { AllFactoryBuildingsMap } from '@/recipes/FactoryBuilding';
+import { AllFactoryItemsMap, type FactoryItem } from '@/recipes/FactoryItem';
+import type { FactoryItemId } from '@/recipes/FactoryItemId';
+import {
+  type FactoryRecipe,
+  getRecipeDisplayName,
+} from '@/recipes/FactoryRecipe';
+import { FactoryItemImage } from '@/recipes/ui/FactoryItemImage';
+import { NodeActionsBox } from '@/solver/layout/nodes/utils/NodeActionsBox';
+import { InvisibleHandles } from '@/solver/layout/rendering/InvisibleHandles';
 import {
   alpha,
   Badge,
   Box,
   CloseButton,
   Flex,
-  Group,
   getGradient,
+  Group,
   Image,
   Popover,
   Stack,
@@ -25,20 +39,6 @@ import {
 import { type NodeProps, useReactFlow } from '@xyflow/react';
 import { memo, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { assetPath } from '@/core/assetPath';
-import { RepeatingNumber } from '@/core/intl/NumberFormatter';
-import { PercentageFormatter } from '@/core/intl/PercentageFormatter';
-import { useStore } from '@/core/zustand';
-import { AllFactoryBuildingsMap } from '@/recipes/FactoryBuilding';
-import { AllFactoryItemsMap, type FactoryItem } from '@/recipes/FactoryItem';
-import type { FactoryItemId } from '@/recipes/FactoryItemId';
-import {
-  type FactoryRecipe,
-  getRecipeDisplayName,
-} from '@/recipes/FactoryRecipe';
-import { FactoryItemImage } from '@/recipes/ui/FactoryItemImage';
-import { NodeActionsBox } from '@/solver/layout/nodes/utils/NodeActionsBox';
-import { InvisibleHandles } from '@/solver/layout/rendering/InvisibleHandles';
 import { MachineNodeActions } from './MachineNodeActions';
 import { computeBestBankSize } from './planner/computeBeltFriendlyBanks';
 import { calculateMachineNodeBuildings } from './postprocess/calculateMachineNodeBuildings';
@@ -87,6 +87,7 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
     [recipe, overclock, buildingsAmount, amplifiedRate],
   );
   const bestBank = nodeState?.selectedBankSize ?? computedBank;
+
   return (
     <Popover
       opened={(isHovering || props.selected) && !props.dragging}
@@ -384,3 +385,5 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
     </Popover>
   );
 });
+
+MachineNode.displayName = 'MachineNode';
