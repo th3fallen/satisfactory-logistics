@@ -1,4 +1,4 @@
-import { Table, Text } from '@mantine/core';
+import { NumberInput, Table, Text } from '@mantine/core';
 import { RepeatingNumber } from '@/core/intl/NumberFormatter';
 import { AllFactoryItemsMap } from '@/recipes/FactoryItem';
 import type { FactoryRecipe, RecipeIngredient } from '@/recipes/FactoryRecipe';
@@ -12,6 +12,8 @@ export const RecipeIngredientRow = ({
   buildingsAmount,
   overclock,
   amplifiedRate,
+  editable,
+  onOverclockChange,
 }: {
   index: number;
   type: 'Ingredients' | 'Products';
@@ -20,10 +22,12 @@ export const RecipeIngredientRow = ({
   buildingsAmount: number;
   overclock: number;
   amplifiedRate: number;
+  editable?: boolean;
+  onOverclockChange?: (overclock: number | string) => void;
 }) => {
   const item = AllFactoryItemsMap[ingredient.resource];
-  const amountPerMinute =
-    ((ingredient.displayAmount * 60) / recipe.time) * overclock;
+  const baseRate = (ingredient.displayAmount * 60) / recipe.time;
+  const amountPerMinute = baseRate * overclock;
   return (
     <Table.Tr>
       <Table.Td>
@@ -38,10 +42,31 @@ export const RecipeIngredientRow = ({
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text size="sm" fs="italic">
-          <RepeatingNumber value={amountPerMinute} />
-          /min
-        </Text>
+        {editable && onOverclockChange ? (
+          <NumberInput
+            size="xs"
+            variant="filled"
+            suffix="/min"
+            value={Math.round(amountPerMinute * 1000) / 1000}
+            onValueChange={({ floatValue }) => {
+              if (floatValue == null || floatValue <= 0) return;
+              const newOverclock = floatValue / baseRate;
+              onOverclockChange(newOverclock);
+            }}
+            min={0}
+            allowNegative={false}
+            decimalScale={3}
+            w={110}
+            styles={{
+              input: { fontStyle: 'italic', fontSize: 'var(--mantine-font-size-sm)' },
+            }}
+          />
+        ) : (
+          <Text size="sm" fs="italic">
+            <RepeatingNumber value={amountPerMinute} />
+            /min
+          </Text>
+        )}
       </Table.Td>
       <Table.Td>
         <Text size="sm" fw="bold">

@@ -21,6 +21,8 @@ export interface IMachineNodeActionsProps {
 
   buildingsAmount: number;
   amplifiedRate: number;
+  overclockValue: number | string;
+  setOverclockValue: (value: number | string) => void;
 }
 
 function toPerMachine(
@@ -36,7 +38,7 @@ function toPerMachine(
  * These are the ones requiring the "apply" button.
  */
 export function MachineNodeActions(props: IMachineNodeActionsProps) {
-  const { data, buildingsAmount } = props;
+  const { data, buildingsAmount, overclockValue, setOverclockValue } = props;
   const { recipe, value } = data;
 
   const solverId = useParams<{ id: string }>().id;
@@ -58,12 +60,9 @@ export function MachineNodeActions(props: IMachineNodeActionsProps) {
     changed: recipesChanged,
   } = useRecipeAlternatesInputState(data.recipe.id);
 
-  // 2. Somersloops (stored as total, displayed as per-machine) and overclock
+  // 2. Somersloops (stored as total, displayed as per-machine)
   const [somersloopsValue, setSomersloopsValue] = useInputState(
     toPerMachine(nodeState?.somersloops, slotsPerBuilding),
-  );
-  const [overclockValue, setOverclockValue] = useInputState(
-    nodeState?.overclock as number | string,
   );
 
   const totalSomersloops = Number(somersloopsValue) * roundedBuildings || 0;

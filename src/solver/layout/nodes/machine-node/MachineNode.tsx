@@ -37,7 +37,7 @@ import {
   IconLayoutGrid,
 } from '@tabler/icons-react';
 import { type NodeProps, useReactFlow } from '@xyflow/react';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MachineNodeActions } from './MachineNodeActions';
 import { computeBestBankSize } from './planner/computeBeltFriendlyBanks';
@@ -80,6 +80,15 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
   const overclock = machineCalc.overclock;
   const buildingsAmount = machineCalc.buildingsAmount;
   const amplifiedRate = machineCalc.amplifiedRate;
+
+  const [overclockValue, setOverclockValue] = useState<number | string>(
+    nodeState?.overclock as number | string,
+  );
+
+  const editedOverclock =
+    overclockValue != null && overclockValue !== ''
+      ? Number(overclockValue)
+      : overclock;
 
   const computedBank = useMemo(
     () =>
@@ -337,8 +346,10 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
                     ingredient={ingredient}
                     key={ingredient.resource}
                     buildingsAmount={buildingsAmount}
-                    overclock={overclock}
+                    overclock={editedOverclock}
                     amplifiedRate={amplifiedRate}
+                    editable={props.selected}
+                    onOverclockChange={setOverclockValue}
                   />
                 ))}
                 <Table.Tr>
@@ -356,8 +367,10 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
                     ingredient={product}
                     key={product.resource}
                     buildingsAmount={buildingsAmount}
-                    overclock={overclock}
+                    overclock={editedOverclock}
                     amplifiedRate={amplifiedRate}
+                    editable={props.selected}
+                    onOverclockChange={setOverclockValue}
                   />
                 ))}
               </Table.Tbody>
@@ -370,6 +383,8 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
                 id={props.id}
                 buildingsAmount={buildingsAmount}
                 amplifiedRate={amplifiedRate}
+                overclockValue={overclockValue}
+                setOverclockValue={setOverclockValue}
               />
             ) : (
               <Stack>
