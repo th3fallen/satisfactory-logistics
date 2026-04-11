@@ -103,6 +103,7 @@ export const MachineNode = memo((props: IMachineNodeProps) => {
       offset={4}
       trapFocus
       middlewares={{ shift: false, flip: false }}
+      hideDetached={false}
     >
       <Popover.Target>
         <Box

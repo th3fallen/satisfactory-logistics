@@ -69,6 +69,7 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
       transitionProps={{}}
       trapFocus
       middlewares={{ shift: false, flip: false }}
+      hideDetached={false}
     >
       <Popover.Target>
         <Box
