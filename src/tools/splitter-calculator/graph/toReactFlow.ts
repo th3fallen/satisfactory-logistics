@@ -20,23 +20,11 @@ export function toReactFlowGraph(
     },
   }));
 
-  // Merge parallel edges (same source→target) into a single edge
-  // with combined rate. The algorithm keeps them separate to preserve
-  // splitter output count, but for display we combine them so the
-  // label shows the total flow (e.g., 2×240 = 480 instead of two
-  // overlapping 240 edges).
-  const edgeMap = new Map<string, { source: string; target: string; carrying: number }>();
-  for (const l of result.links) {
-    const key = `${l.from.id}→${l.to.id}`;
-    const existing = edgeMap.get(key);
-    if (existing) {
-      existing.carrying += l.carrying;
-    } else {
-      edgeMap.set(key, { source: l.from.id, target: l.to.id, carrying: l.carrying });
-    }
-  }
-
-  const edgeList = [...edgeMap.values()];
+  const edgeList = result.links.map(l => ({
+    source: l.from.id,
+    target: l.to.id,
+    carrying: l.carrying,
+  }));
 
   // Count sibling edges per source and per target for offset calculations
   const sourceCount = new Map<string, number>();
@@ -60,6 +48,8 @@ export function toReactFlowGraph(
       id: `edge-${i}`,
       source: e.source,
       target: e.target,
+      sourceHandle: 'source-right',
+      targetHandle: 'target-left',
       type: 'belt',
       data: {
         carrying: e.carrying,

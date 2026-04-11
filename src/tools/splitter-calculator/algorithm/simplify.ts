@@ -157,6 +157,58 @@ export function simplifyWithSmartSplitters(
 }
 
 /**
+ * Remove redundant mergers that feed into another merger when the
+ * downstream merger has room for the extra inputs (max 3 per merger).
+ *
+ * Example: if merger A (2 inputs) feeds into merger B (1 other input),
+ * merger B has 1 + 2 = 3 total inputs after bypass, which fits. So we
+ * remove A and connect A's inputs directly to B.
+ */
+export function simplifyRedundantMergers(
+  result: SplitterResult,
+): SplitterResult {
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const node of result.nodes) {
+      if (node.type !== 'merger') continue;
+      if (node.children.length !== 1) continue;
+
+      const downstreamLink = node.children[0];
+      const downstream = downstreamLink.to;
+      if (downstream.type !== 'merger') continue;
+
+      const downstreamOtherInputs = downstream.parents.filter(
+        l => l.from !== node,
+      );
+      const totalInputsAfterBypass =
+        downstreamOtherInputs.length + node.parents.length;
+      if (totalInputsAfterBypass > 3) continue;
+
+      const incomingLinks = [...node.parents];
+
+      // Remove the node, its outgoing link, and its incoming links from result
+      result.nodes = result.nodes.filter(n => n !== node);
+      result.links = result.links.filter(
+        l => l.from !== node && l.to !== node,
+      );
+      downstream.parents = downstream.parents.filter(l => l.from !== node);
+
+      // Reroute each incoming link to point directly to downstream
+      for (const parentLink of incomingLinks) {
+        parentLink.to = downstream;
+        downstream.parents.push(parentLink);
+        result.links.push(parentLink);
+      }
+
+      changed = true;
+      break;
+    }
+  }
+  return result;
+}
+
+/**
  * Apply all simplification passes in order.
  */
 export function applySimplfications(
@@ -166,6 +218,7 @@ export function applySimplfications(
   allowSmartSplitters: boolean,
 ): SplitterResult {
   let simplified = simplifyWithBeltSpeeds(result, maxBeltSpeed);
+  simplified = simplifyRedundantMergers(simplified);
   if (allowSmartSplitters) {
     simplified = simplifyWithSmartSplitters(simplified, targets);
   }

@@ -15,7 +15,7 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BeltEdge } from './edges/BeltEdge';
 import { BeltSourceNode } from './nodes/BeltSourceNode';
 import { BeltTargetNode } from './nodes/BeltTargetNode';
@@ -132,7 +132,70 @@ function getLayoutedElements(
     }
   }
 
-  return { nodes: layoutedNodes, edges };
+  // Sort edge spread indices so connection points match the vertical
+  // direction of their counterpart — edges going to higher targets attach
+  // higher on the source node, preventing unnecessary crossings.
+  const srcGroups = new Map<string, typeof edges>();
+  const tgtGroups = new Map<string, typeof edges>();
+  for (const edge of edges) {
+    if (!srcGroups.has(edge.source)) srcGroups.set(edge.source, []);
+    srcGroups.get(edge.source)!.push(edge);
+    if (!tgtGroups.has(edge.target)) tgtGroups.set(edge.target, []);
+    tgtGroups.get(edge.target)!.push(edge);
+  }
+
+  const centerY = (n: Node) =>
+    n.position.y + (n.measured?.height ?? 40) / 2;
+
+  for (const [, group] of srcGroups) {
+    if (group.length <= 1) continue;
+    group.sort((a, b) => {
+      const aNode = nodeById.get(a.target);
+      const bNode = nodeById.get(b.target);
+      return (aNode ? centerY(aNode) : 0) - (bNode ? centerY(bNode) : 0);
+    });
+    for (let i = 0; i < group.length; i++) {
+      group[i] = {
+        ...group[i],
+        data: { ...group[i].data, sourceEdgeIndex: i },
+      };
+    }
+  }
+
+  for (const [, group] of tgtGroups) {
+    if (group.length <= 1) continue;
+    group.sort((a, b) => {
+      const aNode = nodeById.get(a.source);
+      const bNode = nodeById.get(b.source);
+      return (aNode ? centerY(aNode) : 0) - (bNode ? centerY(bNode) : 0);
+    });
+    for (let i = 0; i < group.length; i++) {
+      group[i] = {
+        ...group[i],
+        data: { ...group[i].data, targetEdgeIndex: i },
+      };
+    }
+  }
+
+  // Collect the updated edges (deduped by id)
+  const edgeById = new Map<string, Edge>();
+  for (const [, group] of srcGroups) {
+    for (const e of group) edgeById.set(e.id, e);
+  }
+  for (const [, group] of tgtGroups) {
+    const existing = edgeById.get(group[0].id);
+    for (const e of group) {
+      const prev = edgeById.get(e.id);
+      if (prev) {
+        edgeById.set(e.id, { ...prev, data: { ...prev.data, ...e.data } });
+      } else {
+        edgeById.set(e.id, e);
+      }
+    }
+  }
+  const sortedEdges = edges.map(e => edgeById.get(e.id) ?? e);
+
+  return { nodes: layoutedNodes, edges: sortedEdges };
 }
 
 interface SplitterGraphLayoutProps {
@@ -147,6 +210,7 @@ export function SplitterGraphLayout(props: SplitterGraphLayoutProps) {
   const [opacity, setOpacity] = useState(0);
   const nodesInitialized = useNodesInitialized();
   const [layoutDone, setLayoutDone] = useState(false);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
   useEffect(() => {
     if (layoutDone) return;
@@ -167,16 +231,38 @@ export function SplitterGraphLayout(props: SplitterGraphLayoutProps) {
     // biome-ignore lint/correctness/useExhaustiveDependencies: run when nodes get measured
   }, [nodesInitialized, nodes, edges]);
 
+  const handleNodeClick = useCallback(
+    (_: React.MouseEvent, node: Node) => {
+      setSelectedNodeId(prev => (prev === node.id ? null : node.id));
+    },
+    [],
+  );
+
+  const handlePaneClick = useCallback(() => {
+    setSelectedNodeId(null);
+  }, []);
+
+  const edgesWithSelection = useMemo(
+    () =>
+      edges.map(e => ({
+        ...e,
+        data: { ...e.data, selectedNodeId },
+      })),
+    [edges, selectedNodeId],
+  );
+
   return (
     <Box w="100%" h="65vh" opacity={opacity}>
       <ReactFlow
         minZoom={0.2}
         nodes={nodes}
-        edges={edges}
+        edges={edgesWithSelection}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onNodeClick={handleNodeClick}
+        onPaneClick={handlePaneClick}
         connectionLineType={ConnectionLineType.SmoothStep}
         fitView
         snapToGrid

@@ -4,12 +4,12 @@ import {
   type Edge,
   EdgeLabelRenderer,
   type EdgeProps,
-  getBezierPath,
+  Position,
+  getSmoothStepPath,
   useInternalNode,
 } from '@xyflow/react';
 import type { FC } from 'react';
 import { RepeatingNumber } from '@/core/intl/NumberFormatter';
-import { getEdgeParams } from '@/solver/edges/utils';
 
 export interface IBeltEdgeData {
   carrying: number;
@@ -19,6 +19,7 @@ export interface IBeltEdgeData {
   sourceEdgeCount?: number;
   targetEdgeIndex?: number;
   targetEdgeCount?: number;
+  selectedNodeId?: string | null;
   [key: string]: unknown;
 }
 
@@ -58,6 +59,8 @@ export const BeltEdge: FC<EdgeProps<Edge<IBeltEdgeData>>> = ({
   id,
   source,
   target,
+  sourceHandleId,
+  targetHandleId,
   data,
   ...edgeProps
 }) => {
@@ -66,10 +69,24 @@ export const BeltEdge: FC<EdgeProps<Edge<IBeltEdgeData>>> = ({
 
   if (!sourceNode || !targetNode) return null;
 
-  const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(
-    sourceNode,
-    targetNode,
+  const sourceHandle = sourceNode.internals.handleBounds?.source?.find(
+    h => h.id === sourceHandleId,
   );
+  const targetHandle = targetNode.internals.handleBounds?.target?.find(
+    h => h.id === targetHandleId,
+  );
+
+  const sx = sourceNode.internals.positionAbsolute.x +
+    (sourceHandle ? sourceHandle.x + sourceHandle.width / 2 : sourceNode.measured.width! / 2);
+  const sy = sourceNode.internals.positionAbsolute.y +
+    (sourceHandle ? sourceHandle.y + sourceHandle.height / 2 : sourceNode.measured.height! / 2);
+  const tx = targetNode.internals.positionAbsolute.x +
+    (targetHandle ? targetHandle.x + targetHandle.width / 2 : targetNode.measured.width! / 2);
+  const ty = targetNode.internals.positionAbsolute.y +
+    (targetHandle ? targetHandle.y + targetHandle.height / 2 : targetNode.measured.height! / 2);
+
+  const sourcePos = sourceHandle?.position ?? Position.Right;
+  const targetPos = targetHandle?.position ?? Position.Left;
 
   const SPREAD = 12;
   const srcCount = data?.sourceEdgeCount ?? 1;
@@ -80,29 +97,32 @@ export const BeltEdge: FC<EdgeProps<Edge<IBeltEdgeData>>> = ({
   const srcOffset = srcCount > 1 ? (srcIdx - (srcCount - 1) / 2) * SPREAD : 0;
   const tgtOffset = tgtCount > 1 ? (tgtIdx - (tgtCount - 1) / 2) * SPREAD : 0;
 
-  const isSourceHorizontal =
-    sourcePos === 'left' || sourcePos === 'right';
-  const isTargetHorizontal =
-    targetPos === 'left' || targetPos === 'right';
+  const adjSy = sy + srcOffset;
+  const adjTy = ty + tgtOffset;
 
-  const adjSx = sx + (isSourceHorizontal ? 0 : srcOffset);
-  const adjSy = sy + (isSourceHorizontal ? srcOffset : 0);
-  const adjTx = tx + (isTargetHorizontal ? 0 : tgtOffset);
-  const adjTy = ty + (isTargetHorizontal ? tgtOffset : 0);
-
-  const [edgePath, labelX, labelY] = getBezierPath({
-    sourceX: adjSx === adjTx ? adjSx + 0.0001 : adjSx,
-    sourceY: adjSy === adjTy ? adjSy + 0.0001 : adjSy,
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
+    sourceX: sx,
+    sourceY: adjSy,
     sourcePosition: sourcePos,
-    targetX: adjTx,
+    targetX: tx,
     targetY: adjTy,
     targetPosition: targetPos,
+    borderRadius: 8,
   });
 
   const carrying = data?.carrying ?? 0;
   const duration = carrying > 0 ? 60 / carrying : 10;
   const beltColor = getBeltColor(data?.beltSpeed);
   const dotColor = getBeltDotColor(data?.beltSpeed);
+
+  const selId = data?.selectedNodeId;
+  const isConnected = selId === source || selId === target;
+  const dimmed = selId != null && !isConnected;
+  const highlighted = selId != null && isConnected;
+
+  const strokeWidth = highlighted ? 3 : 2;
+  const edgeOpacity = dimmed ? 0.2 : 0.85;
+  const labelOpacity = dimmed ? 0.3 : 1;
 
   return (
     <>
@@ -112,11 +132,12 @@ export const BeltEdge: FC<EdgeProps<Edge<IBeltEdgeData>>> = ({
         {...edgeProps}
         style={{
           stroke: beltColor,
-          strokeWidth: 2,
-          opacity: 0.85,
+          strokeWidth,
+          opacity: edgeOpacity,
+          transition: 'opacity 0.2s, stroke-width 0.2s',
         }}
       />
-      <circle r="2.5" fill={dotColor}>
+      <circle r={highlighted ? 3 : 2.5} fill={dotColor} opacity={dimmed ? 0.2 : 1}>
         <animateMotion
           dur={`${duration}s`}
           repeatCount="indefinite"
@@ -133,6 +154,8 @@ export const BeltEdge: FC<EdgeProps<Edge<IBeltEdgeData>>> = ({
             border: `1px solid ${beltColor}`,
             position: 'absolute',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+            opacity: labelOpacity,
+            transition: 'opacity 0.2s',
           }}
           className="nodrag"
         >
