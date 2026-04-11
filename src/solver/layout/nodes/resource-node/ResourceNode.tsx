@@ -68,7 +68,6 @@ export const ResourceNode = memo((props: IResourceNodeProps) => {
       opened={(isHovering || props.selected) && !props.dragging}
       transitionProps={{}}
       trapFocus
-      middlewares={{ shift: true, flip: false }}
       hideDetached={false}
     >
       <Popover.Target>

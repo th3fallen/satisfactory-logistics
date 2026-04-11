@@ -40,7 +40,6 @@ export const ByproductNode = memo((props: IByproductNodeProps) => {
       opened={(isHovering || props.selected) && !props.dragging}
       transitionProps={{}}
       trapFocus
-      middlewares={{ shift: true, flip: false }}
       hideDetached={false}
     >
       <Popover.Target>
