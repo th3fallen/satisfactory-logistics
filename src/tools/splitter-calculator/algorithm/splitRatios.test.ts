@@ -17,9 +17,12 @@ function makeRequest(
   };
 }
 
+const BELT_SPEEDS = new Set([60, 120, 270, 480, 780, 1200]);
+
 /**
- * Validate that every splitter node has equal output rates.
- * In Satisfactory, a splitter with N outputs always divides evenly.
+ * Validate that every splitter node has equal output rates,
+ * unless it is a belt-capped splitter (2 outputs where one
+ * matches a belt tier speed — models backpressure limiting).
  */
 function assertSplittersHaveEqualOutputs(result: SplitterResult) {
   for (const node of result.nodes) {
@@ -27,6 +30,14 @@ function assertSplittersHaveEqualOutputs(result: SplitterResult) {
     if (node.children.length <= 1) continue;
 
     const rates = node.children.map(l => l.carrying);
+
+    // Allow belt-capped splitters: exactly 2 outputs where at least
+    // one rate matches a belt tier speed (backpressure-limited tap)
+    if (rates.length === 2) {
+      const isBeltCapped = rates.some(r => BELT_SPEEDS.has(Math.round(r)));
+      if (isBeltCapped) continue;
+    }
+
     const first = rates[0];
     for (let i = 1; i < rates.length; i++) {
       expect(
@@ -459,6 +470,421 @@ describe('splitter calculator', () => {
     });
   });
 
+  describe('leftover handling', () => {
+    test('2x600 → 1x1000: leftover 200 routed to separate target', () => {
+      const request = makeRequest(
+        [{ rate: 600, count: 2 }],
+        [{ rate: 1000, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, [1000]);
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(1);
+      const leftoverRate = leftoverTargets[0].parents.reduce(
+        (sum, l) => sum + l.carrying,
+        0,
+      );
+      expect(Math.abs(leftoverRate - 200)).toBeLessThan(0.01);
+    });
+
+    test('exact match produces no leftover target', () => {
+      const request = makeRequest(
+        [{ rate: 600, count: 2 }],
+        [{ rate: 400, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, Array(3).fill(400));
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(0);
+    });
+
+    test('large leftover: 1x1200 → 1x120 leaves 1080', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 120, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, [120]);
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(1);
+    });
+  });
+
+  describe('belt speed constraints', () => {
+    test('mk3 belt speed (270) constrains all links', () => {
+      const request = makeRequest(
+        [{ rate: 270, count: 1 }],
+        [{ rate: 90, count: 3 }],
+        270,
+      );
+      const result = calculateSplitterNetwork(request);
+      runStandardAssertions(result, Array(3).fill(90), 270);
+    });
+
+    test('mk1 belt speed (60) with small rates', () => {
+      const request = makeRequest(
+        [{ rate: 60, count: 1 }],
+        [{ rate: 20, count: 3 }],
+        60,
+      );
+      const result = calculateSplitterNetwork(request);
+      runStandardAssertions(result, Array(3).fill(20), 60);
+    });
+
+    test('multiple sources at mk5 (780)', () => {
+      const request = makeRequest(
+        [{ rate: 780, count: 2 }],
+        [{ rate: 520, count: 3 }],
+        780,
+      );
+      const result = calculateSplitterNetwork(request);
+      runStandardAssertions(result, Array(3).fill(520), 780);
+    });
+  });
+
+  describe('graph invariants', () => {
+    test('every non-source node has at least one parent', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 2 }],
+        [{ rate: 480, count: 5 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      for (const node of result.nodes) {
+        if (node.type === 'source') continue;
+        expect(
+          node.parents.length,
+          `Non-source node ${node.id} (${node.type}) has no parents`,
+        ).toBeGreaterThanOrEqual(1);
+      }
+    });
+
+    test('every non-target node has at least one child', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 2 }],
+        [{ rate: 480, count: 5 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      for (const node of result.nodes) {
+        if (node.type === 'target') continue;
+        expect(
+          node.children.length,
+          `Non-target node ${node.id} (${node.type}) has no children`,
+        ).toBeGreaterThanOrEqual(1);
+      }
+    });
+
+    test('source nodes have no parents', () => {
+      const request = makeRequest(
+        [{ rate: 600, count: 3 }],
+        [{ rate: 400, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      const sourceNodes = result.nodes.filter(n => n.type === 'source');
+      for (const node of sourceNodes) {
+        expect(node.parents.length).toBe(0);
+      }
+    });
+
+    test('target nodes have no children', () => {
+      const request = makeRequest(
+        [{ rate: 600, count: 3 }],
+        [{ rate: 400, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      const targetNodes = result.nodes.filter(n => n.type === 'target');
+      for (const node of targetNodes) {
+        expect(node.children.length).toBe(0);
+      }
+    });
+
+    test('total flow is conserved (sources sum = targets sum)', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 3 }],
+        [{ rate: 720, count: 5 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      const sourceTotal = result.nodes
+        .filter(n => n.type === 'source')
+        .reduce((sum, n) => sum + n.holding, 0);
+      const targetTotal = result.nodes
+        .filter(n => n.type === 'target')
+        .reduce(
+          (sum, n) => sum + n.parents.reduce((s, l) => s + l.carrying, 0),
+          0,
+        );
+
+      expect(
+        Math.abs(sourceTotal - targetTotal),
+        `Flow not conserved: sources=${sourceTotal}, targets=${targetTotal}`,
+      ).toBeLessThan(0.01);
+    });
+
+    test('no passthrough nodes remain (1 in, 1 out splitter/merger)', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 400, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      for (const node of result.nodes) {
+        if (node.type === 'source' || node.type === 'target') continue;
+        const isPassthrough =
+          node.parents.length === 1 && node.children.length === 1;
+        expect(
+          isPassthrough,
+          `Node ${node.id} (${node.type}) is a passthrough (1 in, 1 out)`,
+        ).toBe(false);
+      }
+    });
+
+    test('splitter outputs do not exceed 3', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 150, count: 8 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      for (const node of result.nodes) {
+        if (node.type !== 'splitter') continue;
+        expect(
+          node.children.length,
+          `Splitter ${node.id} has ${node.children.length} outputs (max 3)`,
+        ).toBeLessThanOrEqual(3);
+      }
+    });
+
+    test('merger inputs do not exceed 3', () => {
+      const request = makeRequest(
+        [{ rate: 300, count: 4 }],
+        [{ rate: 1200, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      for (const node of result.nodes) {
+        if (node.type !== 'merger') continue;
+        expect(
+          node.parents.length,
+          `Merger ${node.id} has ${node.parents.length} inputs (max 3)`,
+        ).toBeLessThanOrEqual(3);
+      }
+    });
+  });
+
+  describe('belt-capped chain', () => {
+    test('1x375 → 6x60: belt-capped chain produces compact linear network', () => {
+      const request = makeRequest(
+        [{ rate: 375, count: 1 }],
+        [{ rate: 60, count: 6 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, Array(6).fill(60));
+
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      expect(splitters.length).toBeLessThanOrEqual(6);
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(1);
+      expect(
+        Math.abs(leftoverTargets[0].parents[0].carrying - 15),
+      ).toBeLessThan(0.01);
+    });
+
+    test('1x780 → 2x120 + 1x60 + 1x480: mixed belt-speed targets', () => {
+      const request = makeRequest(
+        [{ rate: 780, count: 1 }],
+        [
+          { rate: 120, count: 2 },
+          { rate: 60, count: 1 },
+          { rate: 480, count: 1 },
+        ],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, [120, 120, 60, 480]);
+
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      expect(splitters.length).toBeLessThanOrEqual(4);
+    });
+
+    test('non-belt-speed targets do NOT use chain (1x375 → 6x100 falls through)', () => {
+      const request = makeRequest(
+        [{ rate: 375, count: 1 }],
+        [{ rate: 100, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, Array(3).fill(100));
+
+      // Should NOT produce a chain — 100 is not a belt speed.
+      // The result will use the normal algorithm (flow assignment / unit-rate).
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      for (const s of splitters) {
+        if (s.children.length <= 1) continue;
+        const rates = s.children.map(l => l.carrying);
+        // Non-chain splitters should have equal outputs
+        const allEqual = rates.every(r => Math.abs(r - rates[0]) < 0.01);
+        expect(
+          allEqual,
+          `Non-chain splitter ${s.id} should have equal outputs: ${rates.join(', ')}`,
+        ).toBe(true);
+      }
+    });
+
+    test('2x270 → 4x120: multiple sources merged then chained', () => {
+      const request = makeRequest(
+        [{ rate: 270, count: 2 }],
+        [{ rate: 120, count: 4 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, Array(4).fill(120));
+
+      const mergers = result.nodes.filter(n => n.type === 'merger');
+      expect(mergers.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test('chain not used when total source exceeds max belt speed', () => {
+      const request = makeRequest(
+        [{ rate: 780, count: 2 }],
+        [{ rate: 120, count: 12 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, Array(12).fill(120));
+    });
+
+    test('1x1200 → 4x270: exact belt speeds, leftover 120', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 270, count: 4 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, Array(4).fill(270));
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(1);
+      expect(
+        Math.abs(leftoverTargets[0].parents[0].carrying - 120),
+      ).toBeLessThan(0.01);
+    });
+  });
+
+  describe('edge cases', () => {
+    test('1x1200 → 1x1200: direct connection, no splitter needed', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 1200, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, [1200]);
+
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      expect(splitters.length).toBe(0);
+    });
+
+    test('single source to single target at exact rate', () => {
+      const request = makeRequest(
+        [{ rate: 480, count: 1 }],
+        [{ rate: 480, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, [480]);
+    });
+
+    test('many targets: 1x1200 → 12x100', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 100, count: 12 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertSplittersHaveEqualOutputs(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, Array(12).fill(100));
+    });
+
+    test('many sources merge: 6x200 → 1x1200', () => {
+      const request = makeRequest(
+        [{ rate: 200, count: 6 }],
+        [{ rate: 1200, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, [1200]);
+    });
+
+    test('very small rates: 1x6 → 3x2', () => {
+      const request = makeRequest(
+        [{ rate: 6, count: 1 }],
+        [{ rate: 2, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      runStandardAssertions(result, Array(3).fill(2), 1200);
+    });
+
+    test('fractional rates: 1x100 → 3x33.33', () => {
+      const rate = 100 / 3;
+      const request = makeRequest(
+        [{ rate: 100, count: 1 }],
+        [{ rate: rate, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertSplittersHaveEqualOutputs(result);
+      assertBeltsWithinSpeed(result, 1200);
+    });
+
+    test('same rate multiple sources and targets: 4x300 → 4x300', () => {
+      const request = makeRequest(
+        [{ rate: 300, count: 4 }],
+        [{ rate: 300, count: 4 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, Array(4).fill(300));
+    });
+  });
+
   describe('error cases', () => {
     test('targets exceed sources', () => {
       const request = makeRequest(
@@ -477,6 +903,15 @@ describe('splitter calculator', () => {
 
     test('no targets', () => {
       const request = makeRequest([{ rate: 100, count: 1 }], []);
+      const result = calculateSplitterNetwork(request);
+      expect(result.error).toBeDefined();
+    });
+
+    test('slightly insufficient sources still error', () => {
+      const request = makeRequest(
+        [{ rate: 999, count: 1 }],
+        [{ rate: 1000, count: 1 }],
+      );
       const result = calculateSplitterNetwork(request);
       expect(result.error).toBeDefined();
     });

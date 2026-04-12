@@ -611,8 +611,7 @@ function greedyFlowAssign(
       for (let s = 0; s < remaining.length; s++) {
         if (remaining[s] < need - 0.01) continue;
         const leftAfter = remaining[s] - need;
-        const portions =
-          leftAfter > 0.01 ? [need, leftAfter] : [need];
+        const portions = leftAfter > 0.01 ? [need, leftAfter] : [need];
         if (portions.length > 1) {
           const ratios = toIntegerRatios(portions);
           const total = ratios.reduce((a, b) => a + b, 0);
@@ -683,12 +682,22 @@ function tryFlowAssignment(
   const cleanFractionFirst = [...indices].sort((a, b) => {
     const aClean = sourceRates.some(sr => {
       const ratio = sr / targetRates[a];
-      return Math.abs(ratio - Math.round(ratio)) < 0.01 && isSmooth(Math.round(ratio));
-    }) ? 0 : 1;
+      return (
+        Math.abs(ratio - Math.round(ratio)) < 0.01 &&
+        isSmooth(Math.round(ratio))
+      );
+    })
+      ? 0
+      : 1;
     const bClean = sourceRates.some(sr => {
       const ratio = sr / targetRates[b];
-      return Math.abs(ratio - Math.round(ratio)) < 0.01 && isSmooth(Math.round(ratio));
-    }) ? 0 : 1;
+      return (
+        Math.abs(ratio - Math.round(ratio)) < 0.01 &&
+        isSmooth(Math.round(ratio))
+      );
+    })
+      ? 0
+      : 1;
     if (aClean !== bClean) return aClean - bClean;
     return targetRates[b] - targetRates[a];
   });
@@ -698,7 +707,12 @@ function tryFlowAssignment(
   let bestScore = Infinity;
 
   for (const order of orderings) {
-    const result = greedyFlowAssign(sourceRates, targetRates, order, maxBeltSpeed);
+    const result = greedyFlowAssign(
+      sourceRates,
+      targetRates,
+      order,
+      maxBeltSpeed,
+    );
     if (!result) continue;
 
     const score = scoreFlowAssignment(
@@ -950,7 +964,11 @@ function findApproximateRates(
 
   // Try replacing each unique rate group uniformly
   for (const [origRate, indices] of rateIndices) {
-    const candidates = generateCandidateRates(origRate, sourceRates, maxDeviation);
+    const candidates = generateCandidateRates(
+      origRate,
+      sourceRates,
+      maxDeviation,
+    );
     for (const candidate of candidates.slice(0, 30)) {
       const trial = [...targetRates];
       for (const idx of indices) {
@@ -1013,6 +1031,135 @@ function findApproximateRates(
 }
 
 // ---------------------------------------------------------------------------
+// Belt-capped splitter chain
+// ---------------------------------------------------------------------------
+
+/**
+ * Check if a belt-capped splitter chain can handle this scenario.
+ * In Satisfactory, connecting a splitter output to a lower-tier belt
+ * causes backpressure that limits throughput to the belt's max speed.
+ * A chain of splitters can sequentially tap off exact belt-speed amounts.
+ *
+ * Returns the graph if applicable, null otherwise.
+ */
+function tryBeltCappedChain(
+  sourceRates: number[],
+  targetRates: number[],
+  leftover: number,
+  maxBeltSpeed: number,
+): SplitterResult | null {
+  const hasLeftover = leftover > 0.01;
+  const realTargets = hasLeftover ? targetRates.slice(0, -1) : targetRates;
+  if (realTargets.length < 2) return null;
+
+  const beltSpeeds = new Set(getBeltTiers(maxBeltSpeed).map(t => t.speed));
+
+  // Every real target must match an exact belt tier speed
+  for (const rate of realTargets) {
+    if (!beltSpeeds.has(Math.round(rate))) return null;
+  }
+
+  const totalSource = sourceRates.reduce((a, b) => a + b, 0);
+
+  // Total flow into the chain must not exceed max belt speed
+  if (totalSource > maxBeltSpeed + 0.01) return null;
+
+  // Sort targets descending so larger taps come first (avoids a
+  // target rate exceeding the remaining flow partway through).
+  const sortedTargets = realTargets
+    .map((rate, i) => ({ rate, originalIdx: i }))
+    .sort((a, b) => b.rate - a.rate);
+
+  // Verify the chain is feasible: at each step the remaining flow
+  // must be >= the tap rate.
+  let remaining = totalSource;
+  for (const t of sortedTargets) {
+    if (t.rate > remaining + 0.01) return null;
+    remaining -= t.rate;
+  }
+
+  return buildBeltCappedChainGraph(
+    sourceRates,
+    sortedTargets,
+    leftover,
+    maxBeltSpeed,
+  );
+}
+
+function buildBeltCappedChainGraph(
+  sourceRates: number[],
+  sortedTargets: { rate: number; originalIdx: number }[],
+  leftover: number,
+  maxBeltSpeed: number,
+): SplitterResult {
+  const hasLeftover = leftover > 0.01;
+
+  // Create source nodes and merge if multiple
+  const sourceNodes: ConveyorNode[] = sourceRates.map((rate, i) =>
+    createNode('source', rate, `Source ${i + 1}`),
+  );
+  let chainInput: ConveyorNode;
+  if (sourceNodes.length === 1) {
+    chainInput = sourceNodes[0];
+  } else {
+    chainInput = mergeStreamNodes(sourceNodes);
+  }
+
+  const totalSource = sourceRates.reduce((a, b) => a + b, 0);
+  let currentInput = chainInput;
+  let currentRate = totalSource;
+
+  const targetNodes: ConveyorNode[] = [];
+
+  for (let i = 0; i < sortedTargets.length; i++) {
+    const { rate, originalIdx } = sortedTargets[i];
+    const isLast = i === sortedTargets.length - 1 && !hasLeftover;
+
+    if (isLast && Math.abs(currentRate - rate) < 0.01) {
+      // Last target consumes all remaining flow — no splitter needed
+      const target = createNode(
+        'target',
+        rate,
+        `Target ${originalIdx + 1}: ${rate}/min`,
+      );
+      link(currentInput, target, rate);
+      targetNodes.push(target);
+    } else {
+      const splitter = createNode('splitter', currentRate);
+      link(currentInput, splitter, currentRate);
+
+      // Tap output → target
+      const target = createNode(
+        'target',
+        rate,
+        `Target ${originalIdx + 1}: ${rate}/min`,
+      );
+      link(splitter, target, rate);
+      targetNodes.push(target);
+
+      // Passthrough to next stage
+      currentRate -= rate;
+      currentInput = splitter;
+    }
+  }
+
+  // Handle leftover
+  if (hasLeftover && currentRate > 0.01) {
+    const leftoverTarget = createNode(
+      'target',
+      currentRate,
+      `Leftover: ${currentRate}/min`,
+    );
+    link(currentInput, leftoverTarget, currentRate);
+    targetNodes.push(leftoverTarget);
+  }
+
+  const graph = collectGraph(sourceNodes);
+  removePassthroughs(graph.nodes, graph.links);
+  return graph;
+}
+
+// ---------------------------------------------------------------------------
 // Fallback: unit-rate algorithm (previous approach)
 // ---------------------------------------------------------------------------
 
@@ -1022,7 +1169,17 @@ function fallbackCalculation(
   leftover: number,
   maxBeltSpeed: number,
 ): SplitterResult {
-  // Try direct flow assignment first — produces much simpler graphs
+  // Try belt-capped chain — simplest when targets match belt speeds.
+  // Models the real Satisfactory mechanic of backpressure-limited taps.
+  const beltChain = tryBeltCappedChain(
+    sourceRates,
+    targetRates,
+    leftover,
+    maxBeltSpeed,
+  );
+  if (beltChain) return beltChain;
+
+  // Try direct flow assignment — produces much simpler graphs
   // when sources can be routed to targets without full atomization.
   const assignments = tryFlowAssignment(sourceRates, targetRates, maxBeltSpeed);
   if (assignments) {
@@ -1044,9 +1201,7 @@ function fallbackCalculation(
   // Only approximate the real targets, not the leftover target.
   if (totalUnits > MAX_COMPLEXITY_UNITS) {
     const hasLeftover = leftover > 0.01;
-    const realTargets = hasLeftover
-      ? targetRates.slice(0, -1)
-      : targetRates;
+    const realTargets = hasLeftover ? targetRates.slice(0, -1) : targetRates;
 
     const approx = findApproximateRates(sourceRates, realTargets);
     if (approx) {
@@ -1054,9 +1209,7 @@ function fallbackCalculation(
       const newTotalTarget = approx.rates.reduce((a, b) => a + b, 0);
       const newLeftover = totalSource - newTotalTarget;
       const adjustedTargets =
-        newLeftover > 0.01
-          ? [...approx.rates, newLeftover]
-          : [...approx.rates];
+        newLeftover > 0.01 ? [...approx.rates, newLeftover] : [...approx.rates];
 
       // Try flow assignment with approximate rates first
       const approxAssignments = tryFlowAssignment(
