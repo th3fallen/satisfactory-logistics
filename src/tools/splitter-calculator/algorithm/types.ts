@@ -39,10 +39,19 @@ export interface SplitterRequest {
   useDecomposition: boolean;
 }
 
+export interface RateApproximation {
+  targetIndex: number;
+  requestedRate: number;
+  actualRate: number;
+  /** Signed deviation as a fraction, e.g. 0.004 = +0.4% */
+  deviation: number;
+}
+
 export interface SplitterResult {
   nodes: ConveyorNode[];
   links: ConveyorLink[];
   error?: string;
+  approximations?: RateApproximation[];
 }
 
 export interface BeltTier {

@@ -148,6 +148,7 @@ export function simplifyWithSmartSplitters(
         return {
           nodes: [source, smartSplitter, ...targetNodes],
           links: newLinks,
+          approximations: result.approximations,
         };
       }
     }

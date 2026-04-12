@@ -33,7 +33,7 @@ import { useSearchParams } from 'react-router-dom';
 import { FactoryConveyorBelts } from '@/recipes/FactoryBuilding';
 import { applySimplfications } from '../algorithm/simplify';
 import { calculateSplitterNetwork } from '../algorithm/splitRatios';
-import type { SplitterTarget } from '../algorithm/types';
+import type { RateApproximation, SplitterTarget } from '../algorithm/types';
 import { SplitterGraphLayout } from '../graph/SplitterGraphLayout';
 import { toReactFlowGraph } from '../graph/toReactFlow';
 
@@ -113,8 +113,9 @@ function ResultsSummary(props: {
   edges: ReturnType<typeof toReactFlowGraph>['edges'];
   totalSource: number;
   totalTarget: number;
+  approximations?: RateApproximation[];
 }) {
-  const { nodes, edges, totalSource, totalTarget } = props;
+  const { nodes, edges, totalSource, totalTarget, approximations } = props;
 
   const splitterCount = nodes.filter(
     n => n.type === 'splitter' || n.type === 'smart_splitter',
@@ -213,6 +214,32 @@ function ResultsSummary(props: {
           }
         />
       </SimpleGrid>
+      {approximations && approximations.length > 0 && (
+        <Alert
+          color="yellow"
+          icon={<IconAlertCircle size={16} />}
+          title="Approximate Rates Used"
+          mt="sm"
+        >
+          <Text size="sm">
+            Some target rates were adjusted slightly to produce a simpler
+            network:
+          </Text>
+          <Stack gap={2} mt={4}>
+            {approximations.map(a => {
+              const pct = (a.deviation * 100).toFixed(2);
+              const sign = a.deviation > 0 ? '+' : '';
+              return (
+                <Text size="xs" key={a.targetIndex} c="dimmed">
+                  Target {a.targetIndex + 1}: {a.requestedRate}/min →{' '}
+                  {Number(a.actualRate.toFixed(2))}/min ({sign}
+                  {pct}%)
+                </Text>
+              );
+            })}
+          </Stack>
+        </Alert>
+      )}
     </Paper>
   );
 }
@@ -263,6 +290,9 @@ export function SplitterCalculatorPage() {
   );
   const [calculated, setCalculated] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [approximations, setApproximations] = useState<
+    RateApproximation[] | undefined
+  >();
 
   useEffect(() => {
     const params: Record<string, string> = {};
@@ -346,6 +376,7 @@ export function SplitterCalculatorPage() {
 
   const handleCalculate = useCallback(() => {
     setError(null);
+    setApproximations(undefined);
 
     const beltSpeed = Number(maxBeltSpeed);
     const splitterTargets: SplitterTarget[] = [];
@@ -379,6 +410,7 @@ export function SplitterCalculatorPage() {
 
     const { nodes, edges } = toReactFlowGraph(simplified, beltSpeed);
     setGraphData({ nodes, edges });
+    setApproximations(simplified.approximations);
     setGraphKey(k => k + 1);
     setCalculated(true);
 
@@ -605,6 +637,7 @@ export function SplitterCalculatorPage() {
               edges={graphData.edges}
               totalSource={totalSource}
               totalTarget={totalTarget}
+              approximations={approximations}
             />
             <Group justify="space-between" align="center">
               <BeltLegend />

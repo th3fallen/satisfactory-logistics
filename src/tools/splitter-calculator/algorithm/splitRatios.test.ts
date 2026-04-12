@@ -357,6 +357,108 @@ describe('splitter calculator', () => {
     });
   });
 
+  describe('complexity budget and approximate solutions', () => {
+    test('1200x2+233x1 → 600x4: does not produce bloated network', () => {
+      const request = makeRequest(
+        [
+          { rate: 1200, count: 2 },
+          { rate: 233, count: 1 },
+        ],
+        [{ rate: 600, count: 4 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      const internalNodes = result.nodes.filter(
+        n => n.type !== 'source' && n.type !== 'target',
+      );
+      expect(
+        internalNodes.length,
+        `Too many internal nodes (${internalNodes.length}). Network is bloated.`,
+      ).toBeLessThanOrEqual(20);
+    });
+
+    test('1200x1 → 233x5: prime rate uses approximation to stay simple', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 233, count: 5 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      const internalNodes = result.nodes.filter(
+        n => n.type !== 'source' && n.type !== 'target',
+      );
+      expect(
+        internalNodes.length,
+        `Too many internal nodes (${internalNodes.length}). Approximation should simplify this.`,
+      ).toBeLessThanOrEqual(30);
+
+      if (result.approximations && result.approximations.length > 0) {
+        for (const approx of result.approximations) {
+          expect(
+            Math.abs(approx.deviation),
+            `Deviation ${approx.deviation} exceeds 5%`,
+          ).toBeLessThanOrEqual(0.05);
+        }
+      }
+    });
+
+    test('prime-rate target produces approximation with deviation flag', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 137, count: 7 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      if (result.approximations) {
+        for (const approx of result.approximations) {
+          expect(Math.abs(approx.deviation)).toBeLessThanOrEqual(0.05);
+          expect(approx.actualRate).not.toBe(approx.requestedRate);
+        }
+      }
+
+      const internalNodes = result.nodes.filter(
+        n => n.type !== 'source' && n.type !== 'target',
+      );
+      expect(
+        internalNodes.length,
+        `Too many internal nodes (${internalNodes.length}).`,
+      ).toBeLessThanOrEqual(100);
+    });
+
+    test('clean rates are not approximated', () => {
+      const request = makeRequest(
+        [{ rate: 1200, count: 1 }],
+        [{ rate: 400, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      expect(result.approximations).toBeUndefined();
+      assertTargetsReceiveCorrectRates(result, Array(3).fill(400));
+    });
+
+    test('flow assignment handles mixed sources efficiently', () => {
+      const request = makeRequest(
+        [
+          { rate: 1200, count: 1 },
+          { rate: 600, count: 1 },
+        ],
+        [{ rate: 600, count: 3 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, Array(3).fill(600));
+
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      expect(
+        splitters.length,
+        'Should need at most 1 splitter (split 1200 into 2x600)',
+      ).toBeLessThanOrEqual(1);
+    });
+  });
+
   describe('error cases', () => {
     test('targets exceed sources', () => {
       const request = makeRequest(

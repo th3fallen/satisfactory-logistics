@@ -4,6 +4,7 @@ import type {
   BeltTier,
   ConveyorLink,
   ConveyorNode,
+  RateApproximation,
   SplitterRequest,
   SplitterResult,
 } from './types';
@@ -320,10 +321,7 @@ function mergeStreamNodes(streams: ConveyorNode[]): ConveyorNode {
   return current[0];
 }
 
-function collectGraph(roots: ConveyorNode[]): {
-  nodes: ConveyorNode[];
-  links: ConveyorLink[];
-} {
+function collectGraph(roots: ConveyorNode[]): SplitterResult {
   const visited = new Set<string>();
   const allNodes: ConveyorNode[] = [];
   const allLinks: ConveyorLink[] = [];
@@ -537,27 +535,42 @@ interface FlowAssignment {
 }
 
 /**
- * Try to assign source flows to targets directly, minimizing the number of
- * splitters/mergers. Each target gets a list of (sourceIdx, amount) pairs.
- * A source may contribute its full rate to one target or split across
- * multiple targets.
- *
- * Returns null if the assignment would require splits that can't be
- * realized with equal-output splitters (i.e., the split ratio isn't
- * representable as a 2/3-smooth fraction of the source rate).
+ * Score a flow assignment by the total integer ratio units across all sources.
+ * Lower = simpler graph.
  */
-function tryFlowAssignment(
+function scoreFlowAssignment(
+  sourceRates: number[],
+  assignments: FlowAssignment[][],
+  remaining: number[],
+): number {
+  let totalUnits = 0;
+  for (let s = 0; s < sourceRates.length; s++) {
+    const portions: number[] = [];
+    for (const targetAssigns of assignments) {
+      for (const a of targetAssigns) {
+        if (a.sourceIdx === s) portions.push(a.amount);
+      }
+    }
+    if (remaining[s] > 0.01) portions.push(remaining[s]);
+    if (portions.length <= 1) continue;
+    const ratios = toIntegerRatios(portions);
+    totalUnits += ratios.reduce((a, b) => a + b, 0);
+  }
+  return totalUnits;
+}
+
+/**
+ * Run the greedy flow assignment with a given target ordering.
+ * Returns the assignments and remaining source amounts, or null if infeasible.
+ */
+function greedyFlowAssign(
   sourceRates: number[],
   targetRates: number[],
+  targetOrder: number[],
   maxBeltSpeed: number,
-): FlowAssignment[][] | null {
+): { assignments: FlowAssignment[][]; remaining: number[] } | null {
   const remaining = [...sourceRates];
   const assignments: FlowAssignment[][] = targetRates.map(() => []);
-
-  // Sort target indices by rate descending — fill largest targets first
-  const targetOrder = targetRates
-    .map((_, i) => i)
-    .sort((a, b) => targetRates[b] - targetRates[a]);
 
   for (const t of targetOrder) {
     let need = targetRates[t];
@@ -575,7 +588,6 @@ function tryFlowAssignment(
 
     // Second pass: consume whole sources that fit entirely
     if (need > 0.01) {
-      // Sort available sources descending so we pack large ones first
       const availableIndices = remaining
         .map((r, i) => i)
         .filter(i => remaining[i] > 0.01)
@@ -592,40 +604,39 @@ function tryFlowAssignment(
       }
     }
 
-    // Third pass: take a partial slice from one source to fill the remainder
+    // Third pass: prefer sources that split into clean fractions
     if (need > 0.01) {
+      let bestSource = -1;
+      let bestSmoothScore = Infinity;
       for (let s = 0; s < remaining.length; s++) {
         if (remaining[s] < need - 0.01) continue;
-        assignments[t].push({ sourceIdx: s, amount: need });
-        remaining[s] -= need;
+        const leftAfter = remaining[s] - need;
+        const portions =
+          leftAfter > 0.01 ? [need, leftAfter] : [need];
+        if (portions.length > 1) {
+          const ratios = toIntegerRatios(portions);
+          const total = ratios.reduce((a, b) => a + b, 0);
+          if (total < bestSmoothScore) {
+            bestSmoothScore = total;
+            bestSource = s;
+          }
+        } else {
+          bestSource = s;
+          bestSmoothScore = 1;
+          break;
+        }
+      }
+      if (bestSource >= 0) {
+        assignments[t].push({ sourceIdx: bestSource, amount: need });
+        remaining[bestSource] -= need;
         need = 0;
-        break;
       }
     }
 
     if (need > 0.01) return null;
   }
 
-  // Validate: each source that is partially consumed must split into
-  // amounts that are realizable with equal-output splitters. The split
-  // portions must form integer ratios whose denominator is 2/3-smooth.
-  for (let s = 0; s < sourceRates.length; s++) {
-    const portions: number[] = [];
-    for (const targetAssigns of assignments) {
-      for (const a of targetAssigns) {
-        if (a.sourceIdx === s) portions.push(a.amount);
-      }
-    }
-    if (remaining[s] > 0.01) portions.push(remaining[s]);
-    if (portions.length <= 1) continue;
-
-    const ratios = toIntegerRatios(portions);
-    const total = ratios.reduce((a, b) => a + b, 0);
-    if (!canSplitEvenly(total)) return null;
-  }
-
-  // Validate: no belt exceeds max speed. Each assignment to a target
-  // arrives on its own belt, plus a final merger belt to the target.
+  // Validate belt speeds
   for (let t = 0; t < targetRates.length; t++) {
     if (targetRates[t] > maxBeltSpeed + 0.01) return null;
     for (const a of assignments[t]) {
@@ -633,18 +644,78 @@ function tryFlowAssignment(
     }
   }
 
-  return assignments;
+  return { assignments, remaining };
 }
 
 /**
- * Check if `n` can be achieved by cascading equal-output splitters.
- * This requires n to be a product of 2s and 3s (3-smooth), or
- * achievable via loop-back (nextSmooth will handle it).
+ * Try to assign source flows to targets directly, minimizing the number of
+ * splitters/mergers. Tries multiple target orderings and picks the assignment
+ * that produces the smoothest (lowest total unit count) splits.
+ *
+ * Returns null if no ordering produces a valid assignment.
  */
-function canSplitEvenly(n: number): boolean {
-  // The splitIntoStreams function handles non-smooth counts via loop-back,
-  // so any positive integer works — but we prefer smooth ones for simplicity.
-  return n >= 1;
+function tryFlowAssignment(
+  sourceRates: number[],
+  targetRates: number[],
+  maxBeltSpeed: number,
+): FlowAssignment[][] | null {
+  const indices = targetRates.map((_, i) => i);
+
+  // Generate candidate orderings
+  const orderings: number[][] = [
+    // Largest targets first (original strategy)
+    [...indices].sort((a, b) => targetRates[b] - targetRates[a]),
+    // Smallest targets first (may leave clean remainders for large targets)
+    [...indices].sort((a, b) => targetRates[a] - targetRates[b]),
+  ];
+
+  // Also try: targets that exactly match a source rate first
+  const sourceSet = new Set(sourceRates.map(r => Math.round(r * 100)));
+  const exactFirst = [...indices].sort((a, b) => {
+    const aExact = sourceSet.has(Math.round(targetRates[a] * 100)) ? 0 : 1;
+    const bExact = sourceSet.has(Math.round(targetRates[b] * 100)) ? 0 : 1;
+    if (aExact !== bExact) return aExact - bExact;
+    return targetRates[b] - targetRates[a];
+  });
+  orderings.push(exactFirst);
+
+  // Also try: targets that are clean fractions of sources first
+  const cleanFractionFirst = [...indices].sort((a, b) => {
+    const aClean = sourceRates.some(sr => {
+      const ratio = sr / targetRates[a];
+      return Math.abs(ratio - Math.round(ratio)) < 0.01 && isSmooth(Math.round(ratio));
+    }) ? 0 : 1;
+    const bClean = sourceRates.some(sr => {
+      const ratio = sr / targetRates[b];
+      return Math.abs(ratio - Math.round(ratio)) < 0.01 && isSmooth(Math.round(ratio));
+    }) ? 0 : 1;
+    if (aClean !== bClean) return aClean - bClean;
+    return targetRates[b] - targetRates[a];
+  });
+  orderings.push(cleanFractionFirst);
+
+  let bestResult: FlowAssignment[][] | null = null;
+  let bestScore = Infinity;
+
+  for (const order of orderings) {
+    const result = greedyFlowAssign(sourceRates, targetRates, order, maxBeltSpeed);
+    if (!result) continue;
+
+    const score = scoreFlowAssignment(
+      sourceRates,
+      result.assignments,
+      result.remaining,
+    );
+    if (score < bestScore) {
+      bestScore = score;
+      bestResult = result.assignments;
+    }
+  }
+
+  // Reject if the best assignment would still produce too many unit streams
+  if (bestScore > MAX_COMPLEXITY_UNITS) return null;
+
+  return bestResult;
 }
 
 /**
@@ -788,6 +859,160 @@ function buildFlowAssignmentGraph(
 }
 
 // ---------------------------------------------------------------------------
+// Approximate rate finder
+// ---------------------------------------------------------------------------
+
+const MAX_COMPLEXITY_UNITS = 100;
+const MAX_DEVIATION = 0.05; // 5%
+
+/**
+ * Generate candidate replacement rates for a target that would produce
+ * simpler integer ratios when combined with the source rates.
+ */
+function generateCandidateRates(
+  targetRate: number,
+  sourceRates: number[],
+  maxDeviation: number,
+): number[] {
+  const candidates = new Set<number>();
+  candidates.add(targetRate);
+
+  const minRate = targetRate * (1 - maxDeviation);
+  const maxRate = targetRate * (1 + maxDeviation);
+
+  // Clean fractions of each source rate
+  const fractions = [1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 27];
+  for (const sr of sourceRates) {
+    for (const f of fractions) {
+      const candidate = sr / f;
+      if (candidate >= minRate && candidate <= maxRate) {
+        candidates.add(candidate);
+      }
+      // Also try multiples (for merging)
+      for (const m of [2, 3]) {
+        const mc = (sr * m) / f;
+        if (mc >= minRate && mc <= maxRate) {
+          candidates.add(mc);
+        }
+      }
+    }
+  }
+
+  // Nearby integers
+  const lo = Math.ceil(minRate);
+  const hi = Math.floor(maxRate);
+  for (let r = lo; r <= hi; r++) {
+    candidates.add(r);
+  }
+
+  return [...candidates].sort((a, b) => {
+    // Prefer rates closer to the original
+    return Math.abs(a - targetRate) - Math.abs(b - targetRate);
+  });
+}
+
+/**
+ * When exact integer ratios would produce too many unit streams,
+ * find nearby target rates that result in much smaller total units.
+ *
+ * Returns null if no useful approximation exists (exact is fine or
+ * nothing better was found within tolerance).
+ */
+function findApproximateRates(
+  sourceRates: number[],
+  targetRates: number[],
+  maxDeviation: number = MAX_DEVIATION,
+): { rates: number[]; approximations: RateApproximation[] } | null {
+  const allRates = [...sourceRates, ...targetRates];
+  const exactRatios = toIntegerRatios(allRates);
+  const exactTotal = exactRatios.reduce((a, b) => a + b, 0);
+
+  if (exactTotal <= MAX_COMPLEXITY_UNITS) return null;
+
+  // Generate candidates for each target
+  const candidatesPerTarget = targetRates.map(rate =>
+    generateCandidateRates(rate, sourceRates, maxDeviation),
+  );
+
+  let bestRates: number[] | null = null;
+  let bestTotal = exactTotal;
+
+  // Optimization: find groups of identical target rates. When multiple
+  // targets share the same rate, we only need to try candidates once per
+  // unique rate, then apply the same replacement to all.
+  const uniqueRates = [...new Set(targetRates)];
+  const rateIndices = new Map<number, number[]>();
+  for (let i = 0; i < targetRates.length; i++) {
+    const r = targetRates[i];
+    if (!rateIndices.has(r)) rateIndices.set(r, []);
+    rateIndices.get(r)!.push(i);
+  }
+
+  // Try replacing each unique rate group uniformly
+  for (const [origRate, indices] of rateIndices) {
+    const candidates = generateCandidateRates(origRate, sourceRates, maxDeviation);
+    for (const candidate of candidates.slice(0, 30)) {
+      const trial = [...targetRates];
+      for (const idx of indices) {
+        trial[idx] = candidate;
+      }
+      const allTrial = [...sourceRates, ...trial];
+      const ratios = toIntegerRatios(allTrial);
+      const total = ratios.reduce((a, b) => a + b, 0);
+      if (total < bestTotal) {
+        bestTotal = total;
+        bestRates = trial;
+      }
+    }
+  }
+
+  // Also try combinations of unique rates when there are few unique groups
+  if (uniqueRates.length <= 3) {
+    const uniqueCandidates = uniqueRates.map(r =>
+      generateCandidateRates(r, sourceRates, maxDeviation).slice(0, 20),
+    );
+
+    function searchUnique(idx: number, current: Map<number, number>): void {
+      if (idx === uniqueRates.length) {
+        const trial = targetRates.map(r => current.get(r) ?? r);
+        const allTrial = [...sourceRates, ...trial];
+        const ratios = toIntegerRatios(allTrial);
+        const total = ratios.reduce((a, b) => a + b, 0);
+        if (total < bestTotal) {
+          bestTotal = total;
+          bestRates = [...trial];
+        }
+        return;
+      }
+      for (const candidate of uniqueCandidates[idx]) {
+        current.set(uniqueRates[idx], candidate);
+        searchUnique(idx + 1, current);
+      }
+    }
+    searchUnique(0, new Map());
+  }
+
+  if (!bestRates || bestTotal >= exactTotal) return null;
+
+  // Build the approximation records
+  const approximations: RateApproximation[] = [];
+  for (let t = 0; t < targetRates.length; t++) {
+    if (Math.abs(bestRates[t] - targetRates[t]) > 0.001) {
+      approximations.push({
+        targetIndex: t,
+        requestedRate: targetRates[t],
+        actualRate: bestRates[t],
+        deviation: (bestRates[t] - targetRates[t]) / targetRates[t],
+      });
+    }
+  }
+
+  return approximations.length > 0
+    ? { rates: bestRates, approximations }
+    : null;
+}
+
+// ---------------------------------------------------------------------------
 // Fallback: unit-rate algorithm (previous approach)
 // ---------------------------------------------------------------------------
 
@@ -810,6 +1035,68 @@ function fallbackCalculation(
     );
   }
 
+  // Check complexity of exact solution
+  const allRates = [...sourceRates, ...targetRates];
+  const intRatios = toIntegerRatios(allRates);
+  const totalUnits = intRatios.reduce((a, b) => a + b, 0);
+
+  // If exact solution is too complex, try approximate rates.
+  // Only approximate the real targets, not the leftover target.
+  if (totalUnits > MAX_COMPLEXITY_UNITS) {
+    const hasLeftover = leftover > 0.01;
+    const realTargets = hasLeftover
+      ? targetRates.slice(0, -1)
+      : targetRates;
+
+    const approx = findApproximateRates(sourceRates, realTargets);
+    if (approx) {
+      const totalSource = sourceRates.reduce((a, b) => a + b, 0);
+      const newTotalTarget = approx.rates.reduce((a, b) => a + b, 0);
+      const newLeftover = totalSource - newTotalTarget;
+      const adjustedTargets =
+        newLeftover > 0.01
+          ? [...approx.rates, newLeftover]
+          : [...approx.rates];
+
+      // Try flow assignment with approximate rates first
+      const approxAssignments = tryFlowAssignment(
+        sourceRates,
+        adjustedTargets,
+        maxBeltSpeed,
+      );
+      if (approxAssignments) {
+        const result = buildFlowAssignmentGraph(
+          sourceRates,
+          adjustedTargets,
+          approxAssignments,
+          newLeftover,
+          maxBeltSpeed,
+        );
+        result.approximations = approx.approximations;
+        return result;
+      }
+
+      // Fall through to unit-rate with approximate rates
+      return buildUnitRateGraph(
+        sourceRates,
+        adjustedTargets,
+        newLeftover,
+        maxBeltSpeed,
+        approx.approximations,
+      );
+    }
+  }
+
+  return buildUnitRateGraph(sourceRates, targetRates, leftover, maxBeltSpeed);
+}
+
+function buildUnitRateGraph(
+  sourceRates: number[],
+  targetRates: number[],
+  leftover: number,
+  maxBeltSpeed: number,
+  approximations?: RateApproximation[],
+): SplitterResult {
   const hasLeftover = leftover > 0.01;
   const allRates = [...sourceRates, ...targetRates];
   const intRatios = toIntegerRatios(allRates);
@@ -857,6 +1144,10 @@ function fallbackCalculation(
 
   const graph = collectGraph(sourceNodes);
   removePassthroughs(graph.nodes, graph.links);
+
+  if (approximations) {
+    graph.approximations = approximations;
+  }
 
   return graph;
 }
