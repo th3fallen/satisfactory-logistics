@@ -12,6 +12,7 @@ import type {
 const MAX_MERGE = 3;
 
 let nodeIdCounter = 0;
+let solveDepth = 0;
 
 function createNode(
   type: ConveyorNode['type'],
@@ -1705,14 +1706,172 @@ function buildSmartSplitterGraph(
 }
 
 // ---------------------------------------------------------------------------
+// Independent sub-problem decomposition
+// ---------------------------------------------------------------------------
+
+/**
+ * Try to partition sources and targets into independent groups where
+ * each group can be solved separately. A group is independent when one
+ * or more sources exactly cover a subset of targets with no leftover
+ * (or all leftover concentrated in one group).
+ *
+ * For example: 1×1200 + 1×600 → 10×120 + 10×60
+ *   Group A: 1200 → 10×120 (exact match)
+ *   Group B: 600 → 10×60  (exact match)
+ * Each group can then use its own optimal strategy (smart splitter, etc.)
+ */
+function tryIndependentSubproblems(
+  sourceRates: number[],
+  targetRates: number[],
+  leftover: number,
+  request: SplitterRequest,
+): SplitterResult | null {
+  const hasLeftover = leftover > 0.01;
+  const realTargets = hasLeftover ? targetRates.slice(0, -1) : targetRates;
+
+  // Group identical targets by rate
+  const targetsByRate = new Map<number, number[]>();
+  for (let i = 0; i < realTargets.length; i++) {
+    const rate = Math.round(realTargets[i] * 100) / 100;
+    if (!targetsByRate.has(rate)) targetsByRate.set(rate, []);
+    targetsByRate.get(rate)!.push(i);
+  }
+
+  // Try to match each source (or group of same-rate sources) to a
+  // group of same-rate targets where the totals match exactly.
+  const usedSources = new Set<number>();
+  const usedTargetGroups = new Set<number>();
+  const groups: {
+    sourceIndices: number[];
+    targetRate: number;
+    targetCount: number;
+  }[] = [];
+
+  // Sort target rates descending so we match large groups first
+  const uniqueTargetRates = [...targetsByRate.keys()].sort((a, b) => b - a);
+
+  for (const targetRate of uniqueTargetRates) {
+    const targetIndices = targetsByRate.get(targetRate)!;
+    const totalTargetNeed = targetRate * targetIndices.length;
+
+    // Find a set of unused sources whose total exactly matches
+    const availableSources = sourceRates
+      .map((r, i) => ({ rate: r, idx: i }))
+      .filter(s => !usedSources.has(s.idx));
+
+    // Try single source match first
+    let matched = false;
+    for (const s of availableSources) {
+      if (Math.abs(s.rate - totalTargetNeed) < 0.01) {
+        groups.push({
+          sourceIndices: [s.idx],
+          targetRate,
+          targetCount: targetIndices.length,
+        });
+        usedSources.add(s.idx);
+        usedTargetGroups.add(targetRate);
+        matched = true;
+        break;
+      }
+    }
+
+    // Try multi-source match (2-3 sources summing to target need)
+    if (!matched) {
+      for (let i = 0; i < availableSources.length && !matched; i++) {
+        for (let j = i + 1; j < availableSources.length && !matched; j++) {
+          const sum2 = availableSources[i].rate + availableSources[j].rate;
+          if (Math.abs(sum2 - totalTargetNeed) < 0.01) {
+            groups.push({
+              sourceIndices: [availableSources[i].idx, availableSources[j].idx],
+              targetRate,
+              targetCount: targetIndices.length,
+            });
+            usedSources.add(availableSources[i].idx);
+            usedSources.add(availableSources[j].idx);
+            usedTargetGroups.add(targetRate);
+            matched = true;
+          }
+        }
+      }
+    }
+  }
+
+  // Need at least 2 independent groups for this to be useful
+  if (groups.length < 2) return null;
+
+  // All sources must be accounted for
+  if (usedSources.size !== sourceRates.length) return null;
+
+  // All real targets must be accounted for
+  const coveredTargets = groups.reduce((sum, g) => sum + g.targetCount, 0);
+  if (coveredTargets !== realTargets.length) return null;
+
+  // Solve each group independently
+  const subResults: SplitterResult[] = [];
+
+  for (const group of groups) {
+    const subSources = group.sourceIndices.map(i => ({
+      rate: sourceRates[i],
+      count: 1,
+    }));
+    const subTargets = [{ rate: group.targetRate, count: group.targetCount }];
+
+    const subResult = calculateSplitterNetwork({
+      sources: subSources,
+      targets: subTargets,
+      maxBeltSpeed: request.maxBeltSpeed,
+      allowSmartSplitters: request.allowSmartSplitters,
+      useDecomposition: request.useDecomposition,
+    });
+
+    if (subResult.error) return null;
+    subResults.push(subResult);
+  }
+
+  // Merge all sub-results into one graph
+  const allNodes: ConveyorNode[] = [];
+  const allLinks: ConveyorLink[] = [];
+  for (const sub of subResults) {
+    allNodes.push(...sub.nodes);
+    allLinks.push(...sub.links);
+  }
+
+  // Renumber source and target labels globally
+  let sourceIdx = 1;
+  let targetIdx = 1;
+  for (const node of allNodes) {
+    if (node.type === 'source') {
+      node.label = `Source ${sourceIdx++}`;
+    } else if (node.type === 'target' && !node.label?.startsWith('Leftover')) {
+      node.label = `Target ${targetIdx++}: ${node.holding}/min`;
+    }
+  }
+
+  return {
+    nodes: allNodes,
+    links: allLinks,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Main entry point
 // ---------------------------------------------------------------------------
 
 export function calculateSplitterNetwork(
   request: SplitterRequest,
 ): SplitterResult {
-  nodeIdCounter = 0;
+  const isTopLevel = solveDepth === 0;
+  if (isTopLevel) nodeIdCounter = 0;
+  solveDepth++;
 
+  try {
+    return solveNetwork(request);
+  } finally {
+    solveDepth--;
+  }
+}
+
+function solveNetwork(request: SplitterRequest): SplitterResult {
   const sourceRates: number[] = [];
   for (const s of request.sources) {
     for (let i = 0; i < s.count; i++) {
@@ -1799,6 +1958,21 @@ export function calculateSplitterNetwork(
         );
       }
     }
+  }
+
+  // Try to decompose into independent sub-problems. When multiple
+  // sources each independently serve a disjoint group of targets
+  // (e.g., 1200→10×120 and 600→10×60), solve each group separately
+  // so each can use the optimal strategy (smart splitter, belt-capped
+  // chain, etc.) instead of falling into the generic flow assignment.
+  if (sourceRates.length >= 2) {
+    const subResult = tryIndependentSubproblems(
+      sourceRates,
+      targetRates,
+      leftover,
+      request,
+    );
+    if (subResult) return subResult;
   }
 
   return fallbackCalculation(

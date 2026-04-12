@@ -806,6 +806,110 @@ describe('splitter calculator', () => {
     });
   });
 
+  describe('independent sub-problem decomposition', () => {
+    test('1x1200 + 1x600 → 10x120 + 10x60: each source solves independently, no loopbacks', () => {
+      const request = makeRequest(
+        [
+          { rate: 1200, count: 1 },
+          { rate: 600, count: 1 },
+        ],
+        [
+          { rate: 120, count: 10 },
+          { rate: 60, count: 10 },
+        ],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, [
+        ...Array(10).fill(120),
+        ...Array(10).fill(60),
+      ]);
+
+      // Should have no loopback edges (no edge going "backwards")
+      const nodeIds = new Set(result.nodes.map(n => n.id));
+      const mergerInputs = new Map<string, Set<string>>();
+      for (const link of result.links) {
+        if (link.to.type === 'merger') {
+          if (!mergerInputs.has(link.to.id)) {
+            mergerInputs.set(link.to.id, new Set());
+          }
+          mergerInputs.get(link.to.id)!.add(link.from.id);
+        }
+      }
+      // In a loopback, a splitter output feeds back into a merger
+      // that then feeds the same splitter. Check no such cycle exists.
+      for (const [mergerId, fromIds] of mergerInputs) {
+        const merger = result.nodes.find(n => n.id === mergerId);
+        if (!merger) continue;
+        for (const child of merger.children) {
+          // If a merger's child is a splitter that also feeds back into this merger
+          const childNode = child.to;
+          if (childNode.type === 'splitter') {
+            for (const grandchild of childNode.children) {
+              expect(
+                fromIds.has(grandchild.to.id),
+                `Loopback detected: ${childNode.id} → ${grandchild.to.id} → ${mergerId}`,
+              ).toBe(false);
+            }
+          }
+        }
+      }
+    });
+
+    test('sub-problems produce unique node IDs and sequential target labels', () => {
+      const request = makeRequest(
+        [
+          { rate: 1200, count: 1 },
+          { rate: 600, count: 1 },
+        ],
+        [
+          { rate: 120, count: 10 },
+          { rate: 60, count: 10 },
+        ],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+
+      // All node IDs must be unique
+      const ids = result.nodes.map(n => n.id);
+      const uniqueIds = new Set(ids);
+      expect(
+        uniqueIds.size,
+        `Duplicate node IDs found: ${ids.filter((id, i) => ids.indexOf(id) !== i).join(', ')}`,
+      ).toBe(ids.length);
+
+      // Target labels should be numbered sequentially 1-20
+      const targetLabels = result.nodes
+        .filter(n => n.type === 'target' && !n.label?.startsWith('Leftover'))
+        .map(n => n.label!);
+      expect(targetLabels.length).toBe(20);
+      for (let i = 0; i < 20; i++) {
+        expect(
+          targetLabels.some(l => l.startsWith(`Target ${i + 1}:`)),
+          `Missing Target ${i + 1} label`,
+        ).toBe(true);
+      }
+
+      // Source labels should be "Source 1" and "Source 2"
+      const sourceLabels = result.nodes
+        .filter(n => n.type === 'source')
+        .map(n => n.label!);
+      expect(sourceLabels).toContain('Source 1');
+      expect(sourceLabels).toContain('Source 2');
+    });
+
+    test('3x400 → 6x200: sources pair with target groups', () => {
+      const request = makeRequest(
+        [{ rate: 400, count: 3 }],
+        [{ rate: 200, count: 6 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertTargetsReceiveCorrectRates(result, Array(6).fill(200));
+    });
+  });
+
   describe('edge cases', () => {
     test('1x1200 → 1x1200: direct connection, no splitter needed', () => {
       const request = makeRequest(
