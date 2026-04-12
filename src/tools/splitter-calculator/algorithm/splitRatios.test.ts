@@ -349,6 +349,7 @@ describe('splitter calculator', () => {
       );
       expect(smartSplitters.length).toBe(1);
     });
+
   });
 
   describe('complexity budget and approximate solutions', () => {
@@ -787,6 +788,32 @@ describe('splitter calculator', () => {
         Math.abs(leftoverTargets[0].parents[0].carrying - 120),
       ).toBeLessThan(0.01);
     });
+
+    test('1x300 → 1x240: leftover 60 is belt speed, single splitter with belt caps', () => {
+      const request = makeRequest(
+        [{ rate: 300, count: 1 }],
+        [{ rate: 240, count: 1 }],
+      );
+      const result = calculateSplitterNetwork(request);
+      assertNoError(result);
+      assertBeltsWithinSpeed(result, 1200);
+      assertTargetsReceiveCorrectRates(result, [240]);
+
+      const leftoverTargets = result.nodes.filter(
+        n => n.type === 'target' && n.label?.startsWith('Leftover'),
+      );
+      expect(leftoverTargets.length).toBe(1);
+      expect(
+        Math.abs(leftoverTargets[0].parents[0].carrying - 60),
+      ).toBeLessThan(0.01);
+
+      // Simple: source → splitter → target + leftover (no loopbacks)
+      const splitters = result.nodes.filter(n => n.type === 'splitter');
+      expect(splitters.length).toBeLessThanOrEqual(1);
+      const mergers = result.nodes.filter(n => n.type === 'merger');
+      expect(mergers.length).toBe(0);
+    });
+
   });
 
   describe('independent sub-problem decomposition', () => {

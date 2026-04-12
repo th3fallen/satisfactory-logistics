@@ -804,6 +804,22 @@ function findApproximateRates(
  *
  * Returns the graph if applicable, null otherwise.
  */
+/**
+ * Check that a tap output requires a strictly lower belt tier than the
+ * input. Backpressure splitting only works when the output belt is
+ * slower than the source belt feeding the splitter.
+ */
+function tapBeltIsLower(
+  inputRate: number,
+  tapRate: number,
+  maxBeltSpeed: number,
+): boolean {
+  const inputBelt = getBeltForRate(inputRate, maxBeltSpeed);
+  const tapBelt = getBeltForRate(tapRate, maxBeltSpeed);
+  if (!inputBelt || !tapBelt) return false;
+  return tapBelt.speed < inputBelt.speed;
+}
+
 function tryBeltCappedChain(
   sourceRates: number[],
   targetRates: number[],
@@ -812,40 +828,117 @@ function tryBeltCappedChain(
 ): SplitterResult | null {
   const hasLeftover = leftover > 0.01;
   const realTargets = hasLeftover ? targetRates.slice(0, -1) : targetRates;
-  if (realTargets.length < 2) return null;
 
   const beltSpeeds = new Set(getBeltTiers(maxBeltSpeed).map(t => t.speed));
-
-  // Every real target must match an exact belt tier speed
-  for (const rate of realTargets) {
-    if (!beltSpeeds.has(Math.round(rate))) return null;
-  }
-
   const totalSource = sourceRates.reduce((a, b) => a + b, 0);
 
   // Total flow into the chain must not exceed max belt speed
   if (totalSource > maxBeltSpeed + 0.01) return null;
 
-  // Sort targets descending so larger taps come first (avoids a
-  // target rate exceeding the remaining flow partway through).
-  const sortedTargets = realTargets
-    .map((rate, i) => ({ rate, originalIdx: i }))
-    .sort((a, b) => b.rate - a.rate);
+  // Standard chain: every real target matches a belt speed
+  const allTargetsBeltSpeed =
+    realTargets.length >= 2 &&
+    realTargets.every(rate => beltSpeeds.has(Math.round(rate)));
 
-  // Verify the chain is feasible: at each step the remaining flow
-  // must be >= the tap rate.
-  let remaining = totalSource;
-  for (const t of sortedTargets) {
-    if (t.rate > remaining + 0.01) return null;
-    remaining -= t.rate;
+  if (allTargetsBeltSpeed) {
+    const sortedTargets = realTargets
+      .map((rate, i) => ({ rate, originalIdx: i }))
+      .sort((a, b) => b.rate - a.rate);
+
+    // Verify feasibility: at each splitter the tap output must use a
+    // strictly lower belt tier than the input for backpressure to work.
+    // The final target that consumes all remaining flow is a direct
+    // connection (no splitter), so it doesn't need the belt check.
+    let remaining = totalSource;
+    for (const t of sortedTargets) {
+      if (t.rate > remaining + 0.01) return null;
+      const passthrough = remaining - t.rate;
+      const isDirectFinal = passthrough < 0.01 && !hasLeftover;
+      if (!isDirectFinal && !tapBeltIsLower(remaining, t.rate, maxBeltSpeed))
+        return null;
+      remaining = passthrough;
+    }
+
+    return buildBeltCappedChainGraph(
+      sourceRates,
+      sortedTargets,
+      leftover,
+      maxBeltSpeed,
+    );
   }
 
-  return buildBeltCappedChainGraph(
-    sourceRates,
-    sortedTargets,
-    leftover,
-    maxBeltSpeed,
-  );
+  // Inverse: leftover matches a belt speed. A splitter with belt-capped
+  // outputs on both sides distributes flow via backpressure — the
+  // leftover output gets a belt matching its rate, and the target
+  // output gets a belt sized for the remainder.
+  if (hasLeftover && beltSpeeds.has(Math.round(leftover))) {
+    const remainderRate = totalSource - leftover;
+    if (remainderRate > maxBeltSpeed + 0.01) return null;
+    if (remainderRate < 0.01) return null;
+
+    // Both output belts must be strictly slower than the input belt
+    // since both outputs are terminal (no downstream chain to create
+    // additional backpressure).
+    if (
+      !tapBeltIsLower(totalSource, leftover, maxBeltSpeed) ||
+      !tapBeltIsLower(totalSource, remainderRate, maxBeltSpeed)
+    )
+      return null;
+
+    const sourceNodes: ConveyorNode[] = sourceRates.map((rate, i) =>
+      createNode('source', rate, `Source ${i + 1}`),
+    );
+    let chainInput: ConveyorNode;
+    if (sourceNodes.length === 1) {
+      chainInput = sourceNodes[0];
+    } else {
+      chainInput = mergeStreamNodes(sourceNodes);
+    }
+
+    const splitter = createNode('splitter', totalSource);
+    link(chainInput, splitter, totalSource);
+
+    // Leftover tap (belt-capped)
+    const leftoverTarget = createNode(
+      'target',
+      leftover,
+      `Leftover: ${leftover}/min`,
+    );
+    link(splitter, leftoverTarget, leftover);
+
+    // Remainder to real target(s)
+    let current: ConveyorNode = splitter;
+    let currentRate = remainderRate;
+    for (let i = 0; i < realTargets.length; i++) {
+      const rate = realTargets[i];
+      const isLast = i === realTargets.length - 1;
+      if (isLast && Math.abs(currentRate - rate) < 0.01) {
+        const target = createNode(
+          'target',
+          rate,
+          `Target ${i + 1}: ${rate}/min`,
+        );
+        link(current, target, rate);
+      } else {
+        const nextSplitter = createNode('splitter', currentRate);
+        link(current, nextSplitter, currentRate);
+        const target = createNode(
+          'target',
+          rate,
+          `Target ${i + 1}: ${rate}/min`,
+        );
+        link(nextSplitter, target, rate);
+        currentRate -= rate;
+        current = nextSplitter;
+      }
+    }
+
+    const graph = collectGraph(sourceNodes);
+    removePassthroughs(graph.nodes, graph.links);
+    return graph;
+  }
+
+  return null;
 }
 
 function buildBeltCappedChainGraph(
@@ -1669,7 +1762,7 @@ function solveNetwork(request: SplitterRequest): SplitterResult {
     targetRates.push(leftover);
   }
 
-  // Try smart splitter partitioning first when allowed and single-source.
+  // Try smart splitter partitioning when allowed and single-source.
   // Uses belt-capacity + overflow to produce asymmetric branches where
   // each branch feeds a clean 3-smooth splitter tree.
   if (request.allowSmartSplitters && sourceRates.length === 1) {
