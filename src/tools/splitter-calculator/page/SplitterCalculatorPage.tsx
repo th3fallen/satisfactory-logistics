@@ -285,9 +285,6 @@ export function SplitterCalculatorPage() {
   const [allowSmart, setAllowSmart] = useState(
     searchParams.get('smart') !== '0',
   );
-  const [useDecomposition, setUseDecomposition] = useState(
-    searchParams.get('decomp') === '1',
-  );
   const [calculated, setCalculated] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [approximations, setApproximations] = useState<
@@ -300,16 +297,8 @@ export function SplitterCalculatorPage() {
     params.t = rowsToParam(targets);
     if (maxBeltSpeed !== DEFAULT_BELT_SPEED) params.belt = maxBeltSpeed;
     if (!allowSmart) params.smart = '0';
-    if (useDecomposition) params.decomp = '1';
     setSearchParams(params, { replace: true });
-  }, [
-    sources,
-    targets,
-    maxBeltSpeed,
-    allowSmart,
-    useDecomposition,
-    setSearchParams,
-  ]);
+  }, [sources, targets, maxBeltSpeed, allowSmart, setSearchParams]);
 
   const [graphData, setGraphData] = useState<{
     nodes: ReturnType<typeof toReactFlowGraph>['nodes'];
@@ -391,7 +380,6 @@ export function SplitterCalculatorPage() {
       targets: splitterTargets,
       maxBeltSpeed: beltSpeed,
       allowSmartSplitters: allowSmart,
-      useDecomposition,
     });
 
     if (result.error) {
@@ -435,7 +423,7 @@ export function SplitterCalculatorPage() {
       },
     };
     setDebugInfo(JSON.stringify(debug, null, 2));
-  }, [sources, targets, maxBeltSpeed, allowSmart, useDecomposition]);
+  }, [sources, targets, maxBeltSpeed, allowSmart]);
 
   return (
     <Container size="xl" py="md">
@@ -575,13 +563,6 @@ export function SplitterCalculatorPage() {
               description="Use smart splitters to simplify unequal splits"
               checked={allowSmart}
               onChange={e => setAllowSmart(e.currentTarget.checked)}
-              mt={6}
-            />
-            <Switch
-              label="Use Alternate Solver"
-              description="Decomposition-based solver that produces simpler networks"
-              checked={useDecomposition}
-              onChange={e => setUseDecomposition(e.currentTarget.checked)}
               mt={6}
             />
           </Group>

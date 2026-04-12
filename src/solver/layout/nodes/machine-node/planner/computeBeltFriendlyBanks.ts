@@ -766,6 +766,5 @@ export function bankOptionToSplitterRequest(
     ],
     maxBeltSpeed: line.transportSpeed,
     allowSmartSplitters: false,
-    useDecomposition: true,
   };
 }

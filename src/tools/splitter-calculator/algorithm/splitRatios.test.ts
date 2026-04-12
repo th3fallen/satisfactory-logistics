@@ -6,14 +6,12 @@ function makeRequest(
   sources: { rate: number; count: number }[],
   targets: { rate: number; count: number }[],
   maxBeltSpeed = 1200,
-  useDecomposition = false,
 ): SplitterRequest {
   return {
     sources,
     targets,
     maxBeltSpeed,
     allowSmartSplitters: false,
-    useDecomposition,
   };
 }
 
@@ -206,20 +204,6 @@ describe('splitter calculator', () => {
     });
   });
 
-  describe('decomposition algorithm', () => {
-    test('6x1200 → 10x720: decomposition path', () => {
-      const request = makeRequest(
-        [{ rate: 1200, count: 6 }],
-        [{ rate: 720, count: 10 }],
-        1200,
-        true,
-      );
-      const result = calculateSplitterNetwork(request);
-      assertNoError(result);
-      assertTargetsReceiveCorrectRates(result, Array(10).fill(720));
-    });
-  });
-
   describe('mixed-rate source routing', () => {
     test('1050+750+600 → 2×1200: should minimize splitting when sources nearly match targets', () => {
       const request = makeRequest(
@@ -297,7 +281,6 @@ describe('splitter calculator', () => {
         targets,
         maxBeltSpeed,
         allowSmartSplitters: true,
-        useDecomposition: false,
       };
     }
 

@@ -105,11 +105,20 @@ function getLayoutedElements(
     for (const n of postSplitters) n.position.x = splitterX;
   }
 
-  // Align mergers that feed directly into targets
+  // Align mergers that feed directly into targets, but only if they are
+  // dedicated merger/splitter nodes whose *only* role is feeding targets.
+  // In a chain topology each splitter also feeds the next splitter, so
+  // pulling them all to the same X column would create a huge gap.
   const targetIds = new Set(targetNodes.map(n => n.id));
   const preMergerIds = new Set<string>();
   for (const edge of edges) {
     if (targetIds.has(edge.target)) preMergerIds.add(edge.source);
+  }
+  // Exclude nodes that also feed non-target children (chain splitters)
+  for (const edge of edges) {
+    if (!targetIds.has(edge.target) && preMergerIds.has(edge.source)) {
+      preMergerIds.delete(edge.source);
+    }
   }
   const preMergers = layoutedNodes.filter(n => preMergerIds.has(n.id));
   if (preMergers.length > 1) {
