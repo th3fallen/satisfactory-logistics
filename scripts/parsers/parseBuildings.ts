@@ -33,9 +33,11 @@ export function parseBuildings(docsJson: any) {
       return acc;
     }, {});
 
+  const buildCostMap = parseBuildCosts(docsJson);
+
   const buildings = rawBuildings
     .map((building, index) =>
-      parseBuilding(building, index, buildingDescriptorsImages),
+      parseBuilding(building, index, buildingDescriptorsImages, buildCostMap),
     )
     .filter(Boolean);
 
@@ -47,7 +49,49 @@ export function parseBuildings(docsJson: any) {
   );
 }
 
-function parseBuilding(building, index, buildingDescriptorsImages) {
+const BuildCostIngredientRegex =
+  /\(ItemClass=(?:[^)]*)\.([^']*)(?:[^)]*)Amount=([\d.]+)\)/gm;
+
+/**
+ * Extracts building costs from BuildGun recipes.
+ * These are recipes whose mProducedIn includes BP_BuildGun and whose
+ * mProduct references a Desc_ class that maps to a Build_ building.
+ */
+function parseBuildCosts(docsJson: any) {
+  const costMap: Record<string, Array<{ resource: string; amount: number }>> =
+    {};
+
+  const allRecipes = docsJson.flatMap(nativeClass => {
+    if (nativeClass.NativeClass?.includes('FGRecipe')) {
+      return nativeClass.Classes;
+    }
+    return [];
+  });
+
+  for (const recipe of allRecipes) {
+    if (!recipe.mProducedIn?.includes('BuildGun')) continue;
+
+    const productMatch = recipe.mProduct?.match(/\.([^']*_C)/);
+    if (!productMatch) continue;
+
+    const descId = productMatch[1];
+    const buildId = descId.replace('Desc_', 'Build_');
+
+    const ingredients = [
+      ...recipe.mIngredients.matchAll(BuildCostIngredientRegex),
+    ];
+    if (ingredients.length === 0) continue;
+
+    costMap[buildId] = ingredients.map(([_, resource, amount]) => ({
+      resource,
+      amount: parseFloat(amount),
+    }));
+  }
+
+  return costMap;
+}
+
+function parseBuilding(building, index, buildingDescriptorsImages, buildCostMap) {
   console.log(`Importing -> `, building.ClassName);
 
   const minimumPowerConsumption = building.mEstimatedMininumPowerConsumption
@@ -90,6 +134,7 @@ function parseBuilding(building, index, buildingDescriptorsImages) {
     conveyor: parseBuildingBelt(building),
     pipeline: parseBuildingsPipeline(building),
     extractor: parseBuildingExtractor(building),
+    buildCost: buildCostMap[building.ClassName] ?? [],
     powerGenerator: building.mFuel
       ? {
           fuels: building.mFuel.map(fuel => {

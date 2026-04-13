@@ -22,7 +22,21 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_ModularFrameHeavy_C",
+        "amount": 1
+      },
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Plastic_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_PipelinePump_C",
@@ -47,7 +61,17 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Rotor_C",
+        "amount": 2
+      }
+    ]
   },
   {
     "id": "Build_Valve_C",
@@ -72,7 +96,17 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Rubber_C",
+        "amount": 4
+      },
+      {
+        "resource": "Desc_SteelPlate_C",
+        "amount": 4
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk1_C",
@@ -97,7 +131,13 @@
       "speed": 60
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk5_C",
@@ -122,7 +162,13 @@
       "speed": 780
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_AluminumPlate_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk6_C",
@@ -147,7 +193,17 @@
       "speed": 1200
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_FicsiteMesh_C",
+        "amount": 1
+      },
+      {
+        "resource": "Desc_TimeCrystal_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk4_C",
@@ -172,7 +228,13 @@
       "speed": 480
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_SteelPlateReinforced_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk3_C",
@@ -197,7 +259,13 @@
       "speed": 270
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_SteelPlate_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_ConveyorBeltMk2_C",
@@ -222,7 +290,13 @@
       "speed": 120
     },
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlateReinforced_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_GeneratorCoal_C",
@@ -245,6 +319,20 @@
     "conveyor": null,
     "pipeline": null,
     "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlateReinforced_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_Rotor_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 30
+      }
+    ],
     "powerGenerator": {
       "fuels": [
         {
@@ -284,6 +372,28 @@
     "conveyor": null,
     "pipeline": null,
     "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 15
+      },
+      {
+        "resource": "Desc_SteelPlateReinforced_C",
+        "amount": 15
+      },
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 30
+      },
+      {
+        "resource": "Desc_Rubber_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_HighSpeedWire_C",
+        "amount": 50
+      }
+    ],
     "powerGenerator": {
       "fuels": [
         {
@@ -329,6 +439,20 @@
     "conveyor": null,
     "pipeline": null,
     "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 15
+      },
+      {
+        "resource": "Desc_IronRod_C",
+        "amount": 15
+      },
+      {
+        "resource": "Desc_Wire_C",
+        "amount": 25
+      }
+    ],
     "powerGenerator": {
       "fuels": [
         {
@@ -379,7 +503,17 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 2
+      }
+    ]
   },
   {
     "id": "Build_PipeSupportStackable_C",
@@ -404,7 +538,21 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 4
+      },
+      {
+        "resource": "Desc_IronRod_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 2
+      }
+    ]
   },
   {
     "id": "Build_HyperPoleStackable_C",
@@ -429,7 +577,21 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 4
+      },
+      {
+        "resource": "Desc_IronRod_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 2
+      }
+    ]
   },
   {
     "id": "Build_PipeHyperSupport_C",
@@ -454,7 +616,17 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 2
+      }
+    ]
   },
   {
     "id": "Build_Pipeline_C",
@@ -479,7 +651,13 @@
       "isPipeline": true,
       "flowRate": 300
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_PipelineMK2_C",
@@ -504,7 +682,17 @@
       "isPipeline": true,
       "flowRate": 600
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Plastic_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_PipelineMK2_NoIndicator_C",
@@ -529,7 +717,17 @@
       "isPipeline": true,
       "flowRate": 600
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Plastic_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_Pipeline_NoIndicator_C",
@@ -554,7 +752,13 @@
       "isPipeline": true,
       "flowRate": 300
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 1
+      }
+    ]
   },
   {
     "id": "Build_PipelineJunction_Cross_C",
@@ -579,7 +783,13 @@
       "isPipeline": true,
       "flowRate": null
     },
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 5
+      }
+    ]
   },
   {
     "id": "Build_WaterPump_C",
@@ -603,12 +813,30 @@
     "pipeline": null,
     "extractor": {
       "type": "None",
-      "allowedForms": ["Liquid"],
-      "allowedResources": ["Desc_Water_C"],
+      "allowedForms": [
+        "Liquid"
+      ],
+      "allowedResources": [
+        "Desc_Water_C"
+      ],
       "itemsPerCycle": 2,
       "cycleTime": 1,
       "itemsPerMinute": 120
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_IronPlateReinforced_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Rotor_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_QuantumEncoder_C",
@@ -630,7 +858,29 @@
     "imagePath": "/images/game/quantum-encoder_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_MotorLightweight_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_ComputerSuper_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_CoolingSystem_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_TimeCrystal_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_FicsiteMesh_C",
+        "amount": 100
+      }
+    ]
   },
   {
     "id": "Build_Converter_C",
@@ -652,7 +902,25 @@
     "imagePath": "/images/game/converter_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_ModularFrameFused_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_CoolingSystem_C",
+        "amount": 25
+      },
+      {
+        "resource": "Desc_ModularFrameLightweight_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_SAMFluctuator_C",
+        "amount": 100
+      }
+    ]
   },
   {
     "id": "Build_HadronCollider_C",
@@ -674,7 +942,29 @@
     "imagePath": "/images/game/hadron-collider_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_MotorLightweight_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ComputerSuper_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ModularFrameFused_C",
+        "amount": 25
+      },
+      {
+        "resource": "Desc_CoolingSystem_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_HighSpeedWire_C",
+        "amount": 500
+      }
+    ]
   },
   {
     "id": "Build_OilPump_C",
@@ -698,12 +988,30 @@
     "pipeline": null,
     "extractor": {
       "type": "None",
-      "allowedForms": ["Liquid"],
-      "allowedResources": ["Desc_LiquidOil_C"],
+      "allowedForms": [
+        "Liquid"
+      ],
+      "allowedResources": [
+        "Desc_LiquidOil_C"
+      ],
       "itemsPerCycle": 2,
       "cycleTime": 1,
       "itemsPerMinute": 120
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 15
+      },
+      {
+        "resource": "Desc_SteelPlateReinforced_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 60
+      }
+    ]
   },
   {
     "id": "Build_MinerMk2_C",
@@ -727,12 +1035,32 @@
     "pipeline": null,
     "extractor": {
       "type": "Miner",
-      "allowedForms": ["Solid"],
+      "allowedForms": [
+        "Solid"
+      ],
       "allowedResources": null,
       "itemsPerCycle": 1,
       "cycleTime": 0.5,
       "itemsPerMinute": 120
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "BP_ItemDescriptorPortableMiner_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_SteelPlateReinforced_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_SteelPipe_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_ModularFrame_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_MinerMk1_C",
@@ -756,12 +1084,28 @@
     "pipeline": null,
     "extractor": {
       "type": "Miner",
-      "allowedForms": ["Solid"],
+      "allowedForms": [
+        "Solid"
+      ],
       "allowedResources": null,
       "itemsPerCycle": 1,
       "cycleTime": 1,
       "itemsPerMinute": 60
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "BP_ItemDescriptorPortableMiner_C",
+        "amount": 1
+      },
+      {
+        "resource": "Desc_IronPlate_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_MinerMk3_C",
@@ -785,12 +1129,36 @@
     "pipeline": null,
     "extractor": {
       "type": "Miner",
-      "allowedForms": ["Solid"],
+      "allowedForms": [
+        "Solid"
+      ],
       "allowedResources": null,
       "itemsPerCycle": 1,
       "cycleTime": 0.25,
       "itemsPerMinute": 240
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "BP_ItemDescriptorPortableMiner_C",
+        "amount": 3
+      },
+      {
+        "resource": "Desc_SteelPipe_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_ComputerSuper_C",
+        "amount": 5
+      },
+      {
+        "resource": "Desc_ModularFrameFused_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_MotorLightweight_C",
+        "amount": 3
+      }
+    ]
   },
   {
     "id": "Build_OilRefinery_C",
@@ -812,7 +1180,25 @@
     "imagePath": "/images/game/oil-refinery_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_SteelPlateReinforced_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_SteelPipe_C",
+        "amount": 30
+      },
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 20
+      }
+    ]
   },
   {
     "id": "Build_FoundryMk1_C",
@@ -834,7 +1220,21 @@
     "imagePath": "/images/game/foundry_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_ModularFrame_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Rotor_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 20
+      }
+    ]
   },
   {
     "id": "Build_Packager_C",
@@ -856,7 +1256,21 @@
     "imagePath": "/images/game/packager_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_SteelPlate_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_Rubber_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Plastic_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_ManufacturerMk1_C",
@@ -878,7 +1292,25 @@
     "imagePath": "/images/game/manufacturer_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ModularFrame_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_Plastic_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 50
+      }
+    ]
   },
   {
     "id": "Build_AssemblerMk1_C",
@@ -900,7 +1332,21 @@
     "imagePath": "/images/game/assembler-mk-1_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlateReinforced_C",
+        "amount": 8
+      },
+      {
+        "resource": "Desc_Rotor_C",
+        "amount": 4
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_Blender_C",
@@ -922,7 +1368,25 @@
     "imagePath": "/images/game/blender_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Computer_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ModularFrameHeavy_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 20
+      },
+      {
+        "resource": "Desc_AluminumCasing_C",
+        "amount": 50
+      }
+    ]
   },
   {
     "id": "Build_SmelterMk1_C",
@@ -944,7 +1408,17 @@
     "imagePath": "/images/game/smelter-mk-1_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronRod_C",
+        "amount": 5
+      },
+      {
+        "resource": "Desc_Wire_C",
+        "amount": 8
+      }
+    ]
   },
   {
     "id": "Build_ConstructorMk1_C",
@@ -966,7 +1440,17 @@
     "imagePath": "/images/game/constructor-mk-1_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_IronPlateReinforced_C",
+        "amount": 2
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 8
+      }
+    ]
   },
   {
     "id": "Build_GeneratorNuclear_C",
@@ -989,6 +1473,28 @@
     "conveyor": null,
     "pipeline": null,
     "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_ComputerSuper_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ModularFrameHeavy_C",
+        "amount": 25
+      },
+      {
+        "resource": "Desc_AluminumPlate_C",
+        "amount": 100
+      },
+      {
+        "resource": "Desc_Cable_C",
+        "amount": 200
+      },
+      {
+        "resource": "Desc_Cement_C",
+        "amount": 250
+      }
+    ],
     "powerGenerator": {
       "fuels": [
         {
@@ -1031,7 +1537,10 @@
     "pipeline": null,
     "extractor": {
       "type": "None",
-      "allowedForms": ["Liquid", "Gas"],
+      "allowedForms": [
+        "Liquid",
+        "Gas"
+      ],
       "allowedResources": [
         "Desc_LiquidOil_C",
         "Desc_NitrogenGas_C",
@@ -1040,7 +1549,17 @@
       "itemsPerCycle": 1,
       "cycleTime": 1,
       "itemsPerMinute": 60
-    }
+    },
+    "buildCost": [
+      {
+        "resource": "Desc_SteelPlate_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_AluminumCasing_C",
+        "amount": 10
+      }
+    ]
   },
   {
     "id": "Build_GeneratorGeoThermal_C",
@@ -1062,6 +1581,28 @@
     "imagePath": "/images/game/geo-thermal-power-generator_256.png",
     "conveyor": null,
     "pipeline": null,
-    "extractor": null
+    "extractor": null,
+    "buildCost": [
+      {
+        "resource": "Desc_Motor_C",
+        "amount": 10
+      },
+      {
+        "resource": "Desc_ModularFrame_C",
+        "amount": 25
+      },
+      {
+        "resource": "Desc_HighSpeedConnector_C",
+        "amount": 25
+      },
+      {
+        "resource": "Desc_CopperSheet_C",
+        "amount": 50
+      },
+      {
+        "resource": "Desc_Wire_C",
+        "amount": 250
+      }
+    ]
   }
 ]

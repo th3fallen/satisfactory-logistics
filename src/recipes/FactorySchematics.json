@@ -90,7 +90,9 @@
     "tier": null,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_CyberWagon_Unlock_C"],
+    "dependencies": [
+      "ResourceSink_CyberWagon_Unlock_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -151,13 +153,18 @@
     "tier": null,
     "type": "Custom",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C", "Schematic_2-5_C"],
+    "dependencies": [
+      "Schematic_3-1_C",
+      "Schematic_2-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Swatch_Slot17_C"]
+        "scripts": [
+          "Recipe_Swatch_Slot17_C"
+        ]
       }
     ]
   },
@@ -200,7 +207,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ResourceSink_C", "Recipe_ResourceSinkShop_C"]
+        "scripts": [
+          "Recipe_ResourceSink_C",
+          "Recipe_ResourceSinkShop_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -256,7 +266,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["CustomizerUnlock_PipelineSwatch_C"]
+        "scripts": [
+          "CustomizerUnlock_PipelineSwatch_C"
+        ]
       }
     ]
   },
@@ -341,13 +353,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_RocketFuel_C"],
+    "dependencies": [
+      "Research_Sulfur_RocketFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_RocketFuel_Nitro_C"]
+        "scripts": [
+          "Recipe_Alternate_RocketFuel_Nitro_C"
+        ]
       }
     ]
   },
@@ -451,13 +467,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-2_C", "Research_Sulfur_IonizedFuel_C"],
+    "dependencies": [
+      "Schematic_9-2_C",
+      "Research_Sulfur_IonizedFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IonizedFuel_Dark_C"]
+        "scripts": [
+          "Recipe_Alternate_IonizedFuel_Dark_C"
+        ]
       }
     ]
   },
@@ -497,7 +518,10 @@
       },
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FicsiteIngot_AL_C", "Recipe_FicsiteIngot_CAT_C"]
+        "scripts": [
+          "Recipe_FicsiteIngot_AL_C",
+          "Recipe_FicsiteIngot_CAT_C"
+        ]
       }
     ]
   },
@@ -545,11 +569,16 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_9-1-1_C"]
+        "scripts": [
+          "Schematic_9-1-1_C"
+        ]
       },
       {
         "type": "Recipe",
-        "scripts": ["Recipe_IngotSAM_C", "Recipe_SAMFluctuator_C"]
+        "scripts": [
+          "Recipe_IngotSAM_C",
+          "Recipe_SAMFluctuator_C"
+        ]
       }
     ]
   },
@@ -581,7 +610,10 @@
     "tier": 4,
     "type": "Custom",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C", "Research_Sulfur_0_C"],
+    "dependencies": [
+      "Schematic_3-1_C",
+      "Research_Sulfur_0_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
@@ -656,11 +688,16 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PetroleumCoke_C", "Recipe_CircuitBoard_C"]
+        "scripts": [
+          "Recipe_PetroleumCoke_C",
+          "Recipe_CircuitBoard_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_5-1-1_C"]
+        "scripts": [
+          "Schematic_5-1-1_C"
+        ]
       },
       {
         "type": "Recipe",
@@ -683,7 +720,10 @@
     "tier": 6,
     "type": "Custom",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Schematic_Alternate_EnrichedCoal_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Schematic_Alternate_EnrichedCoal_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
@@ -737,7 +777,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_Alternate_TurboFuel_C"]
+        "scripts": [
+          "Schematic_Alternate_TurboFuel_C"
+        ]
       }
     ]
   },
@@ -749,13 +791,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C", "Research_Sulfur_TurboFuel_C"],
+    "dependencies": [
+      "Schematic_9-1_C",
+      "Research_Sulfur_TurboFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Diamond_Turbo_C"]
+        "scripts": [
+          "Recipe_Alternate_Diamond_Turbo_C"
+        ]
       }
     ]
   },
@@ -767,13 +814,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Diamond_Pink_C"]
+        "scripts": [
+          "Recipe_Alternate_Diamond_Pink_C"
+        ]
       }
     ]
   },
@@ -785,13 +836,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Diamond_Petroleum_C"]
+        "scripts": [
+          "Recipe_Alternate_Diamond_Petroleum_C"
+        ]
       }
     ]
   },
@@ -803,13 +858,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Diamond_OilBased_C"]
+        "scripts": [
+          "Recipe_Alternate_Diamond_OilBased_C"
+        ]
       }
     ]
   },
@@ -821,13 +880,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Diamond_Cloudy_C"]
+        "scripts": [
+          "Recipe_Alternate_Diamond_Cloudy_C"
+        ]
       }
     ]
   },
@@ -839,13 +902,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-2_C"],
+    "dependencies": [
+      "Schematic_9-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_DarkMatter_Trap_C"]
+        "scripts": [
+          "Recipe_Alternate_DarkMatter_Trap_C"
+        ]
       }
     ]
   },
@@ -857,13 +924,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_9-2_C"],
+    "dependencies": [
+      "Schematic_9-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_DarkMatter_Crystallization_C"]
+        "scripts": [
+          "Recipe_Alternate_DarkMatter_Crystallization_C"
+        ]
       }
     ]
   },
@@ -875,13 +946,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_WetConcrete_C"]
+        "scripts": [
+          "Recipe_Alternate_WetConcrete_C"
+        ]
       }
     ]
   },
@@ -893,7 +968,10 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Schematic_Alternate_EnrichedCoal_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Schematic_Alternate_EnrichedCoal_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
@@ -964,13 +1042,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelRod_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelRod_C"
+        ]
       }
     ]
   },
@@ -1044,7 +1126,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_5-4-1_C"]
+        "scripts": [
+          "Schematic_5-4-1_C"
+        ]
       }
     ]
   },
@@ -1056,13 +1140,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-4_C"],
+    "dependencies": [
+      "Schematic_5-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelCanister_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelCanister_C"
+        ]
       }
     ]
   },
@@ -1074,13 +1162,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteamedCopperSheet_C"]
+        "scripts": [
+          "Recipe_Alternate_SteamedCopperSheet_C"
+        ]
       }
     ]
   },
@@ -1092,13 +1184,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_RubberConcrete_C"]
+        "scripts": [
+          "Recipe_Alternate_RubberConcrete_C"
+        ]
       }
     ]
   },
@@ -1110,13 +1206,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_RecycledRubber_C"]
+        "scripts": [
+          "Recipe_Alternate_RecycledRubber_C"
+        ]
       }
     ]
   },
@@ -1141,7 +1241,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_QuartzCrystal_C"]
+        "scripts": [
+          "Recipe_QuartzCrystal_C"
+        ]
       }
     ]
   },
@@ -1153,13 +1255,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C", "Schematic_5-1_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C",
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PureQuartzCrystal_C"]
+        "scripts": [
+          "Recipe_Alternate_PureQuartzCrystal_C"
+        ]
       }
     ]
   },
@@ -1171,13 +1278,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PureIronIngot_C"]
+        "scripts": [
+          "Recipe_Alternate_PureIronIngot_C"
+        ]
       }
     ]
   },
@@ -1189,13 +1300,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PureCopperIngot_C"]
+        "scripts": [
+          "Recipe_Alternate_PureCopperIngot_C"
+        ]
       }
     ]
   },
@@ -1227,13 +1342,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_0_C", "Schematic_5-1_C"],
+    "dependencies": [
+      "Research_Caterium_0_C",
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PureCateriumIngot_C"]
+        "scripts": [
+          "Recipe_Alternate_PureCateriumIngot_C"
+        ]
       }
     ]
   },
@@ -1310,7 +1430,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_7-1-1_C"]
+        "scripts": [
+          "Schematic_7-1-1_C"
+        ]
       }
     ]
   },
@@ -1322,13 +1444,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PureAluminumIngot_C"]
+        "scripts": [
+          "Recipe_PureAluminumIngot_C"
+        ]
       }
     ]
   },
@@ -1340,13 +1466,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PolymerResin_C"]
+        "scripts": [
+          "Recipe_Alternate_PolymerResin_C"
+        ]
       }
     ]
   },
@@ -1358,13 +1488,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PlasticSmartPlating_C"]
+        "scripts": [
+          "Recipe_Alternate_PlasticSmartPlating_C"
+        ]
       }
     ]
   },
@@ -1444,7 +1578,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_AILimiter_C"]
+        "scripts": [
+          "Recipe_AILimiter_C"
+        ]
       }
     ]
   },
@@ -1456,13 +1592,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C", "Research_Caterium_4_1_C"],
+    "dependencies": [
+      "Schematic_4-1_C",
+      "Research_Caterium_4_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HighSpeedWiring_C"]
+        "scripts": [
+          "Recipe_Alternate_HighSpeedWiring_C"
+        ]
       }
     ]
   },
@@ -1474,13 +1615,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HeavyOilResidue_C"]
+        "scripts": [
+          "Recipe_Alternate_HeavyOilResidue_C"
+        ]
       }
     ]
   },
@@ -1541,13 +1686,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C"],
+    "dependencies": [
+      "Schematic_5-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HeavyFlexibleFrame_C"]
+        "scripts": [
+          "Recipe_Alternate_HeavyFlexibleFrame_C"
+        ]
       }
     ]
   },
@@ -1559,13 +1708,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_0_C"],
+    "dependencies": [
+      "Research_Caterium_0_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_FusedWire_C"]
+        "scripts": [
+          "Recipe_Alternate_FusedWire_C"
+        ]
       }
     ]
   },
@@ -1577,13 +1730,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_FlexibleFramework_C"]
+        "scripts": [
+          "Recipe_Alternate_FlexibleFramework_C"
+        ]
       }
     ]
   },
@@ -1595,13 +1752,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ElectrodeCircuitBoard_C"]
+        "scripts": [
+          "Recipe_Alternate_ElectrodeCircuitBoard_C"
+        ]
       }
     ]
   },
@@ -1613,13 +1774,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ElectroAluminumScrap_C"]
+        "scripts": [
+          "Recipe_Alternate_ElectroAluminumScrap_C"
+        ]
       }
     ]
   },
@@ -1631,13 +1796,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_DilutedPackagedFuel_C"]
+        "scripts": [
+          "Recipe_Alternate_DilutedPackagedFuel_C"
+        ]
       }
     ]
   },
@@ -1698,13 +1867,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CopperRotor_C"]
+        "scripts": [
+          "Recipe_Alternate_CopperRotor_C"
+        ]
       }
     ]
   },
@@ -1716,13 +1889,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CopperAlloyIngot_C"]
+        "scripts": [
+          "Recipe_Alternate_CopperAlloyIngot_C"
+        ]
       }
     ]
   },
@@ -1734,13 +1911,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CokeSteelIngot_C"]
+        "scripts": [
+          "Recipe_Alternate_CokeSteelIngot_C"
+        ]
       }
     ]
   },
@@ -1752,13 +1933,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CoatedIronPlate_C"]
+        "scripts": [
+          "Recipe_Alternate_CoatedIronPlate_C"
+        ]
       }
     ]
   },
@@ -1770,13 +1955,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-4_C"],
+    "dependencies": [
+      "Schematic_5-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CoatedIronCanister_C"]
+        "scripts": [
+          "Recipe_Alternate_CoatedIronCanister_C"
+        ]
       }
     ]
   },
@@ -1788,13 +1977,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CoatedCable_C"]
+        "scripts": [
+          "Recipe_Alternate_CoatedCable_C"
+        ]
       }
     ]
   },
@@ -1806,13 +1999,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_BoltedFrame_C"]
+        "scripts": [
+          "Recipe_Alternate_BoltedFrame_C"
+        ]
       }
     ]
   },
@@ -1824,13 +2021,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_AdheredIronPlate_C"]
+        "scripts": [
+          "Recipe_Alternate_AdheredIronPlate_C"
+        ]
       }
     ]
   },
@@ -1848,7 +2049,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_UnpackageNitricAcid_C"]
+        "scripts": [
+          "Recipe_UnpackageNitricAcid_C"
+        ]
       }
     ]
   },
@@ -1906,7 +2109,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_8-5-1_C"]
+        "scripts": [
+          "Schematic_8-5-1_C"
+        ]
       }
     ]
   },
@@ -1918,13 +2123,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_TurboPressureMotor_C"]
+        "scripts": [
+          "Recipe_Alternate_TurboPressureMotor_C"
+        ]
       }
     ]
   },
@@ -2001,7 +2210,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_7-4-1_C"]
+        "scripts": [
+          "Schematic_7-4-1_C"
+        ]
       }
     ]
   },
@@ -2013,7 +2224,9 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
@@ -2084,13 +2297,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-1_C", "Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_8-1_C",
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SuperStateComputer_C"]
+        "scripts": [
+          "Recipe_Alternate_SuperStateComputer_C"
+        ]
       }
     ]
   },
@@ -2102,13 +2320,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SloppyAlumina_C"]
+        "scripts": [
+          "Recipe_Alternate_SloppyAlumina_C"
+        ]
       }
     ]
   },
@@ -2120,13 +2342,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_RadioControlSystem_C"]
+        "scripts": [
+          "Recipe_Alternate_RadioControlSystem_C"
+        ]
       }
     ]
   },
@@ -2138,13 +2364,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PlutoniumFuelUnit_C"]
+        "scripts": [
+          "Recipe_Alternate_PlutoniumFuelUnit_C"
+        ]
       }
     ]
   },
@@ -2162,7 +2392,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_UnpackageNitrogen_C"]
+        "scripts": [
+          "Recipe_UnpackageNitrogen_C"
+        ]
       }
     ]
   },
@@ -2205,7 +2437,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FrackingSmasher_C", "Recipe_FrackingExtractor_C"]
+        "scripts": [
+          "Recipe_FrackingSmasher_C",
+          "Recipe_FrackingExtractor_C"
+        ]
       },
       {
         "type": "Recipe",
@@ -2219,7 +2454,9 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_8-2-1_C"]
+        "scripts": [
+          "Schematic_8-2-1_C"
+        ]
       }
     ]
   },
@@ -2231,13 +2468,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C", "Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_7-5_C",
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_OCSupercomputer_C"]
+        "scripts": [
+          "Recipe_Alternate_OCSupercomputer_C"
+        ]
       }
     ]
   },
@@ -2249,13 +2491,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C", "Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-1_C",
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_InstantScrap_C"]
+        "scripts": [
+          "Recipe_Alternate_InstantScrap_C"
+        ]
       }
     ]
   },
@@ -2267,13 +2514,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_InstantPlutoniumCell_C"]
+        "scripts": [
+          "Recipe_Alternate_InstantPlutoniumCell_C"
+        ]
       }
     ]
   },
@@ -2285,13 +2536,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HeatFusedFrame_C"]
+        "scripts": [
+          "Recipe_Alternate_HeatFusedFrame_C"
+        ]
       }
     ]
   },
@@ -2303,13 +2558,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_FertileUranium_C"]
+        "scripts": [
+          "Recipe_Alternate_FertileUranium_C"
+        ]
       }
     ]
   },
@@ -2321,13 +2580,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-1_C"],
+    "dependencies": [
+      "Schematic_8-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ElectricMotor_C"]
+        "scripts": [
+          "Recipe_Alternate_ElectricMotor_C"
+        ]
       }
     ]
   },
@@ -2339,13 +2602,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_DilutedFuel_C"]
+        "scripts": [
+          "Recipe_Alternate_DilutedFuel_C"
+        ]
       }
     ]
   },
@@ -2357,13 +2624,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CoolingDevice_C"]
+        "scripts": [
+          "Recipe_Alternate_CoolingDevice_C"
+        ]
       }
     ]
   },
@@ -2375,13 +2646,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ClassicBattery_C"]
+        "scripts": [
+          "Recipe_Alternate_ClassicBattery_C"
+        ]
       }
     ]
   },
@@ -2393,13 +2668,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_AutomatedMiner_C"]
+        "scripts": [
+          "Recipe_Alternate_AutomatedMiner_C"
+        ]
       }
     ]
   },
@@ -2411,13 +2690,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_AlcladCasing_C"]
+        "scripts": [
+          "Recipe_Alternate_AlcladCasing_C"
+        ]
       }
     ]
   },
@@ -2429,13 +2712,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelPipe_Molded_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelPipe_Molded_C"
+        ]
       }
     ]
   },
@@ -2447,13 +2734,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelPipe_Iron_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelPipe_Iron_C"
+        ]
       }
     ]
   },
@@ -2465,13 +2756,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelCastedPlate_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelCastedPlate_C"
+        ]
       }
     ]
   },
@@ -2483,13 +2778,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelBeam_Molded_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelBeam_Molded_C"
+        ]
       }
     ]
   },
@@ -2501,13 +2800,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_SteelBeam_Aluminum_C"]
+        "scripts": [
+          "Recipe_Alternate_SteelBeam_Aluminum_C"
+        ]
       }
     ]
   },
@@ -2519,13 +2822,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_AluminumRod_C"]
+        "scripts": [
+          "Recipe_Alternate_AluminumRod_C"
+        ]
       }
     ]
   },
@@ -2537,13 +2844,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_4_1_C", "Schematic_5-1_C"],
+    "dependencies": [
+      "Research_Caterium_4_1_C",
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_AILimiter_Plastic_C"]
+        "scripts": [
+          "Recipe_Alternate_AILimiter_Plastic_C"
+        ]
       }
     ]
   },
@@ -2561,7 +2873,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Silica_Distilled_C"]
+        "scripts": [
+          "Recipe_Alternate_Silica_Distilled_C"
+        ]
       }
     ]
   },
@@ -2573,17 +2887,23 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Quartz_Purified_C"]
+        "scripts": [
+          "Recipe_Alternate_Quartz_Purified_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_Alternate_Silica_Distilled_C"]
+        "scripts": [
+          "Schematic_Alternate_Silica_Distilled_C"
+        ]
       }
     ]
   },
@@ -2595,13 +2915,18 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C", "Schematic_3-4_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C",
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Quartz_Fused_C"]
+        "scripts": [
+          "Recipe_Alternate_Quartz_Fused_C"
+        ]
       }
     ]
   },
@@ -2613,13 +2938,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IronIngot_Leached_C"]
+        "scripts": [
+          "Recipe_Alternate_IronIngot_Leached_C"
+        ]
       }
     ]
   },
@@ -2631,13 +2960,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IronIngot_Basic_C"]
+        "scripts": [
+          "Recipe_Alternate_IronIngot_Basic_C"
+        ]
       }
     ]
   },
@@ -2649,13 +2982,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CopperIngot_Tempered_C"]
+        "scripts": [
+          "Recipe_Alternate_CopperIngot_Tempered_C"
+        ]
       }
     ]
   },
@@ -2667,13 +3004,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CopperIngot_Leached_C"]
+        "scripts": [
+          "Recipe_Alternate_CopperIngot_Leached_C"
+        ]
       }
     ]
   },
@@ -2685,13 +3026,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CateriumIngot_Tempered_C"]
+        "scripts": [
+          "Recipe_Alternate_CateriumIngot_Tempered_C"
+        ]
       }
     ]
   },
@@ -2703,13 +3048,17 @@
     "tier": null,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_7-5_C"],
+    "dependencies": [
+      "Schematic_7-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CateriumIngot_Leached_C"]
+        "scripts": [
+          "Recipe_Alternate_CateriumIngot_Leached_C"
+        ]
       }
     ]
   },
@@ -2721,13 +3070,17 @@
     "tier": 3,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_0_C"],
+    "dependencies": [
+      "Research_Caterium_0_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Wire_2_C"]
+        "scripts": [
+          "Recipe_Alternate_Wire_2_C"
+        ]
       }
     ]
   },
@@ -2745,7 +3098,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Wire_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Wire_1_C"
+        ]
       }
     ]
   },
@@ -2788,7 +3143,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_DroneTransport_C", "Recipe_DroneStation_C"]
+        "scripts": [
+          "Recipe_DroneTransport_C",
+          "Recipe_DroneStation_C"
+        ]
       }
     ]
   },
@@ -2813,7 +3171,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_IngotCaterium_C"]
+        "scripts": [
+          "Recipe_IngotCaterium_C"
+        ]
       }
     ]
   },
@@ -2856,7 +3216,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_UraniumCell_1_C"]
+        "scripts": [
+          "Recipe_Alternate_UraniumCell_1_C"
+        ]
       }
     ]
   },
@@ -2893,7 +3255,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorBeltMk5_C", "Recipe_ConveyorLiftMk5_C"]
+        "scripts": [
+          "Recipe_ConveyorBeltMk5_C",
+          "Recipe_ConveyorLiftMk5_C"
+        ]
       }
     ]
   },
@@ -2966,13 +3331,18 @@
     "tier": 7,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-4_C", "Schematic_8-1_C"],
+    "dependencies": [
+      "Schematic_8-4_C",
+      "Schematic_8-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_TurboMotor_1_C"]
+        "scripts": [
+          "Recipe_Alternate_TurboMotor_1_C"
+        ]
       }
     ]
   },
@@ -2984,13 +3354,18 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C", "Research_Caterium_1_C"],
+    "dependencies": [
+      "Schematic_4-1_C",
+      "Research_Caterium_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Stator_C"]
+        "scripts": [
+          "Recipe_Alternate_Stator_C"
+        ]
       }
     ]
   },
@@ -3015,7 +3390,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Silica_C"]
+        "scripts": [
+          "Recipe_Silica_C"
+        ]
       }
     ]
   },
@@ -3027,13 +3404,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_2_C"],
+    "dependencies": [
+      "Research_Quartz_1_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Silica_C"]
+        "scripts": [
+          "Recipe_Alternate_Silica_C"
+        ]
       }
     ]
   },
@@ -3045,13 +3426,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Screw_2_C"]
+        "scripts": [
+          "Recipe_Alternate_Screw_2_C"
+        ]
       }
     ]
   },
@@ -3069,7 +3454,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Screw_C"]
+        "scripts": [
+          "Recipe_Alternate_Screw_C"
+        ]
       }
     ]
   },
@@ -3081,13 +3468,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Rotor_C"]
+        "scripts": [
+          "Recipe_Alternate_Rotor_C"
+        ]
       }
     ]
   },
@@ -3099,13 +3490,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C"],
+    "dependencies": [
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_EncasedIndustrialBeam_C"]
+        "scripts": [
+          "Recipe_Alternate_EncasedIndustrialBeam_C"
+        ]
       }
     ]
   },
@@ -3117,13 +3512,17 @@
     "tier": 2,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ReinforcedIronPlate_2_C"]
+        "scripts": [
+          "Recipe_Alternate_ReinforcedIronPlate_2_C"
+        ]
       }
     ]
   },
@@ -3135,13 +3534,17 @@
     "tier": 2,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ReinforcedIronPlate_1_C"]
+        "scripts": [
+          "Recipe_Alternate_ReinforcedIronPlate_1_C"
+        ]
       }
     ]
   },
@@ -3172,7 +3575,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_HighSpeedConnector_C"]
+        "scripts": [
+          "Recipe_HighSpeedConnector_C"
+        ]
       }
     ]
   },
@@ -3203,7 +3608,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_RadioControlUnit_C"]
+        "scripts": [
+          "Recipe_RadioControlUnit_C"
+        ]
       }
     ]
   },
@@ -3215,13 +3622,18 @@
     "tier": 7,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C", "Research_Caterium_4_1_C"],
+    "dependencies": [
+      "Schematic_8-2_C",
+      "Research_Caterium_4_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_RadioControlUnit_1_C"]
+        "scripts": [
+          "Recipe_Alternate_RadioControlUnit_1_C"
+        ]
       }
     ]
   },
@@ -3233,13 +3645,17 @@
     "tier": 3,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_1_C"],
+    "dependencies": [
+      "Research_Caterium_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Quickwire_C"]
+        "scripts": [
+          "Recipe_Alternate_Quickwire_C"
+        ]
       }
     ]
   },
@@ -3251,13 +3667,17 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Plastic_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Plastic_1_C"
+        ]
       }
     ]
   },
@@ -3269,13 +3689,18 @@
     "tier": 7,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-1_C", "Research_Quartz_1_1_C"],
+    "dependencies": [
+      "Schematic_8-1_C",
+      "Research_Quartz_1_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_NuclearFuelRod_1_C"]
+        "scripts": [
+          "Recipe_Alternate_NuclearFuelRod_1_C"
+        ]
       }
     ]
   },
@@ -3287,13 +3712,18 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C", "Research_Quartz_1_1_C"],
+    "dependencies": [
+      "Schematic_4-1_C",
+      "Research_Quartz_1_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Motor_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Motor_1_C"
+        ]
       }
     ]
   },
@@ -3305,13 +3735,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ModularFrame_C"]
+        "scripts": [
+          "Recipe_Alternate_ModularFrame_C"
+        ]
       }
     ]
   },
@@ -3323,13 +3757,18 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_Alternate_EnrichedCoal_C", "Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_Alternate_EnrichedCoal_C",
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IngotSteel_2_C"]
+        "scripts": [
+          "Recipe_Alternate_IngotSteel_2_C"
+        ]
       }
     ]
   },
@@ -3341,13 +3780,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IngotSteel_1_C"]
+        "scripts": [
+          "Recipe_Alternate_IngotSteel_1_C"
+        ]
       }
     ]
   },
@@ -3359,13 +3802,17 @@
     "tier": 1,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_IngotIron_C"]
+        "scripts": [
+          "Recipe_Alternate_IngotIron_C"
+        ]
       }
     ]
   },
@@ -3387,7 +3834,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HighSpeedConnector_C"]
+        "scripts": [
+          "Recipe_Alternate_HighSpeedConnector_C"
+        ]
       }
     ]
   },
@@ -3399,13 +3848,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C"],
+    "dependencies": [
+      "Schematic_5-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ModularFrameHeavy_C"]
+        "scripts": [
+          "Recipe_Alternate_ModularFrameHeavy_C"
+        ]
       }
     ]
   },
@@ -3417,13 +3870,17 @@
     "tier": 7,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_HeatSink_1_C"]
+        "scripts": [
+          "Recipe_Alternate_HeatSink_1_C"
+        ]
       }
     ]
   },
@@ -3435,13 +3892,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_Alternate_EnrichedCoal_C"],
+    "dependencies": [
+      "Schematic_Alternate_EnrichedCoal_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Gunpowder_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Gunpowder_1_C"
+        ]
       }
     ]
   },
@@ -3453,13 +3914,18 @@
     "tier": 7,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_8-1_C", "Research_Caterium_4_1_C"],
+    "dependencies": [
+      "Schematic_8-1_C",
+      "Research_Caterium_4_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_ElectromagneticControlRod_1_C"]
+        "scripts": [
+          "Recipe_Alternate_ElectromagneticControlRod_1_C"
+        ]
       }
     ]
   },
@@ -3490,7 +3956,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CrystalOscillator_C"]
+        "scripts": [
+          "Recipe_CrystalOscillator_C"
+        ]
       }
     ]
   },
@@ -3512,7 +3980,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CrystalOscillator_C"]
+        "scripts": [
+          "Recipe_Alternate_CrystalOscillator_C"
+        ]
       }
     ]
   },
@@ -3524,13 +3994,17 @@
     "tier": 4,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_0_C"],
+    "dependencies": [
+      "Research_Quartz_0_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Concrete_C"]
+        "scripts": [
+          "Recipe_Alternate_Concrete_C"
+        ]
       }
     ]
   },
@@ -3542,13 +4016,18 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C", "Research_Quartz_1_1_C"],
+    "dependencies": [
+      "Schematic_5-2_C",
+      "Research_Quartz_1_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Computer_2_C"]
+        "scripts": [
+          "Recipe_Alternate_Computer_2_C"
+        ]
       }
     ]
   },
@@ -3560,13 +4039,18 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C", "Research_Caterium_1_C"],
+    "dependencies": [
+      "Schematic_5-2_C",
+      "Research_Caterium_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Computer_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Computer_1_C"
+        ]
       }
     ]
   },
@@ -3578,13 +4062,17 @@
     "tier": 3,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Coal_2_C"]
+        "scripts": [
+          "Recipe_Alternate_Coal_2_C"
+        ]
       }
     ]
   },
@@ -3596,13 +4084,17 @@
     "tier": 3,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Coal_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Coal_1_C"
+        ]
       }
     ]
   },
@@ -3614,13 +4106,18 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Research_Caterium_1_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Research_Caterium_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CircuitBoard_2_C"]
+        "scripts": [
+          "Recipe_Alternate_CircuitBoard_2_C"
+        ]
       }
     ]
   },
@@ -3632,13 +4129,18 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Research_Quartz_0_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Research_Quartz_0_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_CircuitBoard_1_C"]
+        "scripts": [
+          "Recipe_Alternate_CircuitBoard_1_C"
+        ]
       }
     ]
   },
@@ -3650,13 +4152,18 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Research_Caterium_1_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Research_Caterium_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Cable_2_C"]
+        "scripts": [
+          "Recipe_Alternate_Cable_2_C"
+        ]
       }
     ]
   },
@@ -3668,13 +4175,17 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_Cable_1_C"]
+        "scripts": [
+          "Recipe_Alternate_Cable_1_C"
+        ]
       }
     ]
   },
@@ -3686,7 +4197,9 @@
     "tier": 5,
     "type": "Alternate",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C"],
+    "dependencies": [
+      "Schematic_5-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [],
     "unlocks": []
@@ -4073,7 +4586,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_BlueprintDesigner_Mk3_C"]
+        "scripts": [
+          "Recipe_BlueprintDesigner_Mk3_C"
+        ]
       }
     ]
   },
@@ -4116,7 +4631,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Hoverpack_C"]
+        "scripts": [
+          "Recipe_Hoverpack_C"
+        ]
       }
     ]
   },
@@ -4153,7 +4670,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_HazmatSuit_C", "Recipe_FilterHazmat_C"]
+        "scripts": [
+          "Recipe_HazmatSuit_C",
+          "Recipe_FilterHazmat_C"
+        ]
       }
     ]
   },
@@ -4236,7 +4756,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_BlueprintDesigner_Mk2_C"]
+        "scripts": [
+          "Recipe_BlueprintDesigner_Mk2_C"
+        ]
       }
     ]
   },
@@ -4273,7 +4795,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PipelineMK2_C", "Recipe_PipelinePumpMK2_C"]
+        "scripts": [
+          "Recipe_PipelineMK2_C",
+          "Recipe_PipelinePumpMK2_C"
+        ]
       }
     ]
   },
@@ -4362,7 +4887,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_JetPack_C"]
+        "scripts": [
+          "Recipe_JetPack_C"
+        ]
       }
     ]
   },
@@ -4421,7 +4948,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_IngotCaterium_C", "Recipe_Quickwire_C"]
+        "scripts": [
+          "Recipe_IngotCaterium_C",
+          "Recipe_Quickwire_C"
+        ]
       }
     ]
   },
@@ -4464,11 +4994,16 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_GeneratorFuel_C", "Recipe_IndustrialTank_C"]
+        "scripts": [
+          "Recipe_GeneratorFuel_C",
+          "Recipe_IndustrialTank_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_5-5-1_C"]
+        "scripts": [
+          "Schematic_5-5-1_C"
+        ]
       }
     ]
   },
@@ -4553,7 +5088,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_BlueprintDesigner_C"]
+        "scripts": [
+          "Recipe_BlueprintDesigner_C"
+        ]
       }
     ]
   },
@@ -4679,7 +5216,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_XenoBasher_C"]
+        "scripts": [
+          "Recipe_XenoBasher_C"
+        ]
       }
     ]
   },
@@ -4722,7 +5261,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Tractor_C", "Recipe_TruckStation_C"]
+        "scripts": [
+          "Recipe_Tractor_C",
+          "Recipe_TruckStation_C"
+        ]
       }
     ]
   },
@@ -4806,7 +5348,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_JumpPadAdjustable_C", "Recipe_UJellyLandingPad_C"]
+        "scripts": [
+          "Recipe_JumpPadAdjustable_C",
+          "Recipe_UJellyLandingPad_C"
+        ]
       }
     ]
   },
@@ -4843,7 +5388,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Chainsaw_C", "Recipe_Biofuel_C"]
+        "scripts": [
+          "Recipe_Chainsaw_C",
+          "Recipe_Biofuel_C"
+        ]
       }
     ]
   },
@@ -4868,7 +5416,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Protein_Hog_C"]
+        "scripts": [
+          "Recipe_Protein_Hog_C"
+        ]
       }
     ]
   },
@@ -4893,7 +5443,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Protein_Spitter_C"]
+        "scripts": [
+          "Recipe_Protein_Spitter_C"
+        ]
       }
     ]
   },
@@ -4938,7 +5490,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Biomass_Mycelia_C"]
+        "scripts": [
+          "Recipe_Biomass_Mycelia_C"
+        ]
       }
     ]
   },
@@ -5015,7 +5569,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerCrystalShard_1_C"]
+        "scripts": [
+          "Recipe_PowerCrystalShard_1_C"
+        ]
       }
     ]
   },
@@ -5046,7 +5602,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Gunpowder_C"]
+        "scripts": [
+          "Recipe_Gunpowder_C"
+        ]
       }
     ]
   },
@@ -5220,7 +5778,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Protein_Stinger_C"]
+        "scripts": [
+          "Recipe_Protein_Stinger_C"
+        ]
       }
     ]
   },
@@ -5271,7 +5831,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Protein_Crab_C"]
+        "scripts": [
+          "Recipe_Protein_Crab_C"
+        ]
       }
     ]
   },
@@ -5296,7 +5858,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_AlienDNACapsule_C", "Recipe_Biomass_AlienProtein_C"]
+        "scripts": [
+          "Recipe_AlienDNACapsule_C",
+          "Recipe_Biomass_AlienProtein_C"
+        ]
       }
     ]
   },
@@ -5359,7 +5924,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_MedicinalInhalerAlienOrgans_C"]
+        "scripts": [
+          "Recipe_MedicinalInhalerAlienOrgans_C"
+        ]
       }
     ]
   },
@@ -5500,7 +6067,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SpikedRebar_C"]
+        "scripts": [
+          "Recipe_SpikedRebar_C"
+        ]
       }
     ]
   },
@@ -5537,7 +6106,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_RebarGun_C", "Recipe_SpikedRebar_C"]
+        "scripts": [
+          "Recipe_RebarGun_C",
+          "Recipe_SpikedRebar_C"
+        ]
       }
     ]
   },
@@ -5594,7 +6166,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SAMFluctuator_C"]
+        "scripts": [
+          "Recipe_SAMFluctuator_C"
+        ]
       }
     ]
   },
@@ -5683,7 +6257,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_AlienPowerFuel_C"]
+        "scripts": [
+          "Recipe_AlienPowerFuel_C"
+        ]
       }
     ]
   },
@@ -5720,7 +6296,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_AlienPowerBuilding_C"]
+        "scripts": [
+          "Recipe_AlienPowerBuilding_C"
+        ]
       }
     ]
   },
@@ -5875,7 +6453,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CentralStorage_C"]
+        "scripts": [
+          "Recipe_CentralStorage_C"
+        ]
       }
     ]
   },
@@ -6056,7 +6636,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_IngotSAM_C"]
+        "scripts": [
+          "Recipe_IngotSAM_C"
+        ]
       }
     ]
   },
@@ -6093,7 +6675,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_GeneratorGeoThermal_C"]
+        "scripts": [
+          "Recipe_GeneratorGeoThermal_C"
+        ]
       }
     ]
   },
@@ -6130,7 +6714,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorAttachmentSplitterProgrammable_C"]
+        "scripts": [
+          "Recipe_ConveyorAttachmentSplitterProgrammable_C"
+        ]
       }
     ]
   },
@@ -6161,7 +6747,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CartridgeSmart_C"]
+        "scripts": [
+          "Recipe_CartridgeSmart_C"
+        ]
       }
     ]
   },
@@ -6192,7 +6780,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerPoleMk3_C"]
+        "scripts": [
+          "Recipe_PowerPoleMk3_C"
+        ]
       }
     ]
   },
@@ -6223,7 +6813,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PriorityPowerSwitch_C"]
+        "scripts": [
+          "Recipe_PriorityPowerSwitch_C"
+        ]
       }
     ]
   },
@@ -6254,7 +6846,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_BladeRunners_C"]
+        "scripts": [
+          "Recipe_BladeRunners_C"
+        ]
       }
     ]
   },
@@ -6279,7 +6873,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerPoleMk2_C"]
+        "scripts": [
+          "Recipe_PowerPoleMk2_C"
+        ]
       }
     ]
   },
@@ -6310,7 +6906,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerSwitch_C"]
+        "scripts": [
+          "Recipe_PowerSwitch_C"
+        ]
       }
     ]
   },
@@ -6341,7 +6939,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorAttachmentSplitterSmart_C"]
+        "scripts": [
+          "Recipe_ConveyorAttachmentSplitterSmart_C"
+        ]
       }
     ]
   },
@@ -6372,7 +6972,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Rebar_Stunshot_C"]
+        "scripts": [
+          "Recipe_Rebar_Stunshot_C"
+        ]
       }
     ]
   },
@@ -6423,7 +7025,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ZipLine_C"]
+        "scripts": [
+          "Recipe_ZipLine_C"
+        ]
       }
     ]
   },
@@ -6448,7 +7052,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Quickwire_C"]
+        "scripts": [
+          "Recipe_Quickwire_C"
+        ]
       }
     ]
   },
@@ -6485,7 +7091,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Gasmask_C", "Recipe_FilterGasMask_C"]
+        "scripts": [
+          "Recipe_Gasmask_C",
+          "Recipe_FilterGasMask_C"
+        ]
       }
     ]
   },
@@ -6522,7 +7131,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NobeliskGas_C"]
+        "scripts": [
+          "Recipe_NobeliskGas_C"
+        ]
       }
     ]
   },
@@ -6579,7 +7190,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_TherapeuticInhaler_C"]
+        "scripts": [
+          "Recipe_TherapeuticInhaler_C"
+        ]
       }
     ]
   },
@@ -6610,7 +7223,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_MedicinalInhaler_C"]
+        "scripts": [
+          "Recipe_MedicinalInhaler_C"
+        ]
       }
     ]
   },
@@ -6667,7 +7282,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Parachute_C"]
+        "scripts": [
+          "Recipe_Parachute_C"
+        ]
       }
     ]
   },
@@ -6698,7 +7315,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_PolyesterFabric_C"]
+        "scripts": [
+          "Recipe_Alternate_PolyesterFabric_C"
+        ]
       }
     ]
   },
@@ -6729,7 +7348,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Fabric_C"]
+        "scripts": [
+          "Recipe_Fabric_C"
+        ]
       }
     ]
   },
@@ -6792,7 +7413,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NutritionalInhaler_C"]
+        "scripts": [
+          "Recipe_NutritionalInhaler_C"
+        ]
       }
     ]
   },
@@ -6881,7 +7504,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SyntheticPowerShard_C"]
+        "scripts": [
+          "Recipe_SyntheticPowerShard_C"
+        ]
       }
     ]
   },
@@ -6918,7 +7543,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerCrystalShard_3_C"]
+        "scripts": [
+          "Recipe_PowerCrystalShard_3_C"
+        ]
       }
     ]
   },
@@ -6955,7 +7582,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerCrystalShard_2_C"]
+        "scripts": [
+          "Recipe_PowerCrystalShard_2_C"
+        ]
       }
     ]
   },
@@ -7024,7 +7653,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_RadarTower_C"]
+        "scripts": [
+          "Recipe_RadarTower_C"
+        ]
       }
     ]
   },
@@ -7055,7 +7686,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NobeliskShockwave_C"]
+        "scripts": [
+          "Recipe_NobeliskShockwave_C"
+        ]
       }
     ]
   },
@@ -7086,7 +7719,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Explorer_C"]
+        "scripts": [
+          "Recipe_Explorer_C"
+        ]
       }
     ]
   },
@@ -7143,7 +7778,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Rebar_Spreadshot_C"]
+        "scripts": [
+          "Recipe_Rebar_Spreadshot_C"
+        ]
       }
     ]
   },
@@ -7212,11 +7849,15 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Alternate_EnrichedCoal_C"]
+        "scripts": [
+          "Recipe_Alternate_EnrichedCoal_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["Schematic_Alternate_EnrichedCoal_C"]
+        "scripts": [
+          "Schematic_Alternate_EnrichedCoal_C"
+        ]
       }
     ]
   },
@@ -7260,7 +7901,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CartridgeChaos_Packaged_C"]
+        "scripts": [
+          "Recipe_CartridgeChaos_Packaged_C"
+        ]
       }
     ]
   },
@@ -7297,11 +7940,15 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CartridgeChaos_C"]
+        "scripts": [
+          "Recipe_CartridgeChaos_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["Research_Sulfur_5_2_Hidden_C"]
+        "scripts": [
+          "Research_Sulfur_5_2_Hidden_C"
+        ]
       }
     ]
   },
@@ -7338,7 +7985,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NobeliskNuke_C"]
+        "scripts": [
+          "Recipe_NobeliskNuke_C"
+        ]
       }
     ]
   },
@@ -7401,7 +8050,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Cartridge_C"]
+        "scripts": [
+          "Recipe_Cartridge_C"
+        ]
       }
     ]
   },
@@ -7438,7 +8089,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Rebar_Explosive_C"]
+        "scripts": [
+          "Recipe_Rebar_Explosive_C"
+        ]
       }
     ]
   },
@@ -7475,7 +8128,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SpaceRifleMk1_C", "Recipe_Cartridge_C"]
+        "scripts": [
+          "Recipe_SpaceRifleMk1_C",
+          "Recipe_Cartridge_C"
+        ]
       }
     ]
   },
@@ -7506,7 +8162,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NobeliskCluster_C"]
+        "scripts": [
+          "Recipe_NobeliskCluster_C"
+        ]
       }
     ]
   },
@@ -7537,7 +8195,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Nobelisk_C"]
+        "scripts": [
+          "Recipe_Nobelisk_C"
+        ]
       }
     ]
   },
@@ -7600,7 +8260,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_NobeliskDetonator_C", "Recipe_Nobelisk_C"]
+        "scripts": [
+          "Recipe_NobeliskDetonator_C",
+          "Recipe_Nobelisk_C"
+        ]
       }
     ]
   },
@@ -7631,7 +8294,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_GunpowderMK2_C"]
+        "scripts": [
+          "Recipe_GunpowderMK2_C"
+        ]
       }
     ]
   },
@@ -7689,7 +8354,9 @@
     "unlocks": [
       {
         "type": "Schematic",
-        "scripts": ["Schematic_XMassTree_T4_C"]
+        "scripts": [
+          "Schematic_XMassTree_T4_C"
+        ]
       }
     ]
   },
@@ -7739,7 +8406,9 @@
     "unlocks": [
       {
         "type": "Schematic",
-        "scripts": ["Schematic_XMassTree_T3_C"]
+        "scripts": [
+          "Schematic_XMassTree_T3_C"
+        ]
       }
     ]
   },
@@ -7776,7 +8445,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Snowball_C"]
+        "scripts": [
+          "Recipe_Snowball_C"
+        ]
       }
     ]
   },
@@ -7813,7 +8484,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_WreathDecor_C", "Recipe_XmasStar_C"]
+        "scripts": [
+          "Recipe_WreathDecor_C",
+          "Recipe_XmasStar_C"
+        ]
       }
     ]
   },
@@ -7863,7 +8537,9 @@
     "unlocks": [
       {
         "type": "Schematic",
-        "scripts": ["Schematic_XMassTree_T2_C"]
+        "scripts": [
+          "Schematic_XMassTree_T2_C"
+        ]
       }
     ]
   },
@@ -7900,7 +8576,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SnowDispenser_C", "Recipe_XmasWreath_C"]
+        "scripts": [
+          "Recipe_SnowDispenser_C",
+          "Recipe_XmasWreath_C"
+        ]
       }
     ]
   },
@@ -7943,7 +8622,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_xmassLights_C", "Recipe_XmasBallCluster_C"]
+        "scripts": [
+          "Recipe_xmassLights_C",
+          "Recipe_XmasBallCluster_C"
+        ]
       }
     ]
   },
@@ -7993,11 +8675,16 @@
     "unlocks": [
       {
         "type": "Schematic",
-        "scripts": ["Schematic_XMassTree_T1_C"]
+        "scripts": [
+          "Schematic_XMassTree_T1_C"
+        ]
       },
       {
         "type": "Recipe",
-        "scripts": ["Recipe_XmasBall1_C", "Recipe_XmasBall2_C"]
+        "scripts": [
+          "Recipe_XmasBall1_C",
+          "Recipe_XmasBall2_C"
+        ]
       }
     ]
   },
@@ -8069,7 +8756,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Snowman_C", "Recipe_Snow_C"]
+        "scripts": [
+          "Recipe_Snowman_C",
+          "Recipe_Snow_C"
+        ]
       }
     ]
   },
@@ -8094,7 +8784,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_XMassTree_C", "Recipe_XmasBranch_C"]
+        "scripts": [
+          "Recipe_XMassTree_C",
+          "Recipe_XmasBranch_C"
+        ]
       }
     ]
   },
@@ -8119,7 +8812,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CandyCaneDecor_C", "Recipe_XmasBow_C"]
+        "scripts": [
+          "Recipe_CandyCaneDecor_C",
+          "Recipe_XmasBow_C"
+        ]
       }
     ]
   },
@@ -8144,7 +8840,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CandyCaneBasher_C", "Recipe_CandyCane_C"]
+        "scripts": [
+          "Recipe_CandyCaneBasher_C",
+          "Recipe_CandyCane_C"
+        ]
       }
     ]
   },
@@ -8162,7 +8861,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Swatch_Concrete_C"]
+        "scripts": [
+          "Recipe_Swatch_Concrete_C"
+        ]
       }
     ]
   },
@@ -8180,7 +8881,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Wall_Concrete_8x1_C", "Recipe_Wall_Concrete_8x4_C"]
+        "scripts": [
+          "Recipe_Wall_Concrete_8x1_C",
+          "Recipe_Wall_Concrete_8x4_C"
+        ]
       }
     ]
   },
@@ -8192,7 +8896,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -8205,7 +8911,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Wall_Concrete_C"]
+        "scripts": [
+          "Recipe_Material_Wall_Concrete_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -8262,7 +8970,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SteelWall_8x1_C", "Recipe_Wall_8x4_02_C"]
+        "scripts": [
+          "Recipe_SteelWall_8x1_C",
+          "Recipe_Wall_8x4_02_C"
+        ]
       }
     ]
   },
@@ -8299,7 +9010,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C", "Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_3-4_C",
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -8312,7 +9026,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Wall_Steel_C"]
+        "scripts": [
+          "Recipe_Material_Wall_Steel_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -8528,11 +9244,17 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Wall_Door_8x4_01_C", "Recipe_Wall_Door_8x4_03_C"]
+        "scripts": [
+          "Recipe_Wall_Door_8x4_01_C",
+          "Recipe_Wall_Door_8x4_03_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Concrete_Walls_Doors_C", "CBG_Steel_Walls_Doors_C"]
+        "scripts": [
+          "CBG_Concrete_Walls_Doors_C",
+          "CBG_Steel_Walls_Doors_C"
+        ]
       }
     ]
   },
@@ -8605,7 +9327,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Fence_01_C"]
+        "scripts": [
+          "Recipe_Fence_01_C"
+        ]
       }
     ]
   },
@@ -8630,7 +9354,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Railing_01_C"]
+        "scripts": [
+          "Recipe_Railing_01_C"
+        ]
       }
     ]
   },
@@ -8642,7 +9368,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -8704,7 +9432,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -8717,7 +9447,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Foundation_Asphalt_C"]
+        "scripts": [
+          "Recipe_Material_Foundation_Asphalt_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -8865,7 +9597,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -8878,7 +9612,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Foundation_Concrete_C"]
+        "scripts": [
+          "Recipe_Material_Foundation_Concrete_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -9074,7 +9810,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C", "Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_3-4_C",
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -9087,7 +9826,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Foundation_GripMetal_C"]
+        "scripts": [
+          "Recipe_Material_Foundation_GripMetal_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -9344,7 +10085,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C", "Schematic_1-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C",
+      "Schematic_1-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -9357,7 +10101,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Foundation_PolishedConcrete_C"]
+        "scripts": [
+          "Recipe_Material_Foundation_PolishedConcrete_C"
+        ]
       },
       {
         "type": "Schematic",
@@ -9643,7 +10389,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Ladder_C"]
+        "scripts": [
+          "Recipe_Ladder_C"
+        ]
       }
     ]
   },
@@ -9852,7 +10600,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FactoryCart_C"]
+        "scripts": [
+          "Recipe_FactoryCart_C"
+        ]
       }
     ]
   },
@@ -9864,7 +10614,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_CyberWagon_Unlock_C"],
+    "dependencies": [
+      "ResourceSink_CyberWagon_Unlock_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -9877,7 +10629,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CyberWagon_C"]
+        "scripts": [
+          "Recipe_CyberWagon_C"
+        ]
       }
     ]
   },
@@ -10231,7 +10985,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_2_C"],
+    "dependencies": [
+      "Research_Quartz_1_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10253,7 +11009,10 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Concrete_Walls_Windows_C", "CBG_Steel_Walls_WIndows_C"]
+        "scripts": [
+          "CBG_Concrete_Walls_Windows_C",
+          "CBG_Steel_Walls_WIndows_C"
+        ]
       }
     ]
   },
@@ -10330,11 +11089,17 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Wall_Gate_8x4_01_C", "Recipe_Gate_Automated_8x4_C"]
+        "scripts": [
+          "Recipe_Wall_Gate_8x4_01_C",
+          "Recipe_Gate_Automated_8x4_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Concrete_Walls_Gates_C", "CBG_Steel_Walls_Gates_C"]
+        "scripts": [
+          "CBG_Concrete_Walls_Gates_C",
+          "CBG_Steel_Walls_Gates_C"
+        ]
       }
     ]
   },
@@ -10355,7 +11120,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Wall_Concrete_Gate_8x4_C"]
+        "scripts": [
+          "Recipe_Wall_Concrete_Gate_8x4_C"
+        ]
       }
     ]
   },
@@ -10376,7 +11143,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SteelWall_8x4_Gate_01_C"]
+        "scripts": [
+          "Recipe_SteelWall_8x4_Gate_01_C"
+        ]
       }
     ]
   },
@@ -10412,7 +11181,10 @@
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Concrete_Walls_Tilted_C", "CBG_Steel_Walls_Tilted_C"]
+        "scripts": [
+          "CBG_Concrete_Walls_Tilted_C",
+          "CBG_Steel_Walls_Tilted_C"
+        ]
       }
     ]
   },
@@ -10529,7 +11301,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorPoleWall_C"]
+        "scripts": [
+          "Recipe_ConveyorPoleWall_C"
+        ]
       }
     ]
   },
@@ -10554,7 +11328,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorCeilingAttachment_C"]
+        "scripts": [
+          "Recipe_ConveyorCeilingAttachment_C"
+        ]
       }
     ]
   },
@@ -10566,7 +11342,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_4-4_C"],
+    "dependencies": [
+      "Schematic_4-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10594,7 +11372,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10607,7 +11387,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PipeSupportWall_C", "Recipe_PipeSupportWallHole_C"]
+        "scripts": [
+          "Recipe_PipeSupportWall_C",
+          "Recipe_PipeSupportWallHole_C"
+        ]
       }
     ]
   },
@@ -10619,7 +11402,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10632,7 +11417,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FoundationPassthrough_Pipe_C"]
+        "scripts": [
+          "Recipe_FoundationPassthrough_Pipe_C"
+        ]
       }
     ]
   },
@@ -10657,7 +11444,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PowerPoleWall_C", "Recipe_PowerPoleWallDouble_C"]
+        "scripts": [
+          "Recipe_PowerPoleWall_C",
+          "Recipe_PowerPoleWallDouble_C"
+        ]
       }
     ]
   },
@@ -10669,7 +11459,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_4_2_C"],
+    "dependencies": [
+      "Research_Caterium_4_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10697,7 +11489,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_6_2_C"],
+    "dependencies": [
+      "Research_Caterium_6_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10725,7 +11519,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C", "Schematic_3-4_C"],
+    "dependencies": [
+      "Research_Caterium_2_C",
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10738,7 +11535,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_CeilingLight_C"]
+        "scripts": [
+          "Recipe_CeilingLight_C"
+        ]
       }
     ]
   },
@@ -10750,7 +11549,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C", "Schematic_4-1_C"],
+    "dependencies": [
+      "Research_Caterium_2_C",
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10763,7 +11565,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FloodlightPole_C", "Recipe_FloodlightWall_C"]
+        "scripts": [
+          "Recipe_FloodlightPole_C",
+          "Recipe_FloodlightWall_C"
+        ]
       }
     ]
   },
@@ -10775,7 +11580,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C"],
+    "dependencies": [
+      "Research_Caterium_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10788,7 +11595,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_StreetLight_C"]
+        "scripts": [
+          "Recipe_StreetLight_C"
+        ]
       }
     ]
   },
@@ -10940,7 +11749,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_Roofs_Basic_C", "Research_Quartz_1_2_C"],
+    "dependencies": [
+      "ResourceSink_Roofs_Basic_C",
+      "Research_Quartz_1_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -10953,11 +11765,16 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Roof_Glass_C"]
+        "scripts": [
+          "Recipe_Material_Roof_Glass_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Roofs_Basic_Glass_C", "CBG_Roofs_Corners_Glass_C"]
+        "scripts": [
+          "CBG_Roofs_Basic_Glass_C",
+          "CBG_Roofs_Corners_Glass_C"
+        ]
       }
     ]
   },
@@ -11093,7 +11910,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_Roofs_Basic_C", "Schematic_3-4_C"],
+    "dependencies": [
+      "ResourceSink_Roofs_Basic_C",
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11106,11 +11926,16 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Roof_Metal_C"]
+        "scripts": [
+          "Recipe_Material_Roof_Metal_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Roofs_Basic_Steel_C", "CBG_Roofs_Corners_Steel_C"]
+        "scripts": [
+          "CBG_Roofs_Basic_Steel_C",
+          "CBG_Roofs_Corners_Steel_C"
+        ]
       }
     ]
   },
@@ -11176,7 +12001,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_Roofs_Basic_C"],
+    "dependencies": [
+      "ResourceSink_Roofs_Basic_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11189,11 +12016,16 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Material_Roof_Tar_C"]
+        "scripts": [
+          "Recipe_Material_Roof_Tar_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Roofs_Basic_Tar_C", "CBG_Roofs_Corners_Tar_C"]
+        "scripts": [
+          "CBG_Roofs_Basic_Tar_C",
+          "CBG_Roofs_Corners_Tar_C"
+        ]
       }
     ]
   },
@@ -11259,7 +12091,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_6-5_C"],
+    "dependencies": [
+      "Schematic_6-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11272,7 +12106,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PipelineMK2_NoIndicator_C"]
+        "scripts": [
+          "Recipe_PipelineMK2_NoIndicator_C"
+        ]
       }
     ]
   },
@@ -11284,7 +12120,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-1_C"],
+    "dependencies": [
+      "Schematic_3-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11297,7 +12135,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Pipeline_NoIndicator_C"]
+        "scripts": [
+          "Recipe_Pipeline_NoIndicator_C"
+        ]
       }
     ]
   },
@@ -11322,7 +12162,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_StorageMedkit_C"]
+        "scripts": [
+          "Recipe_StorageMedkit_C"
+        ]
       }
     ]
   },
@@ -11334,7 +12176,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C"],
+    "dependencies": [
+      "Research_Caterium_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11347,7 +12191,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_LightsControlPanel_C"]
+        "scripts": [
+          "Recipe_LightsControlPanel_C"
+        ]
       }
     ]
   },
@@ -11359,7 +12205,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11389,7 +12237,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_4-4_C"],
+    "dependencies": [
+      "Schematic_4-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11402,7 +12252,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FoundationPassthrough_Hypertube_C"]
+        "scripts": [
+          "Recipe_FoundationPassthrough_Hypertube_C"
+        ]
       }
     ]
   },
@@ -11427,7 +12279,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_StorageHazard_C"]
+        "scripts": [
+          "Recipe_StorageHazard_C"
+        ]
       }
     ]
   },
@@ -11459,7 +12313,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["ResourceSink_GoldenCart_Unlock_C"],
+    "dependencies": [
+      "ResourceSink_GoldenCart_Unlock_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11472,7 +12328,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_GoldenCart_C"]
+        "scripts": [
+          "Recipe_GoldenCart_C"
+        ]
       }
     ]
   },
@@ -11484,7 +12342,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_2_C", "Schematic_3-4_C"],
+    "dependencies": [
+      "Research_Quartz_1_2_C",
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11515,7 +12376,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11558,11 +12421,17 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_TarpFence_C", "Recipe_ChainLinkFence_C"]
+        "scripts": [
+          "Recipe_TarpFence_C",
+          "Recipe_ChainLinkFence_C"
+        ]
       },
       {
         "type": "Schematic",
-        "scripts": ["CBG_Concrete_Walls_Tilted_C", "CBG_Steel_Walls_Tilted_C"]
+        "scripts": [
+          "CBG_Concrete_Walls_Tilted_C",
+          "CBG_Steel_Walls_Tilted_C"
+        ]
       }
     ]
   },
@@ -11587,7 +12456,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Barrier_Low_01_C", "Recipe_Barrier_Tall_01_C"]
+        "scripts": [
+          "Recipe_Barrier_Low_01_C",
+          "Recipe_Barrier_Tall_01_C"
+        ]
       }
     ]
   },
@@ -11612,7 +12484,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Concrete_Barrier_01_C"]
+        "scripts": [
+          "Recipe_Concrete_Barrier_01_C"
+        ]
       }
     ]
   },
@@ -11624,7 +12498,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11667,7 +12543,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_FoundationPassthrough_Lift_C"]
+        "scripts": [
+          "Recipe_FoundationPassthrough_Lift_C"
+        ]
       }
     ]
   },
@@ -11761,7 +12639,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C", "Schematic_4-1_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C",
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11789,7 +12670,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11820,7 +12703,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11840,7 +12725,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_5_2_C"],
+    "dependencies": [
+      "Research_Sulfur_5_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11860,7 +12747,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_6_3_C"],
+    "dependencies": [
+      "Research_Caterium_6_3_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11880,7 +12769,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_3_2_C"],
+    "dependencies": [
+      "Research_Caterium_3_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11900,7 +12791,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_2_1_C"],
+    "dependencies": [
+      "Research_Quartz_2_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11920,7 +12813,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_4_2_C"],
+    "dependencies": [
+      "Research_Sulfur_4_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11940,7 +12835,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_7-3_C"],
+    "dependencies": [
+      "Schematic_7-3_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11960,7 +12857,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_3_4_C"],
+    "dependencies": [
+      "Research_Quartz_3_4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -11980,7 +12879,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Mycelia_8_C"],
+    "dependencies": [
+      "Research_Mycelia_8_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12000,7 +12901,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_4_C"],
+    "dependencies": [
+      "Research_Sulfur_4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12044,7 +12947,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_6-4_C"],
+    "dependencies": [
+      "Schematic_6-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12064,7 +12969,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_3_1_C"],
+    "dependencies": [
+      "Research_Sulfur_3_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12104,7 +13011,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_ACarapace_2_C"],
+    "dependencies": [
+      "Research_ACarapace_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12124,7 +13033,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_4_1_C"],
+    "dependencies": [
+      "Research_Sulfur_4_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12204,7 +13115,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_1_C", "Schematic_7-1_C"],
+    "dependencies": [
+      "Research_Quartz_1_1_C",
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12304,7 +13218,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12344,7 +13260,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C"],
+    "dependencies": [
+      "Research_Caterium_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12364,7 +13282,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12384,7 +13304,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Mycelia_2_C"],
+    "dependencies": [
+      "Research_Mycelia_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12404,7 +13326,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_2-1_C"],
+    "dependencies": [
+      "Schematic_2-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12424,7 +13348,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_2-2_C"],
+    "dependencies": [
+      "Schematic_2-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12444,7 +13370,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_4_1_C", "Schematic_7-4_C"],
+    "dependencies": [
+      "Research_Caterium_4_1_C",
+      "Schematic_7-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12464,7 +13393,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12484,7 +13415,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12504,7 +13437,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_1_C"],
+    "dependencies": [
+      "Research_Sulfur_1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12524,7 +13459,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C"],
+    "dependencies": [
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12544,7 +13481,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C"],
+    "dependencies": [
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12564,7 +13503,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_CompactedCoal_C"],
+    "dependencies": [
+      "Research_Sulfur_CompactedCoal_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12584,7 +13525,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_3_C"],
+    "dependencies": [
+      "Research_Sulfur_3_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12604,7 +13547,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12624,7 +13569,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12644,7 +13591,9 @@
     "tier": 1,
     "type": "Custom",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12664,7 +13613,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_4-1_C"],
+    "dependencies": [
+      "Schematic_4-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12684,7 +13635,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_5_C", "Schematic_7-4_C"],
+    "dependencies": [
+      "Research_Caterium_5_C",
+      "Schematic_7-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12704,7 +13658,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12724,7 +13680,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_2_C", "Schematic_7-1_C"],
+    "dependencies": [
+      "Research_Quartz_2_C",
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12744,7 +13703,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12764,7 +13725,9 @@
     "tier": 1,
     "type": "Custom",
     "imagePath": null,
-    "dependencies": ["Schematic_5-1_C"],
+    "dependencies": [
+      "Schematic_5-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12784,7 +13747,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_TurboFuel_C"],
+    "dependencies": [
+      "Research_Sulfur_TurboFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12804,7 +13769,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-4_C"],
+    "dependencies": [
+      "Schematic_5-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12824,7 +13791,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-4_C"],
+    "dependencies": [
+      "Schematic_5-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12844,7 +13813,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C"],
+    "dependencies": [
+      "Schematic_5-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12864,7 +13835,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_5-2_C"],
+    "dependencies": [
+      "Schematic_5-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12884,7 +13857,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-4_C"],
+    "dependencies": [
+      "Schematic_8-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12904,7 +13879,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_6_1_C", "Schematic_7-4_C"],
+    "dependencies": [
+      "Research_Caterium_6_1_C",
+      "Schematic_7-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12924,7 +13902,10 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Quartz_1_2_C", "Schematic_7-1_C"],
+    "dependencies": [
+      "Research_Quartz_1_2_C",
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12944,7 +13925,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12964,7 +13947,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -12984,7 +13969,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_7-4_C"],
+    "dependencies": [
+      "Schematic_7-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13004,7 +13991,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13024,7 +14013,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_7-1_C"],
+    "dependencies": [
+      "Schematic_7-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13044,7 +14035,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13064,7 +14057,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13084,7 +14079,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13104,7 +14101,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-1_C"],
+    "dependencies": [
+      "Schematic_8-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13124,7 +14123,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-5_C"],
+    "dependencies": [
+      "Schematic_8-5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13144,7 +14145,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_8-2_C"],
+    "dependencies": [
+      "Schematic_8-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13164,7 +14167,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13184,7 +14189,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_PowerSlugs_6_C"],
+    "dependencies": [
+      "Research_PowerSlugs_6_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13204,7 +14211,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_9-2_C"],
+    "dependencies": [
+      "Schematic_9-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13224,7 +14233,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_RocketFuel_C"],
+    "dependencies": [
+      "Research_Sulfur_RocketFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13244,7 +14255,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_9-2_C"],
+    "dependencies": [
+      "Schematic_9-2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13264,7 +14277,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Sulfur_IonizedFuel_C"],
+    "dependencies": [
+      "Research_Sulfur_IonizedFuel_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13284,7 +14299,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_9-1_C"],
+    "dependencies": [
+      "Schematic_9-1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13348,7 +14365,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PaintFinish_UnPainted_C"]
+        "scripts": [
+          "Recipe_PaintFinish_UnPainted_C"
+        ]
       }
     ]
   },
@@ -13582,7 +14601,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PaintFinish_Copper_C"]
+        "scripts": [
+          "Recipe_PaintFinish_Copper_C"
+        ]
       }
     ]
   },
@@ -13607,7 +14628,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PaintFinish_Chrome_C"]
+        "scripts": [
+          "Recipe_PaintFinish_Chrome_C"
+        ]
       }
     ]
   },
@@ -13619,7 +14642,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Research_Caterium_2_C"],
+    "dependencies": [
+      "Research_Caterium_2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13632,7 +14657,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PaintFinish_Caterium_C"]
+        "scripts": [
+          "Recipe_PaintFinish_Caterium_C"
+        ]
       }
     ]
   },
@@ -13644,7 +14671,9 @@
     "tier": 1,
     "type": "ResourceSink",
     "imagePath": null,
-    "dependencies": ["Schematic_3-4_C"],
+    "dependencies": [
+      "Schematic_3-4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13657,7 +14686,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_PaintFinish_CarbonSteel_C"]
+        "scripts": [
+          "Recipe_PaintFinish_CarbonSteel_C"
+        ]
       }
     ]
   },
@@ -13709,7 +14740,9 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Pattern_Remover_C"]
+        "scripts": [
+          "Recipe_Pattern_Remover_C"
+        ]
       }
     ]
   },
@@ -13886,7 +14919,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_Workshop_C", "Recipe_PortableMiner_C"]
+        "scripts": [
+          "Recipe_Workshop_C",
+          "Recipe_PortableMiner_C"
+        ]
       }
     ]
   },
@@ -13898,7 +14934,9 @@
     "tier": null,
     "type": "Tutorial",
     "imagePath": null,
-    "dependencies": ["Schematic_Tutorial1_C"],
+    "dependencies": [
+      "Schematic_Tutorial1_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13935,7 +14973,9 @@
     "tier": null,
     "type": "Tutorial",
     "imagePath": null,
-    "dependencies": ["Schematic_Tutorial1_5_C"],
+    "dependencies": [
+      "Schematic_Tutorial1_5_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -13978,7 +15018,9 @@
     "tier": null,
     "type": "Tutorial",
     "imagePath": null,
-    "dependencies": ["Schematic_Tutorial2_C"],
+    "dependencies": [
+      "Schematic_Tutorial2_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -14003,7 +15045,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_ConveyorPole_C", "Recipe_ConveyorBeltMk1_C"]
+        "scripts": [
+          "Recipe_ConveyorPole_C",
+          "Recipe_ConveyorBeltMk1_C"
+        ]
       }
     ]
   },
@@ -14015,7 +15060,9 @@
     "tier": null,
     "type": "Tutorial",
     "imagePath": null,
-    "dependencies": ["Schematic_Tutorial3_C"],
+    "dependencies": [
+      "Schematic_Tutorial3_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -14040,7 +15087,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_MinerMk1_C", "Recipe_StorageContainerMk1_C"]
+        "scripts": [
+          "Recipe_MinerMk1_C",
+          "Recipe_StorageContainerMk1_C"
+        ]
       }
     ]
   },
@@ -14052,7 +15102,9 @@
     "tier": null,
     "type": "Tutorial",
     "imagePath": null,
-    "dependencies": ["Schematic_Tutorial4_C"],
+    "dependencies": [
+      "Schematic_Tutorial4_C"
+    ],
     "hiddenUntilDependeciesMet": false,
     "cost": [
       {
@@ -14119,7 +15171,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SkinFicsmas_Premium_C", "Recipe_SkinRemover_C"]
+        "scripts": [
+          "Recipe_SkinFicsmas_Premium_C",
+          "Recipe_SkinRemover_C"
+        ]
       }
     ]
   },
@@ -14137,7 +15192,10 @@
     "unlocks": [
       {
         "type": "Recipe",
-        "scripts": ["Recipe_SkinFicsmas_Default_C", "Recipe_SkinRemover_C"]
+        "scripts": [
+          "Recipe_SkinFicsmas_Default_C",
+          "Recipe_SkinRemover_C"
+        ]
       }
     ]
   },

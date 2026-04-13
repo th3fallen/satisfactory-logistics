@@ -17,11 +17,13 @@ export function ToolsRoutes() {
   return (
     <>
       <Header
-        tabs={['factories', 'charts', 'calculator', 'tools']}
+        tabs={['factories', 'charts', 'calculator', 'tools', 'codex']}
         activeTab="tools"
         onChangeTab={value => {
           if (value === 'tools') {
             navigate('/tools');
+          } else if (value === 'codex') {
+            navigate('/codex');
           } else if (value === 'factories') {
             navigate('/factories');
           } else {
