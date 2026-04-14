@@ -1,8 +1,10 @@
 import type { RealtimeChannel } from '@supabase/supabase-js';
+import { applyPatches, type Patch } from 'immer';
 import { useEffect, useRef } from 'react';
 import { loglev } from '@/core/logger/log';
 import { supabaseClient } from '@/core/supabase';
 import { useStore } from '@/core/zustand';
+import { onPatches } from '@/core/zustand-helpers/immer';
 import type { GameRemoteData } from '@/games/Game';
 import {
   type SerializedGame,
@@ -12,12 +14,34 @@ import {
 const logger = loglev.getLogger('games:realtime-sync');
 
 const SENDER_ID = crypto.randomUUID();
-const DEBOUNCE_MS = 1000;
-const BROADCAST_EVENT = 'game:sync';
+const PATCH_DEBOUNCE_MS = 150;
+const BROADCAST_EVENT = 'game:patch';
+const BROADCAST_FULL_REQUEST = 'game:full-request';
+const BROADCAST_FULL_RESPONSE = 'game:full-response';
 
-interface SyncBroadcastPayload {
+const GAME_SLICES = new Set(['games', 'factories', 'solvers']);
+
+function isGamePatch(patch: Patch): boolean {
+  return (
+    patch.path.length > 0 &&
+    typeof patch.path[0] === 'string' &&
+    GAME_SLICES.has(patch.path[0])
+  );
+}
+
+interface PatchBroadcastPayload {
   senderId: string;
-  updatedAt: string;
+  seq: number;
+  patches: Patch[];
+}
+
+interface FullStateRequestPayload {
+  senderId: string;
+}
+
+interface FullStateResponsePayload {
+  senderId: string;
+  seq: number;
   serialized: SerializedGame;
   remoteData: Partial<GameRemoteData>;
 }
@@ -31,9 +55,8 @@ export function useRealtimeGameSync() {
   const savedId = game?.savedId;
 
   const channelRef = useRef<RealtimeChannel | null>(null);
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isApplyingRemoteRef = useRef(false);
-  const lastBroadcastHashRef = useRef<string | null>(null);
+  const seqRef = useRef(0);
 
   useEffect(() => {
     if (!session || !savedId || !selectedGameId) {
@@ -49,31 +72,97 @@ export function useRealtimeGameSync() {
     logger.info(`Joining realtime channel: ${channelName}`);
 
     const channel = supabaseClient.channel(channelName);
+    const gameId = selectedGameId;
+    let remoteSeq = -1;
 
     channel
       .on('broadcast', { event: BROADCAST_EVENT }, ({ payload }) => {
-        const data = payload as SyncBroadcastPayload;
+        const data = payload as PatchBroadcastPayload;
         if (data.senderId === SENDER_ID) return;
 
-        const localGame = useStore.getState().games.games[selectedGameId];
-        const localUpdatedAt = localGame?.updatedAt;
-
-        if (localUpdatedAt && data.updatedAt <= localUpdatedAt) {
+        if (data.seq <= remoteSeq) {
           logger.debug(
-            `Ignoring stale remote sync (remote=${data.updatedAt}, local=${localUpdatedAt})`,
+            `Ignoring out-of-order patch (seq=${data.seq}, expected>${remoteSeq})`,
           );
           return;
         }
 
-        logger.info(
-          `Accepting remote sync (remote=${data.updatedAt}, local=${localUpdatedAt ?? 'none'})`,
+        if (remoteSeq >= 0 && data.seq !== remoteSeq + 1) {
+          logger.info(
+            `Missed patches (got seq=${data.seq}, expected=${remoteSeq + 1}), requesting full state`,
+          );
+          channel.send({
+            type: 'broadcast',
+            event: BROADCAST_FULL_REQUEST,
+            payload: { senderId: SENDER_ID } satisfies FullStateRequestPayload,
+          });
+          remoteSeq = data.seq;
+          return;
+        }
+
+        remoteSeq = data.seq;
+        logger.debug(
+          `Applying ${data.patches.length} remote patches (seq=${data.seq})`,
         );
+        isApplyingRemoteRef.current = true;
+        try {
+          const currentState = useStore.getState();
+          const nextState = applyPatches(currentState, data.patches);
+          useStore.setState(nextState);
+        } catch (err) {
+          logger.error('Failed to apply patches, requesting full state', err);
+          channel.send({
+            type: 'broadcast',
+            event: BROADCAST_FULL_REQUEST,
+            payload: { senderId: SENDER_ID } satisfies FullStateRequestPayload,
+          });
+        } finally {
+          isApplyingRemoteRef.current = false;
+        }
+      })
+      .on('broadcast', { event: BROADCAST_FULL_REQUEST }, ({ payload }) => {
+        const data = payload as FullStateRequestPayload;
+        if (data.senderId === SENDER_ID) return;
+
+        logger.info('Peer requested full state, sending');
+        try {
+          const latestGame = useStore.getState().games.games[gameId];
+          if (!latestGame?.savedId) return;
+
+          const serialized = serializeGame(gameId);
+          const remoteData: Partial<GameRemoteData> = {
+            id: latestGame.savedId,
+            author_id: latestGame.authorId,
+            created_at: latestGame.createdAt,
+            updated_at: latestGame.updatedAt,
+            share_token: latestGame.shareToken,
+          };
+
+          channel.send({
+            type: 'broadcast',
+            event: BROADCAST_FULL_RESPONSE,
+            payload: {
+              senderId: SENDER_ID,
+              seq: seqRef.current,
+              serialized,
+              remoteData,
+            } satisfies FullStateResponsePayload,
+          });
+        } catch (err) {
+          logger.error('Failed to send full state response', err);
+        }
+      })
+      .on('broadcast', { event: BROADCAST_FULL_RESPONSE }, ({ payload }) => {
+        const data = payload as FullStateResponsePayload;
+        if (data.senderId === SENDER_ID) return;
+
+        logger.info(`Received full state response (seq=${data.seq}), applying`);
+        remoteSeq = data.seq;
         isApplyingRemoteRef.current = true;
         try {
           useStore.getState().loadRemoteGame(data.serialized, data.remoteData, {
             override: true,
           });
-          lastBroadcastHashRef.current = JSON.stringify(data.serialized);
         } finally {
           isApplyingRemoteRef.current = false;
         }
@@ -81,81 +170,64 @@ export function useRealtimeGameSync() {
       .subscribe(status => {
         logger.info(`Realtime channel status: ${status}`);
         useStore.getState().setRealtimeSyncConnected(status === 'SUBSCRIBED');
+
+        if (status === 'SUBSCRIBED') {
+          channel.send({
+            type: 'broadcast',
+            event: BROADCAST_FULL_REQUEST,
+            payload: { senderId: SENDER_ID } satisfies FullStateRequestPayload,
+          });
+        }
       });
 
     channelRef.current = channel;
 
-    const gameId = selectedGameId;
+    let pendingPatches: Patch[] = [];
+    let flushTimer: ReturnType<typeof setTimeout> | null = null;
 
-    // Snapshot initial state so we don't broadcast on mount
-    try {
-      lastBroadcastHashRef.current = JSON.stringify(serializeGame(gameId));
-    } catch {
-      // game may not be ready yet
+    function flushPatches() {
+      flushTimer = null;
+      if (!channelRef.current || pendingPatches.length === 0) return;
+
+      seqRef.current += 1;
+      const seq = seqRef.current;
+      const batch = pendingPatches;
+      pendingPatches = [];
+
+      try {
+        channelRef.current.send({
+          type: 'broadcast',
+          event: BROADCAST_EVENT,
+          payload: {
+            senderId: SENDER_ID,
+            seq,
+            patches: batch,
+          } satisfies PatchBroadcastPayload,
+        });
+        logger.debug(`Broadcasted ${batch.length} patches (seq=${seq})`);
+      } catch (err) {
+        logger.error('Failed to broadcast patches', err);
+      }
     }
 
-    const unsubscribeStore = useStore.subscribe(() => {
+    const unsubscribePatches = onPatches(patches => {
       if (isApplyingRemoteRef.current) return;
       if (!channelRef.current) return;
 
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
+      const gamePatches = patches.filter(isGamePatch);
+      if (gamePatches.length === 0) return;
 
-      debounceTimerRef.current = setTimeout(() => {
-        if (!channelRef.current) return;
+      pendingPatches.push(...gamePatches);
 
-        const latestGame = useStore.getState().games.games[gameId];
-        if (!latestGame?.savedId) return;
-
-        let serialized: SerializedGame;
-        try {
-          serialized = serializeGame(gameId);
-        } catch {
-          return;
-        }
-
-        const hash = JSON.stringify(serialized);
-        if (hash === lastBroadcastHashRef.current) return;
-
-        const updatedAt = new Date().toISOString();
-        const remoteData: Partial<GameRemoteData> = {
-          id: latestGame.savedId,
-          author_id: latestGame.authorId,
-          created_at: latestGame.createdAt,
-          updated_at: updatedAt,
-          share_token: latestGame.shareToken,
-        };
-
-        const payload: SyncBroadcastPayload = {
-          senderId: SENDER_ID,
-          updatedAt,
-          serialized,
-          remoteData,
-        };
-
-        try {
-          channelRef.current.send({
-            type: 'broadcast',
-            event: BROADCAST_EVENT,
-            payload,
-          });
-
-          lastBroadcastHashRef.current = hash;
-          useStore.getState().games.games[gameId].updatedAt = updatedAt;
-          logger.debug(`Broadcasted game state (updatedAt=${updatedAt})`);
-        } catch (err) {
-          logger.error('Failed to broadcast game state', err);
-        }
-      }, DEBOUNCE_MS);
+      if (flushTimer !== null) clearTimeout(flushTimer);
+      flushTimer = setTimeout(flushPatches, PATCH_DEBOUNCE_MS);
     });
 
     return () => {
-      unsubscribeStore();
-
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-        debounceTimerRef.current = null;
+      unsubscribePatches();
+      if (flushTimer !== null) {
+        clearTimeout(flushTimer);
+        flushPatches();
       }
 
       if (channelRef.current) {
