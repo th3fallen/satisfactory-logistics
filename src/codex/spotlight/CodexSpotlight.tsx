@@ -24,9 +24,22 @@ const validItems = AllFactoryItems.filter(
   item => item.form !== FactoryItemForm.Invalid,
 );
 
+let openSpotlightFn: (() => void) | null = null;
+
+export function openSpotlight() {
+  openSpotlightFn?.();
+}
+
 export function CodexSpotlight() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    openSpotlightFn = () => setOpen(true);
+    return () => {
+      openSpotlightFn = null;
+    };
+  }, []);
   const [search, setSearch] = useState('');
   const [pages, setPages] = useState<Page[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);

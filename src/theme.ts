@@ -10,4 +10,11 @@ export const theme = createTheme({
     blue: generateColors('#5160b8'), // '#5f668c'
     'satisfactory-orange': generateColors('#fa9549'),
   },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        color: 'dark.5',
+      },
+    },
+  },
 });

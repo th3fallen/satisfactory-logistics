@@ -1,16 +1,21 @@
 import {
+  ActionIcon,
   Badge,
   Burger,
   Container,
   Group,
   Image,
+  Kbd,
   Tabs,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useOs } from '@mantine/hooks';
+import { IconSearch } from '@tabler/icons-react';
 import { capitalize } from 'lodash';
 import { Link } from 'react-router-dom';
 import { UserMenu } from '@/auth/UserMenu';
+import { openSpotlight } from '@/codex/spotlight/CodexSpotlight';
 import { assetPath } from '@/core/assetPath';
 import { GameMenu } from '@/games/menu/GameMenu';
 import classes from './Header.module.css';
@@ -26,6 +31,7 @@ export function Header(props: HeaderProps) {
   const { children } = props;
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
+  const os = useOs();
 
   return (
     <header className={classes.header}>
@@ -51,6 +57,26 @@ export function Header(props: HeaderProps) {
           </Group>
           <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
           <Group>
+            <Tooltip
+              label={
+                <>
+                  Search <Kbd size="xs">{os === 'macos' ? '⌘' : 'Ctrl'}</Kbd>
+                  {' + '}
+                  <Kbd size="xs">K</Kbd>
+                </>
+              }
+              position="bottom"
+            >
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                size="lg"
+                onClick={openSpotlight}
+                aria-label="Search"
+              >
+                <IconSearch size={18} />
+              </ActionIcon>
+            </Tooltip>
             <GameMenu />
             <UserMenu />
           </Group>
