@@ -6,6 +6,8 @@ import { supabaseClient } from '@/core/supabase';
 import { useStore } from '@/core/zustand';
 import { onPatches } from '@/core/zustand-helpers/immer';
 import type { GameRemoteData } from '@/games/Game';
+import { loadRemoteGame } from '@/games/save/loadRemoteGame';
+import { saveRemoteGame } from '@/games/save/saveRemoteGame';
 import {
   type SerializedGame,
   serializeGame,
@@ -15,6 +17,8 @@ const logger = loglev.getLogger('games:realtime-sync');
 
 const SENDER_ID = crypto.randomUUID();
 const PATCH_DEBOUNCE_MS = 150;
+const AUTO_SAVE_DEBOUNCE_MS = 5_000;
+const DB_FALLBACK_MS = 3_000;
 const BROADCAST_EVENT = 'game:patch';
 const BROADCAST_FULL_REQUEST = 'game:full-request';
 const BROADCAST_FULL_RESPONSE = 'game:full-response';
@@ -22,11 +26,8 @@ const BROADCAST_FULL_RESPONSE = 'game:full-response';
 const GAME_SLICES = new Set(['games', 'factories', 'solvers']);
 
 function isGamePatch(patch: Patch): boolean {
-  return (
-    patch.path.length > 0 &&
-    typeof patch.path[0] === 'string' &&
-    GAME_SLICES.has(patch.path[0])
-  );
+  const { path } = patch;
+  return typeof path[0] === 'string' && GAME_SLICES.has(path[0]);
 }
 
 interface PatchBroadcastPayload {
@@ -74,6 +75,7 @@ export function useRealtimeGameSync() {
     const channel = supabaseClient.channel(channelName);
     const gameId = selectedGameId;
     let remoteSeq = -1;
+    let dbFallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
     channel
       .on('broadcast', { event: BROADCAST_EVENT }, ({ payload }) => {
@@ -156,6 +158,11 @@ export function useRealtimeGameSync() {
         const data = payload as FullStateResponsePayload;
         if (data.senderId === SENDER_ID) return;
 
+        if (dbFallbackTimer !== null) {
+          clearTimeout(dbFallbackTimer);
+          dbFallbackTimer = null;
+        }
+
         logger.info(`Received full state response (seq=${data.seq}), applying`);
         remoteSeq = data.seq;
         isApplyingRemoteRef.current = true;
@@ -177,6 +184,15 @@ export function useRealtimeGameSync() {
             event: BROADCAST_FULL_REQUEST,
             payload: { senderId: SENDER_ID } satisfies FullStateRequestPayload,
           });
+
+          dbFallbackTimer = setTimeout(() => {
+            dbFallbackTimer = null;
+            logger.info('No peer response, loading from database');
+            isApplyingRemoteRef.current = true;
+            loadRemoteGame(gameId, { override: true }).finally(() => {
+              isApplyingRemoteRef.current = false;
+            });
+          }, DB_FALLBACK_MS);
         }
       });
 
@@ -184,6 +200,17 @@ export function useRealtimeGameSync() {
 
     let pendingPatches: Patch[] = [];
     let flushTimer: ReturnType<typeof setTimeout> | null = null;
+    let autoSaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function scheduleAutoSave() {
+      if (autoSaveTimer !== null) clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        autoSaveTimer = null;
+        saveRemoteGame(gameId).catch(err =>
+          logger.error('Auto-save failed', err),
+        );
+      }, AUTO_SAVE_DEBOUNCE_MS);
+    }
 
     function flushPatches() {
       flushTimer = null;
@@ -218,6 +245,7 @@ export function useRealtimeGameSync() {
       if (gamePatches.length === 0) return;
 
       pendingPatches.push(...gamePatches);
+      scheduleAutoSave();
 
       if (flushTimer !== null) clearTimeout(flushTimer);
       flushTimer = setTimeout(flushPatches, PATCH_DEBOUNCE_MS);
@@ -228,6 +256,16 @@ export function useRealtimeGameSync() {
       if (flushTimer !== null) {
         clearTimeout(flushTimer);
         flushPatches();
+      }
+      if (autoSaveTimer !== null) {
+        clearTimeout(autoSaveTimer);
+        saveRemoteGame(gameId).catch(err =>
+          logger.error('Auto-save on cleanup failed', err),
+        );
+      }
+      if (dbFallbackTimer !== null) {
+        clearTimeout(dbFallbackTimer);
+        dbFallbackTimer = null;
       }
 
       if (channelRef.current) {
