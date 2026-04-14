@@ -206,7 +206,7 @@ export function useRealtimeGameSync() {
       if (autoSaveTimer !== null) clearTimeout(autoSaveTimer);
       autoSaveTimer = setTimeout(() => {
         autoSaveTimer = null;
-        saveRemoteGame(gameId).catch(err =>
+        saveRemoteGame(gameId, { silent: true }).catch(err =>
           logger.error('Auto-save failed', err),
         );
       }, AUTO_SAVE_DEBOUNCE_MS);
@@ -259,7 +259,7 @@ export function useRealtimeGameSync() {
       }
       if (autoSaveTimer !== null) {
         clearTimeout(autoSaveTimer);
-        saveRemoteGame(gameId).catch(err =>
+        saveRemoteGame(gameId, { silent: true }).catch(err =>
           logger.error('Auto-save on cleanup failed', err),
         );
       }

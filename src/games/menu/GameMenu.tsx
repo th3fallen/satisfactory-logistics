@@ -1,4 +1,4 @@
-import { Button, Menu } from '@mantine/core';
+import { Box, Button, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import {
@@ -53,6 +53,9 @@ export function GameMenu(props: IGameMenuProps) {
     state => !!state.games.games[selectedId ?? '']?.savedId,
   );
   const isSaving = useStore(state => state.gameSave.isSaving);
+  const isSyncConnected =
+    useStore(state => state.gameSave.isRealtimeSyncConnected) ||
+    import.meta.env.DEV;
   const navigate = useNavigate();
 
   const [opened, { toggle, open, close }] = useDisclosure();
@@ -90,18 +93,19 @@ export function GameMenu(props: IGameMenuProps) {
 
   return (
     <>
-      <Button.Group>
-        <Menu>
-          <Menu.Target>
-            <Button
-              loading={isSaving}
-              variant="light"
-              color="gray"
-              leftSection={<IconDeviceGamepad size={16} />}
-              rightSection={<IconChevronDown size={12} stroke={1.5} />}
-            >
-              {gameName ?? 'Select game'}
-            </Button>
+      <Box pos="relative" style={{ display: 'inline-flex' }}>
+        <Button.Group>
+          <Menu>
+            <Menu.Target>
+              <Button
+                loading={isSaving}
+                variant="light"
+                color="gray"
+                leftSection={<IconDeviceGamepad size={16} />}
+                rightSection={<IconChevronDown size={12} stroke={1.5} />}
+              >
+                {gameName ?? 'Select game'}
+              </Button>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Label>Change game</Menu.Label>
@@ -185,7 +189,15 @@ export function GameMenu(props: IGameMenuProps) {
         >
           <IconDeviceFloppy size={16} />
         </Button>
-      </Button.Group>
+        </Button.Group>
+        {isSyncConnected && (
+          <IconCircleFilled
+            size={8}
+            color="var(--mantine-color-green-6)"
+            style={{ position: 'absolute', top: -2, right: -2 }}
+          />
+        )}
+      </Box>
       {selectedId && (
         <GameDetailModal opened={opened} close={close} gameId={selectedId} />
       )}

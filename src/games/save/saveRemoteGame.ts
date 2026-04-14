@@ -4,9 +4,12 @@ import { supabaseClient } from '@/core/supabase';
 import { useStore } from '@/core/zustand';
 import { serializeGame } from '@/games/store/gameFactoriesActions';
 
-export async function saveRemoteGame(gameId?: string | null) {
+export async function saveRemoteGame(
+  gameId?: string | null,
+  options?: { silent?: boolean },
+) {
   const { auth } = useStore.getState();
-  useStore.getState().setIsSaving(true);
+  if (!options?.silent) useStore.getState().setIsSaving(true);
   try {
     if (!auth.session) {
       console.log(
@@ -58,6 +61,6 @@ export async function saveRemoteGame(gameId?: string | null) {
       message: error?.message ?? error ?? 'Unknown error',
     });
   } finally {
-    useStore.getState().setIsSaving(false);
+    if (!options?.silent) useStore.getState().setIsSaving(false);
   }
 }
