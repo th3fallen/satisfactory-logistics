@@ -51,7 +51,7 @@ export function withActions<
         state[name] = (...args: any[]) => {
           set(prevState => {
             const [nextState, patches] = produceWithPatches(prevState, draft =>
-              action(...args)(draft, proxyGet(draft)),
+              action(...args)(draft as any, proxyGet(draft as any)),
             );
             if (patches.length > 0) emitPatches(patches);
             return nextState;
