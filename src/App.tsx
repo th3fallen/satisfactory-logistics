@@ -42,6 +42,15 @@ import { ToolsRoutes } from './tools/page/ToolsRoutes';
 
 const basename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
 
+function RootLayout() {
+  return (
+    <>
+      <SyncManager />
+      <Outlet />
+    </>
+  );
+}
+
 function SpotlightLayout() {
   return (
     <>
@@ -54,47 +63,52 @@ function SpotlightLayout() {
 const router = createBrowserRouter(
   [
     {
-      path: '/privacy-policy',
-      element: <PrivacyPolicy />,
-    },
-    {
-      element: <SpotlightLayout />,
+      element: <RootLayout />,
       children: [
         {
-          path: '/factories/*',
-          element: <FactoryRoutes />,
-          ErrorBoundary: () => {
-            throw useRouteError();
-          },
+          path: '/privacy-policy',
+          element: <PrivacyPolicy />,
         },
         {
-          path: '/games/*',
-          element: <GamesRoutes />,
-          ErrorBoundary: () => {
-            throw useRouteError();
-          },
-        },
-        {
-          path: '/tools/*',
-          element: <ToolsRoutes />,
-          ErrorBoundary: () => {
-            throw useRouteError();
-          },
-        },
-        {
-          path: '/codex/*',
-          element: <CodexRoutes />,
-          ErrorBoundary: () => {
-            throw useRouteError();
-          },
-        },
-        {
-          path: '/login',
-          element: <LoginPage />,
-        },
-        {
-          path: '*',
-          element: <Redirect to="/factories" />,
+          element: <SpotlightLayout />,
+          children: [
+            {
+              path: '/factories/*',
+              element: <FactoryRoutes />,
+              ErrorBoundary: () => {
+                throw useRouteError();
+              },
+            },
+            {
+              path: '/games/*',
+              element: <GamesRoutes />,
+              ErrorBoundary: () => {
+                throw useRouteError();
+              },
+            },
+            {
+              path: '/tools/*',
+              element: <ToolsRoutes />,
+              ErrorBoundary: () => {
+                throw useRouteError();
+              },
+            },
+            {
+              path: '/codex/*',
+              element: <CodexRoutes />,
+              ErrorBoundary: () => {
+                throw useRouteError();
+              },
+            },
+            {
+              path: '/login',
+              element: <LoginPage />,
+            },
+            {
+              path: '*',
+              element: <Redirect to="/factories" />,
+            },
+          ],
         },
       ],
     },
@@ -187,7 +201,6 @@ export default function App() {
             </Center>
           }
         >
-          <SyncManager />
           <Notifications position="top-right" zIndex={1000} />
           <RouterProvider router={router} />
         </ErrorBoundary>
